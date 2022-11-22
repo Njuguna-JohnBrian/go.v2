@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go/theme/go_theme.dart';
 
 void main() {
   runApp(const Go());
@@ -10,10 +11,10 @@ class Go extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: GoTheme.light(),
       title: 'gO',
-      home: Scaffold(
-        backgroundColor: Colors.yellow,
-      ),
+      home: const Scaffold(),
     );
   }
 }
