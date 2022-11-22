@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../welcome_barrel.dart';
 
 class WelcomeBody extends StatelessWidget {
@@ -7,23 +6,11 @@ class WelcomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Padding(
+    return const Padding(
       padding: EdgeInsets.all(
         11.0,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: size.height * 0.25,
-          ),
-          SvgPicture.asset(
-            WelcomeAssets.goSvgLogo,
-            height: 100,
-          ),
-        ],
-      ),
+      child: WelcomeBodyColumn(),
     );
   }
 }
