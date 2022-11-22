@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1051828684170",
+    "project_id": "goapp-a12ee",
+    "storage_bucket": "goapp-a12ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051828684170:android:79e2fd61c91e3586f8f473",
+        "android_client_info": {
+          "package_name": "com.hero.go"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051828684170-bus02mmj93ad3424g6b6frqmrde9gsjh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmihLmazyTrUxtLVEqYgdetj9vmU2-iXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051828684170-bus02mmj93ad3424g6b6frqmrde9gsjh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
