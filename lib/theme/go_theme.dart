@@ -63,7 +63,7 @@ class GoTheme {
       brightness: Brightness.light,
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith(
-              (states) {
+          (states) {
             return Colors.black;
           },
         ),
@@ -78,6 +78,13 @@ class GoTheme {
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Color(0xFFF34BB0),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          backgroundColor: const Color(0xFFF34BB0),
+          foregroundColor: Colors.white,
+          minimumSize: const Size.fromHeight(60),
+        ),
       ),
       textTheme: lightTextTheme,
     );
@@ -96,6 +103,13 @@ class GoTheme {
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Color(0xFFF34BB0),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          backgroundColor: const Color(0xFFF34BB0),
+          foregroundColor: Colors.white,
+          minimumSize: const Size.fromHeight(60),
+        ),
       ),
       textTheme: darkTextTheme,
     );
