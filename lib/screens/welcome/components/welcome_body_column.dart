@@ -28,11 +28,15 @@ class WelcomeBodyColumn extends StatelessWidget {
         ),
         const WelcomeButton(),
         const Spacer(),
-        Text(WelcomeStrings.dontHaveAnAccount,
-            style: GoTheme.lightTextTheme.headline2),
+        Text(
+          WelcomeStrings.dontHaveAnAccount,
+          style: GoTheme.lightTextTheme.headline2,
+        ),
         Text(
           WelcomeStrings.createAnAccount,
-          style: GoTheme.lightTextTheme.headline6?.copyWith(color: Colors.blue),
+          style: GoTheme.lightTextTheme.headline6?.copyWith(
+            color: Colors.blue,
+          ),
         ),
       ],
     );

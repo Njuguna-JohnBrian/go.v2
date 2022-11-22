@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go/theme/go_theme.dart';
+import 'package:go/screens/screens_barrel.dart';
 
 void main() {
   runApp(const Go());
@@ -14,7 +15,7 @@ class Go extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: GoTheme.light(),
       title: 'gO',
-      home: const Scaffold(),
+      home: WelcomeScreen(),
     );
   }
 }

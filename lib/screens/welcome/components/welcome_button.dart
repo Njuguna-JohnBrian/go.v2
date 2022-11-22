@@ -11,7 +11,9 @@ class WelcomeButton extends StatelessWidget {
     return SizedBox(
       width: size.width * 0.8,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(
+          30,
+        ),
         child: TextButton(
           onPressed: () {},
           child: Text(
