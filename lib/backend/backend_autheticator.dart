@@ -4,7 +4,8 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 import 'package:go/models/models_barrel.dart';
 import 'package:go/typedefs/typedefs_barrel.dart';
-import 'package:go/constants/constants_global.dart';
+
+import 'constants/backend_constants_barrel.dart';
 
 class Authenticator {
   const Authenticator();
@@ -26,7 +27,7 @@ class Authenticator {
   //Google Login
   Future<AuthResult> logInWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn(
-      scopes: [ConstantsGlobal.emailScope],
+      scopes: [ConstantsScopes.emailScope],
     );
 
     final signInAccount = await googleSignIn.signIn();
@@ -75,7 +76,7 @@ class Authenticator {
       final email = e.email;
       final credential = e.credential;
 
-      if (e.code == ConstantsGlobal.accountExistsWithDifferentCredential &&
+      if (e.code == ConstantsScopes.accountExistsWithDifferentCredential &&
           email != null &&
           credential != null) {
         final providers =
@@ -83,7 +84,7 @@ class Authenticator {
           email,
         );
         if (providers.contains(
-          ConstantsGlobal.googleCom,
+          ConstantsScopes.googleCom,
         )) {
           await logInWithGoogle();
           FirebaseAuth.instance.currentUser?.linkWithCredential(
