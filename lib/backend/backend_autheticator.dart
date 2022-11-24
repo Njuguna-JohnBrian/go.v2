@@ -52,4 +52,47 @@ class Authenticator {
       return AuthResult.failure;
     }
   }
+
+  //Facebook Login
+  Future<AuthResult> loginWithFacebook() async {
+    final loginResult = await FacebookAuth.instance.login();
+
+    final token = loginResult.accessToken?.token;
+    if (token == null) {
+      //user has aborted login process
+      return AuthResult.aborted;
+    }
+
+    final oauthCredentials = FacebookAuthProvider.credential(token);
+
+    try {
+      await FirebaseAuth.instance.signInWithCredential(
+        oauthCredentials,
+      );
+
+      return AuthResult.success;
+    } on FirebaseAuthException catch (e) {
+      final email = e.email;
+      final credential = e.credential;
+
+      if (e.code == ConstantsGlobal.accountExistsWithDifferentCredential &&
+          email != null &&
+          credential != null) {
+        final providers =
+            await FirebaseAuth.instance.fetchSignInMethodsForEmail(
+          email,
+        );
+        if (providers.contains(
+          ConstantsGlobal.googleCom,
+        )) {
+          await logInWithGoogle();
+          FirebaseAuth.instance.currentUser?.linkWithCredential(
+            credential,
+          );
+        }
+        return AuthResult.success;
+      }
+      return AuthResult.failure;
+    }
+  }
 }
