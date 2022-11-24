@@ -15,7 +15,12 @@ class WelcomeButton extends StatelessWidget {
           30,
         ),
         child: TextButton(
-          onPressed: () {},
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginScreen(),
+            ),
+          ),
           child: Text(
             WelcomeStrings.continueToLogin,
             style: GoTheme.darkTextTheme.headline6,
