@@ -49,7 +49,15 @@ class LoginScreen extends ConsumerWidget {
             SizedBox(
               height: size.height * 0.03,
             ),
-            const LoginDivider()
+            const LoginDivider(),
+            LoginTextInputField(
+              icon: Icons.email,
+              hintText: LoginStrings.enterEmail,
+            ),
+            LoginPasswordInputField(
+              icon: Icons.password,
+              hintText: LoginStrings.enterPassword,
+            ),
           ],
         ),
       ),
