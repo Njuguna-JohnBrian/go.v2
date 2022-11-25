@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GoTheme {
+
+  static const mainColor = Color(0xFFF34BB0);
+  static const mainLigtColor = Color(0xFFF6C5F1);
+  static const mainGreyColor = Colors.grey;
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: GoogleFonts.openSans(
       fontSize: 14.0,
