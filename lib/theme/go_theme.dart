@@ -87,7 +87,7 @@ class GoTheme {
         style: TextButton.styleFrom(
           backgroundColor: const Color(0xFFF34BB0),
           foregroundColor: Colors.white,
-          minimumSize: const Size.fromHeight(60),
+          minimumSize: const Size.fromHeight(50),
         ),
       ),
       textTheme: lightTextTheme,
