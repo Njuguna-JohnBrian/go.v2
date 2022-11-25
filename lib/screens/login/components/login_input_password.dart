@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import './login_input_container.dart';
 
 class LoginPasswordInputField extends StatefulWidget {
@@ -38,6 +39,7 @@ class _LoginPasswordInputFieldState extends State<LoginPasswordInputField> {
         controller: widget.textEditingController,
         obscureText: !showPassword,
         decoration: InputDecoration(
+          hintStyle: GoogleFonts.openSans(),
           icon: Icon(
             widget.icon,
             color: Colors.grey.shade400,

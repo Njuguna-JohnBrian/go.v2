@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import './login_input_container.dart';
 
 class LoginTextInputField extends StatelessWidget {
@@ -18,6 +19,7 @@ class LoginTextInputField extends StatelessWidget {
       child: TextField(
         controller: textEditingController,
         decoration: InputDecoration(
+          hintStyle: GoogleFonts.openSans(),
           icon: Icon(
             icon,
             color: Colors.grey.shade400,

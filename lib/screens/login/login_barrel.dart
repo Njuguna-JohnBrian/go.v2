@@ -5,3 +5,4 @@ export 'components/federated_login_buttons.dart';
 export 'components/login_divider.dart';
 export 'components/login_input_fields.dart';
 export 'components/login_input_password.dart';
+export 'components/login_body.dart';
