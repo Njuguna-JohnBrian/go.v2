@@ -56,10 +56,22 @@ class LoginBody extends StatelessWidget {
             icon: Icons.password,
             hintText: LoginStrings.enterPassword,
           ),
-          Text(
-            LoginStrings.forgotPassword,
-            style: GoTheme.lightTextTheme.headline3?.copyWith(
-              color: Colors.blueAccent,
+          const LoginButton(),
+          SizedBox(
+            height: size.height * 0.01,
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              right: size.width * 0.12,
+            ),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Text(
+                LoginStrings.forgotPassword,
+                style: GoTheme.lightTextTheme.headline3?.copyWith(
+                  color: Colors.blueAccent,
+                ),
+              ),
             ),
           ),
           const Spacer(),
