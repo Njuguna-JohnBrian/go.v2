@@ -17,6 +17,7 @@ class LoginTextInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoginTextFieldContainer(
       child: TextField(
+        autofillHints: const [AutofillHints.email],
         controller: textEditingController,
         decoration: InputDecoration(
           hintStyle: GoogleFonts.openSans(),
