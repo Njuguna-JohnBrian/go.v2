@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import './login_input_container.dart';
 
 class LoginTextInputField extends StatelessWidget {
-  final TextEditingController? textEditingController;
+  final TextEditingController textEditingController;
   final IconData icon;
   final String hintText;
   const LoginTextInputField({
     Key? key,
     required this.icon,
     required this.hintText,
-    this.textEditingController,
+    required this.textEditingController,
   }) : super(key: key);
 
   @override
