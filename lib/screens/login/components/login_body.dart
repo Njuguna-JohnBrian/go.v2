@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go/screens/login/login_barrel.dart';
+import 'package:go/screens/screens_barrel.dart';
 
 import '../../../theme/go_theme.dart';
 
@@ -84,10 +84,18 @@ class _LoginBodyState extends State<LoginBody> {
               ),
               child: Align(
                 alignment: Alignment.topRight,
-                child: Text(
-                  LoginStrings.forgotPassword,
-                  style: GoTheme.lightTextTheme.headline3?.copyWith(
-                    color: Colors.blueAccent,
+                child: GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PasswordScreen(),
+                    ),
+                  ),
+                  child: Text(
+                    LoginStrings.forgotPassword,
+                    style: GoTheme.lightTextTheme.headline3?.copyWith(
+                      color: Colors.blueAccent,
+                    ),
                   ),
                 ),
               ),

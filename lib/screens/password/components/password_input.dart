@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import './login_input_container.dart';
+import './password_input_container.dart';
 
-class LoginTextInputField extends StatelessWidget {
-  final TextEditingController textEditingController;
+class PasswordTextInputField extends StatelessWidget {
+  final TextEditingController? textEditingController;
   final IconData icon;
   final String hintText;
-  const LoginTextInputField({
+  const PasswordTextInputField({
     Key? key,
     required this.icon,
     required this.hintText,
-    required this.textEditingController,
+    this.textEditingController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return LoginTextFieldContainer(
+    return PasswordTextFieldContainer(
       child: TextField(
         autofillHints: const [AutofillHints.email],
         controller: textEditingController,
