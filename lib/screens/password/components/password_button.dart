@@ -3,7 +3,11 @@ import 'package:go/screens/password/password_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 
 class PasswordButton extends StatelessWidget {
-  const PasswordButton({Key? key}) : super(key: key);
+  final VoidCallback voidCallbackAction;
+  const PasswordButton({
+    Key? key,
+    required this.voidCallbackAction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class PasswordButton extends StatelessWidget {
           30,
         ),
         child: TextButton(
-          onPressed: () {},
+          onPressed: voidCallbackAction,
           child: Text(
             PasswordStrings.getResetLink,
             style: GoTheme.darkTextTheme.headline3,

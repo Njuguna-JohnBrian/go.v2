@@ -3,7 +3,11 @@ import 'package:go/screens/signup/signup_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 
 class SignUpButton extends StatelessWidget {
-  const SignUpButton({Key? key}) : super(key: key);
+  final VoidCallback voidCallbackAction;
+  const SignUpButton({
+    Key? key,
+    required this.voidCallbackAction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class SignUpButton extends StatelessWidget {
           30,
         ),
         child: TextButton(
-          onPressed: () {},
+          onPressed: voidCallbackAction,
           child: Text(
             SignUpStrings.createAccount,
             style: GoTheme.darkTextTheme.headline3,

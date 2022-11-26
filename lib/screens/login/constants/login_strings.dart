@@ -17,5 +17,7 @@ class LoginStrings {
   static const createAccount = "Create an account";
   static const or = "OR";
 
+
+
   const LoginStrings._();
 }

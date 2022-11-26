@@ -3,7 +3,11 @@ import 'package:go/screens/login/login_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({Key? key}) : super(key: key);
+  final VoidCallback voidCallbackAction;
+  const LoginButton({
+    Key? key,
+    required this.voidCallbackAction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class LoginButton extends StatelessWidget {
           30,
         ),
         child: TextButton(
-          onPressed: () {},
+          onPressed: voidCallbackAction,
           child: Text(
             LoginStrings.login,
             style: GoTheme.darkTextTheme.headline6,
