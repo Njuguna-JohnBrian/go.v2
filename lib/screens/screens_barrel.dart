@@ -1,4 +1,4 @@
-export 'welcome/welcome_barrel.dart';
-export 'login/login_barrel.dart';
-export 'password/password_barrel.dart';
-export 'signup/signup_barrel.dart';
+export 'welcome/welcome.dart';
+export 'login/login.dart';
+export 'password/password.dart';
+export 'signup/signup.dart';
