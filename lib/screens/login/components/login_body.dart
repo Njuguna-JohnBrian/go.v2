@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go/globals/globals_barrel.dart';
 import 'package:go/screens/login/login_barrel.dart';
-import 'package:go/screens/screens_barrel.dart' show PasswordScreen, SignUpScreen;
+import 'package:go/screens/screens_barrel.dart'
+    show PasswordScreen, SignUpScreen;
 
 import '../../../theme/go_theme.dart';
 
@@ -75,7 +77,9 @@ class _LoginBodyState extends State<LoginBody> {
               hintText: LoginStrings.enterPassword,
               textEditingController: _passwordController,
             ),
-            const LoginButton(),
+            LoginButton(
+              voidCallbackAction: () => validator(context),
+            ),
             SizedBox(
               height: size.height * 0.01,
             ),
@@ -124,5 +128,53 @@ class _LoginBodyState extends State<LoginBody> {
         ),
       ),
     );
+  }
+
+  void validator(BuildContext context) {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      showSnackBar(
+        context,
+        GlobalAssets.emptyFields,
+        GlobalAssets.emptyFieldsMessage,
+        GoTheme.mainLightError,
+        GoTheme.mainError,
+        GoTheme.mainError,
+      );
+    } else if (_passwordController.text.length < 8) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      showSnackBar(
+        context,
+        GlobalAssets.tooShort,
+        GlobalAssets.passwordTooShortMessage,
+        GoTheme.mainLightError,
+        GoTheme.mainError,
+        GoTheme.mainError,
+      );
+    } else if (!RegExp(GlobalAssets.passwordPattern)
+        .hasMatch(_passwordController.text)) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      showSnackBar(
+        context,
+        GlobalAssets.passwordInvalid,
+        GlobalAssets.invalidPasswordMessage,
+        GoTheme.mainLightError,
+        GoTheme.mainError,
+        GoTheme.mainError,
+      );
+    } else if (!RegExp(GlobalAssets.emailPattern)
+        .hasMatch(_emailController.text)) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      showSnackBar(
+        context,
+        GlobalAssets.invalidEmail,
+        GlobalAssets.invalidEmailMessage,
+        GoTheme.mainLightError,
+        GoTheme.mainError,
+        GoTheme.mainError,
+      );
+    } else {
+      return;
+    }
   }
 }

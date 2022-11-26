@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GoTheme {
-
   static const mainColor = Color(0xFFF34BB0);
   static const mainLigtColor = Color(0xFFF6C5F1);
   static const mainGreyColor = Colors.grey;
+
+  //Success Colors
+  static const mainSuccess = Colors.green;
+  static const mainLightSuccess = Colors.lightGreen;
+
+  //Error colors
+  static const mainError = Color(0xFF801336);
+  static const mainLightError = Color(0xFFC72C41);
+
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: GoogleFonts.openSans(
       fontSize: 14.0,
@@ -65,6 +73,7 @@ class GoTheme {
   static ThemeData light() {
     return ThemeData(
       brightness: Brightness.light,
+      fontFamily: "OpenSans",
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith(
           (states) {
@@ -97,6 +106,7 @@ class GoTheme {
   static ThemeData dark() {
     return ThemeData(
       brightness: Brightness.dark,
+      fontFamily: "OpenSans",
       appBarTheme: AppBarTheme(
         foregroundColor: Colors.white,
         backgroundColor: Colors.grey[900],

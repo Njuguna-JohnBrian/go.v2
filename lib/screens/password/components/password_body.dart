@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:go/screens/password/password_barrel.dart';
 import 'package:go/screens/screens_barrel.dart' show LoginScreen;
+import '../../../globals/globals_barrel.dart';
 import '../../../theme/go_theme.dart';
 
 class PasswordBody extends StatefulWidget {
@@ -20,6 +21,8 @@ class _PasswordBodyState extends State<PasswordBody> {
     _emailController.dispose();
     super.dispose();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,9 @@ class _PasswordBodyState extends State<PasswordBody> {
           SizedBox(
             height: size.height * 0.02,
           ),
-          const PasswordButton(),
+          PasswordButton(
+            voidCallbackAction: () => validator(context),
+          ),
           const Spacer(),
           Text(
             PasswordStrings.rememberPassword,
@@ -71,5 +76,31 @@ class _PasswordBodyState extends State<PasswordBody> {
         ],
       ),
     );
+  }
+  void validator(BuildContext context) {
+    if (_emailController.text.isEmpty) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      showSnackBar(
+        context,
+        GlobalAssets.emptyFields,
+        GlobalAssets.emptyFieldsMessage,
+        GoTheme.mainLightError,
+        GoTheme.mainError,
+        GoTheme.mainError,
+      );
+    } else if (!RegExp(GlobalAssets.emailPattern)
+        .hasMatch(_emailController.text)) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      showSnackBar(
+        context,
+        GlobalAssets.invalidEmail,
+        GlobalAssets.invalidEmailMessage,
+        GoTheme.mainLightError,
+        GoTheme.mainError,
+        GoTheme.mainError,
+      );
+    } else {
+      return;
+    }
   }
 }

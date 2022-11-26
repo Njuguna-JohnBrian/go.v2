@@ -43,3 +43,9 @@ flutter:
     - assets/images/
     - assets/svgs/
     - assets/logo/
+    - assets/icons/
+
+  fonts:
+    - family: OpenSans
+      fonts:
+       - asset: assets/fonts/opensans.ttf
