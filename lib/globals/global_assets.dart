@@ -39,6 +39,9 @@ class GlobalAssets {
   static const nameTooShort = "Name too short";
   static const nameTooShortError = "Please ensure your name is 4 characters and above";
 
+  static const emailRequired = "Email required";
+  static const emailRequiredMessage = "Please provide an email to receive a reset link";
+
   static const successHeader = "Success";
   static const goodBye = "Hope to see you soon.Bye 👋👋";
 

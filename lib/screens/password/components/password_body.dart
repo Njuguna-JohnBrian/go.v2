@@ -82,8 +82,8 @@ class _PasswordBodyState extends State<PasswordBody> {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       showSnackBar(
         context,
-        GlobalAssets.emptyFields,
-        GlobalAssets.emptyFieldsMessage,
+        GlobalAssets.emailRequired,
+        GlobalAssets.emailRequiredMessage,
         GoTheme.mainLightError,
         GoTheme.mainError,
         GoTheme.mainError,
