@@ -105,10 +105,18 @@ class _LoginBodyState extends State<LoginBody> {
               LoginStrings.dontHaveAnAccount,
               style: GoTheme.lightTextTheme.headline6,
             ),
-            Text(
-              LoginStrings.createAccount,
-              style: GoTheme.lightTextTheme.headline3?.copyWith(
-                color: Colors.blueAccent,
+            GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SignUpScreen(),
+                ),
+              ),
+              child: Text(
+                LoginStrings.createAccount,
+                style: GoTheme.lightTextTheme.headline3?.copyWith(
+                  color: Colors.blueAccent,
+                ),
               ),
             ),
           ],
