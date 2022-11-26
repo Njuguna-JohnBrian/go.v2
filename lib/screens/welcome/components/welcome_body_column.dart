@@ -32,10 +32,18 @@ class WelcomeBodyColumn extends StatelessWidget {
           WelcomeStrings.dontHaveAnAccount,
           style: GoTheme.lightTextTheme.headline2,
         ),
-        Text(
-          WelcomeStrings.createAnAccount,
-          style: GoTheme.lightTextTheme.headline6?.copyWith(
-            color: Colors.blue,
+        GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SignUpScreen(),
+            ),
+          ),
+          child: Text(
+            WelcomeStrings.createAnAccount,
+            style: GoTheme.lightTextTheme.headline6?.copyWith(
+              color: Colors.blue,
+            ),
           ),
         ),
       ],
