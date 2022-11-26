@@ -26,7 +26,7 @@ class Go extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: GoTheme.light(),
       title: 'gO',
-      home: WelcomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }
