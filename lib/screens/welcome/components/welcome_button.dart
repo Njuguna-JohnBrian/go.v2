@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go/screens/screens_barrel.dart';
+import 'package:go/screens/welcome/welcome_barrel.dart';
+import 'package:go/screens/screens_barrel.dart' show LoginScreen;
 import 'package:go/theme/go_theme.dart';
 
 class WelcomeButton extends StatelessWidget {
@@ -18,7 +19,7 @@ class WelcomeButton extends StatelessWidget {
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => LoginScreen(),
+              builder: (context) => const LoginScreen(),
             ),
           ),
           child: Text(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:go/screens/screens_barrel.dart';
+import 'package:go/screens/password/password_barrel.dart';
+import 'package:go/screens/screens_barrel.dart' show LoginScreen;
 import '../../../theme/go_theme.dart';
 
 class PasswordBody extends StatefulWidget {
