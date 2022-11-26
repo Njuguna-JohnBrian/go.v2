@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go/screens/screens_barrel.dart';
+import 'package:go/screens/welcome/welcome_barrel.dart';
+
+import 'package:go/screens/screens_barrel.dart' show SignUpScreen;
 import 'package:go/theme/go_theme.dart';
 
 class WelcomeBodyColumn extends StatelessWidget {
