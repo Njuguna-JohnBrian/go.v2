@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go/screens/screens_barrel.dart';
+import 'package:go/screens/login/login_barrel.dart';
+import 'package:go/screens/screens_barrel.dart' show PasswordScreen, SignUpScreen;
 
 import '../../../theme/go_theme.dart';
 
