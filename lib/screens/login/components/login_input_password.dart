@@ -37,6 +37,7 @@ class _LoginPasswordInputFieldState extends State<LoginPasswordInputField> {
     return LoginTextFieldContainer(
       child: TextField(
         controller: widget.textEditingController,
+        autofillHints: const [AutofillHints.password],
         obscureText: !showPassword,
         decoration: InputDecoration(
           hintStyle: GoogleFonts.openSans(),
