@@ -3,7 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:go/screens/password/password_barrel.dart';
 import 'package:go/screens/screens_barrel.dart' show LoginScreen;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../globals/globals_barrel.dart';
+import '../../../state/providers/providers_barrel.dart';
 import '../../../theme/go_theme.dart';
 
 class PasswordBody extends StatefulWidget {
@@ -21,8 +23,6 @@ class _PasswordBodyState extends State<PasswordBody> {
     _emailController.dispose();
     super.dispose();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,21 @@ class _PasswordBodyState extends State<PasswordBody> {
           SizedBox(
             height: size.height * 0.02,
           ),
-          PasswordButton(
-            voidCallbackAction: () => validator(context),
+          Consumer(
+            builder: (_, ref, child) {
+              return PasswordButton(voidCallbackAction: () async {
+                validator(context);
+                await ref
+                    .read(
+                      authStateProvider.notifier,
+                    )
+                    .sendResetLink(
+                      email: _emailController.text,
+                      context: context,
+                    );
+                _emailController.clear();
+              });
+            },
           ),
           const Spacer(),
           Text(
@@ -77,6 +90,7 @@ class _PasswordBodyState extends State<PasswordBody> {
       ),
     );
   }
+
   void validator(BuildContext context) {
     if (_emailController.text.isEmpty) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();

@@ -30,12 +30,9 @@ class Go extends StatelessWidget {
       title: 'gO',
       home: Consumer(
         builder: (context, ref, child) {
-          final isLoggedIn = ref
-                  .watch(
-                    authStateProvider,
-                  )
-                  .result ==
-              AuthResult.success;
+          final isLoggedIn =
+              ref.watch(authStateProvider).result == AuthResult.success;
+          print("inside=>$isLoggedIn");
           if (isLoggedIn) {
             return const HomeScreen();
           } else {

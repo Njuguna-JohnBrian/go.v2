@@ -57,6 +57,7 @@ class Authenticator {
   //Facebook Login
   Future<AuthResult> loginWithFacebook() async {
     final loginResult = await FacebookAuth.instance.login();
+    print(loginResult);
 
     final token = loginResult.accessToken?.token;
     if (token == null) {
@@ -93,6 +94,51 @@ class Authenticator {
         }
         return AuthResult.success;
       }
+      return AuthResult.failure;
+    }
+  }
+
+  //Create account with Email and password
+  Future<AuthResult> createAccount({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return AuthResult.success;
+    } catch (e) {
+      return AuthResult.failure;
+    }
+  }
+
+  //Login with Email and password
+  Future<AuthResult> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return AuthResult.success;
+    } catch (err) {
+      return AuthResult.failure;
+    }
+  }
+
+  //Send reset link
+  Future<AuthResult> sendResetLink({
+    required String email,
+  }) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      return AuthResult.success;
+    } catch (e) {
       return AuthResult.failure;
     }
   }

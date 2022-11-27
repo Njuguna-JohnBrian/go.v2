@@ -10,14 +10,30 @@ import 'package:go/screens/screens_barrel.dart'
 
 import '../../../theme/go_theme.dart';
 
-class LoginBody extends StatefulWidget {
+// class LoginBody extends ConsumerStatefulWidget {
+//   const LoginBody({
+//     Key? key,
+//   }) : super(key: key);
+//
+//   @override
+//   ConsumerState createState() => _LoginBodyState();
+// }
+//
+// class _LoginBodyState extends ConsumerState<LoginBody> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }
+
+class LoginBody extends ConsumerStatefulWidget {
   const LoginBody({Key? key}) : super(key: key);
 
   @override
-  State<LoginBody> createState() => _LoginBodyState();
+  ConsumerState createState() => _LoginBodyState();
 }
 
-class _LoginBodyState extends State<LoginBody> {
+class _LoginBodyState extends ConsumerState<LoginBody> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -50,38 +66,29 @@ class _LoginBodyState extends State<LoginBody> {
             SizedBox(
               height: size.height * 0.03,
             ),
-            Consumer(
-              builder: (_, ref, child) {
-                return FederatedLoginButton(
-                  pressAction: ref
-                      .read(
-                        authStateProvider.notifier,
-                      )
-                      .loginWithGoogle,
-                  buttonText: LoginStrings.continueWithGoogle,
-                  primaryColor: Colors.grey.shade100,
-                  textColor: Colors.grey,
-                  imageLink: LoginAssets.googleLogo,
-                );
-              },
+            TextButton(
+                onPressed: ref.read(authStateProvider.notifier).loginWithGoogle,
+                child: Text("Login")),
+            FederatedLoginButton(
+              pressAction: () =>
+                  ref.read(authStateProvider.notifier).loginWithGoogle(),
+              buttonText: LoginStrings.continueWithGoogle,
+              primaryColor: Colors.grey.shade100,
+              textColor: Colors.grey,
+              imageLink: LoginAssets.googleLogo,
             ),
             SizedBox(
               height: size.height * 0.03,
             ),
-            Consumer(
-              builder: (_, ref, child) {
-                return FederatedLoginButton(
-                  pressAction: ref
-                      .read(
-                        authStateProvider.notifier,
-                      )
-                      .loginWithFacebook,
-                  buttonText: LoginStrings.continueWithFaceBook,
-                  primaryColor: Colors.blueAccent,
-                  imageLink: LoginAssets.facebookLogo,
-                );
-              },
-            ),
+            FederatedLoginButton(
+                pressAction: () => ref
+                    .read(
+                      authStateProvider.notifier,
+                    )
+                    .loginWithFacebook,
+                buttonText: LoginStrings.continueWithFaceBook,
+                primaryColor: Colors.blueAccent,
+                imageLink: LoginAssets.facebookLogo),
             SizedBox(
               height: size.height * 0.03,
             ),
@@ -96,8 +103,20 @@ class _LoginBodyState extends State<LoginBody> {
               hintText: LoginStrings.enterPassword,
               textEditingController: _passwordController,
             ),
-            LoginButton(
-              voidCallbackAction: () => validator(context),
+            Consumer(
+              builder: (_, ref, child) {
+                return LoginButton(
+                  voidCallbackAction: () {
+                    validator(context);
+
+                    ref.read(authStateProvider.notifier).loginUser(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                          context: context,
+                        );
+                  },
+                );
+              },
             ),
             SizedBox(
               height: size.height * 0.01,

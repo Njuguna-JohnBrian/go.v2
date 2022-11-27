@@ -13,7 +13,9 @@ class HomeScreen extends StatelessWidget {
       body: Center(child: Consumer(
         builder: (_, ref, child) {
           return TextButton(
-            onPressed: ref.read(authStateProvider.notifier).logOut,
+            onPressed: () async => await ref
+                .read(authStateProvider.notifier)
+                .logOut(context: context),
             child: const Text('LOGOUT'),
           );
         },

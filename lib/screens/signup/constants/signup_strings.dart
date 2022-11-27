@@ -14,5 +14,10 @@ class SignUpStrings {
   static const alreadyHaveAccount = "Already have an account?";
   static const login = "Login";
 
+  static const tAndC =
+      "At gO we care about your personal data.";
+  static const privacyResult = "As a result we have developed this";
+  static const privacy = " Privacy Notice";
+
   const SignUpStrings._();
 }
