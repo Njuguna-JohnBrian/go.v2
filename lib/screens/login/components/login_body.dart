@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go/state/providers/auth/auth_state_provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:go/globals/globals_barrel.dart';
 import 'package:go/screens/login/login_barrel.dart';
 import 'package:go/screens/screens_barrel.dart'
@@ -47,21 +50,37 @@ class _LoginBodyState extends State<LoginBody> {
             SizedBox(
               height: size.height * 0.03,
             ),
-            FederatedLoginButton(
-              pressAction: () {},
-              buttonText: LoginStrings.continueWithGoogle,
-              primaryColor: Colors.grey.shade100,
-              textColor: Colors.grey,
-              imageLink: LoginAssets.googleLogo,
+            Consumer(
+              builder: (_, ref, child) {
+                return FederatedLoginButton(
+                  pressAction: ref
+                      .read(
+                        authStateProvider.notifier,
+                      )
+                      .loginWithGoogle,
+                  buttonText: LoginStrings.continueWithGoogle,
+                  primaryColor: Colors.grey.shade100,
+                  textColor: Colors.grey,
+                  imageLink: LoginAssets.googleLogo,
+                );
+              },
             ),
             SizedBox(
               height: size.height * 0.03,
             ),
-            FederatedLoginButton(
-              pressAction: () {},
-              buttonText: LoginStrings.continueWithFaceBook,
-              primaryColor: Colors.blueAccent,
-              imageLink: LoginAssets.facebookLogo,
+            Consumer(
+              builder: (_, ref, child) {
+                return FederatedLoginButton(
+                  pressAction: ref
+                      .read(
+                        authStateProvider.notifier,
+                      )
+                      .loginWithFacebook,
+                  buttonText: LoginStrings.continueWithFaceBook,
+                  primaryColor: Colors.blueAccent,
+                  imageLink: LoginAssets.facebookLogo,
+                );
+              },
             ),
             SizedBox(
               height: size.height * 0.03,

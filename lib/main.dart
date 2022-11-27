@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go/firebase_options.dart';
+import 'package:go/models/models_barrel.dart';
+import 'package:go/state/providers/auth/auth_state_provider.dart';
 import 'package:go/theme/go_theme.dart';
 import 'package:go/screens/screens_barrel.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -26,7 +28,21 @@ class Go extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: GoTheme.light(),
       title: 'gO',
-      home: const WelcomeScreen(),
+      home: Consumer(
+        builder: (context, ref, child) {
+          final isLoggedIn = ref
+                  .watch(
+                    authStateProvider,
+                  )
+                  .result ==
+              AuthResult.success;
+          if (isLoggedIn) {
+            return const HomeScreen();
+          } else {
+            return const WelcomeScreen();
+          }
+        },
+      ),
     );
   }
 }
