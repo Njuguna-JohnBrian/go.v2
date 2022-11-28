@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go/firebase_options.dart';
-import 'package:go/models/models_barrel.dart';
-import 'package:go/state/providers/auth/auth_state_provider.dart';
+import 'package:go/globals/components/global_snackbar.dart';
+import 'package:go/globals/components/global_spinner.dart';
+
 import 'package:go/theme/go_theme.dart';
 import 'package:go/screens/screens_barrel.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -28,17 +30,29 @@ class Go extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: GoTheme.light(),
       title: 'gO',
-      home: Consumer(
-        builder: (context, ref, child) {
-          final isLoggedIn =
-              ref.watch(authStateProvider).result == AuthResult.success;
-          print("inside=>$isLoggedIn");
-          if (isLoggedIn) {
-            return const HomeScreen();
-          } else {
-            return const WelcomeScreen();
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasData) {
+              return const HomeScreen();
+            } else if (snapshot.hasError) {
+              return Center(
+                child: showSnackBar(
+                  context,
+                  "Error",
+                  "Internal Server Error",
+                  GoTheme.mainLightError,
+                  GoTheme.mainLightError,
+                  GoTheme.mainLightError,
+                ),
+              );
+            }
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const GlobalSpinner();
           }
-        },
+          return const WelcomeScreen();
+        }),
       ),
     );
   }
