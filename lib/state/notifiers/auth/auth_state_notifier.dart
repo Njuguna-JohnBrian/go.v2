@@ -30,13 +30,13 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     await _authenticator.logOut();
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => const WelcomeScreen(),
+        builder: (context) => const LoginScreen(),
       ),
     );
     state = const AuthState.unknown();
   }
 
-  Future<void> loginWithGoogle() async {
+  Future<void> loginWithGoogle({required BuildContext context}) async {
     state = state.copiedWithIsLoading(true);
     final result = await _authenticator.logInWithGoogle();
     final userId = _authenticator.userId;
@@ -44,6 +44,11 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     if (result == AuthResult.success && userId != null) {
       await saveUserInfo(
         userId: userId,
+      );
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
       );
     }
 
@@ -54,7 +59,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  Future<void> loginWithFacebook() async {
+  Future<void> loginWithFacebook({required BuildContext context}) async {
     state = state.copiedWithIsLoading(true);
     final result = await _authenticator.loginWithFacebook();
     final userId = _authenticator.userId;
@@ -62,6 +67,11 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     if (result == AuthResult.success && userId != null) {
       await saveUserInfo(
         userId: userId,
+      );
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
       );
     }
 
