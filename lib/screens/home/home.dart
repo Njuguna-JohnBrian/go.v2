@@ -1,25 +1,77 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go/theme/go_theme.dart';
 
-import '../../state/providers/providers_barrel.dart';
+import '../../globals/components/global_screens.dart';
+import '../../globals/components/global_spinner.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool isLoading = false;
+  int pageIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    isLoading = true;
+    Timer(const Duration(seconds: 0), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.green,
-      body: Center(child: Consumer(
-        builder: (_, ref, child) {
-          return TextButton(
-            onPressed: () async => await ref
-                .read(authStateProvider.notifier)
-                .logOut(context: context),
-            child: const Text('LOGOUT'),
+    return isLoading
+        ? const GlobalSpinner()
+        : Scaffold(
+            bottomNavigationBar: BottomNavigationBar(
+              onTap: (index) {
+                setState(() {
+                  pageIndex = index;
+                });
+              },
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              type: BottomNavigationBarType.shifting,
+              selectedItemColor: GoTheme.mainColor,
+              unselectedItemColor: Colors.grey.shade700,
+              unselectedFontSize: 8,
+              currentIndex: pageIndex,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                  ),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.search,
+                  ),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.people_outline_outlined,
+                  ),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.person_pin,
+                  ),
+                  label: '',
+                ),
+              ],
+            ),
+            body: Center(child: goPages[pageIndex]),
           );
-        },
-      )),
-    );
   }
 }
