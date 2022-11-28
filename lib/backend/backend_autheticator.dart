@@ -57,7 +57,6 @@ class Authenticator {
   //Facebook Login
   Future<AuthResult> loginWithFacebook() async {
     final loginResult = await FacebookAuth.instance.login();
-    print(loginResult);
 
     final token = loginResult.accessToken?.token;
     if (token == null) {
