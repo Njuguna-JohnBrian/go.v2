@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go/globals/components/global_snackbar.dart';
 import 'package:go/theme/go_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quickalert/quickalert.dart';
 
 import 'package:go/models/models_barrel.dart';
 import '../../../backend/backend_barrel.dart';
@@ -173,24 +174,24 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     final userId = _authenticator.userId;
 
     if (result == AuthResult.success) {
-      showSnackBar(
-        context,
-        "Success",
-        "Reset link sent successfully",
-        GoTheme.mainSuccess,
-        GoTheme.mainLightSuccess,
-        GoTheme.mainLightSuccess,
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.success,
+        title: "Success",
+        text: "Reset link sent successfully",
+        barrierDismissible: false,
+        confirmBtnColor: GoTheme.mainColor,
       );
     }
 
     if (result == AuthResult.failure) {
-      showSnackBar(
-        context,
-        "Failed to send",
-        "Please check your email and retry",
-        GoTheme.mainError,
-        GoTheme.mainLightError,
-        GoTheme.mainLightError,
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: "Failed to send",
+        text: "Please check your email and retry",
+        barrierDismissible: false,
+        confirmBtnColor: GoTheme.mainColor,
       );
     }
 
