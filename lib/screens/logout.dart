@@ -10,7 +10,7 @@ class LogOutScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Consumer(
-          builder: (_, ref, _child) {
+          builder: (_, ref, child) {
             return ElevatedButton(
               onPressed: () => ref.read(authStateProvider.notifier).logOut(
                     context: context,

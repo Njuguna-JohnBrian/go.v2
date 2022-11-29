@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../globals/global_assets.dart';
 import '../constants/login_strings.dart';
-import './login_input_container.dart';
 
 class LoginPasswordInputField extends StatefulWidget {
   final TextEditingController passwordController;

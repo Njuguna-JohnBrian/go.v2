@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go/state/providers/auth/auth_state_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:go/globals/globals_barrel.dart';
 import 'package:go/screens/login/login_barrel.dart';
 import 'package:go/screens/screens_barrel.dart'
     show PasswordScreen, SignUpScreen;

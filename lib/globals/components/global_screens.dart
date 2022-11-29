@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../screens/logout.dart';
 List goPages = [
-  LogOutScreen(),
-  Text("Explore"),
-  Text("Activity"),
-  Text("Profile")
+  const LogOutScreen(),
+  const Text("Explore"),
+  const Text("Activity"),
+  const Text("Profile")
 ];
