@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go/state/providers/auth/auth_state_provider.dart';
+import 'package:go/theme/go_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:go/screens/login/login_barrel.dart';
+import 'package:go/state/providers/auth/auth_state_provider.dart'
+    show authStateProvider;
+import 'package:go/screens/login/login_barrel.dart'
+    show
+        LoginAssets,
+        LoginStrings,
+        FederatedLoginButton,
+        LoginDivider,
+        LoginEmailInputField,
+        LoginPasswordInputField,
+        LoginButton;
 import 'package:go/screens/screens_barrel.dart'
     show PasswordScreen, SignUpScreen;
-
-import '../../../theme/go_theme.dart';
 
 class LoginBody extends ConsumerStatefulWidget {
   const LoginBody({Key? key}) : super(key: key);
@@ -80,6 +88,9 @@ class _LoginBodyState extends ConsumerState<LoginBody> {
                 height: size.height * 0.03,
               ),
               const LoginDivider(),
+              SizedBox(
+                height: size.height * 0.03,
+              ),
               LoginEmailInputField(
                 textEditingController: _emailController,
               ),

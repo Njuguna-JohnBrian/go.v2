@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../globals/global_assets.dart';
-import '../constants/login_strings.dart';
+
+import 'package:go/globals/globals_barrel.dart' show GlobalAssets;
+import 'package:go/screens/login/login_barrel.dart' show LoginStrings;
 
 class LoginPasswordInputField extends StatefulWidget {
   final TextEditingController passwordController;
@@ -44,7 +45,7 @@ class _LoginPasswordInputFieldState extends State<LoginPasswordInputField> {
         cursorColor: Colors.grey,
         validator: ((value) {
           if (value!.isEmpty) {
-            return "Password cannot be empty";
+            return LoginStrings.passwordEmpty;
           } else if (value.length < 8) {
             return GlobalAssets.passwordTooShortMessage;
           } else if (!RegExp(GlobalAssets.passwordPattern).hasMatch(value)) {
@@ -53,7 +54,7 @@ class _LoginPasswordInputFieldState extends State<LoginPasswordInputField> {
             return null;
           }
         }),
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.visiblePassword,
         decoration: InputDecoration(
           fillColor: Colors.grey.shade200,
           filled: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go/screens/password/password_barrel.dart';
 import 'package:go/theme/go_theme.dart';
+
+import 'package:go/screens/password/password_barrel.dart' show PasswordStrings;
 
 class PasswordButton extends StatelessWidget {
   final VoidCallback voidCallbackAction;

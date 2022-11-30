@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go/screens/signup/signup_barrel.dart';
 import 'package:go/theme/go_theme.dart';
+
+import 'package:go/screens/signup/signup_barrel.dart' show SignUpStrings;
 
 class SignUpButton extends StatelessWidget {
   final VoidCallback voidCallbackAction;

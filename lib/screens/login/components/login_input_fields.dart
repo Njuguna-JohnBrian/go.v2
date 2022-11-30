@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../globals/global_assets.dart';
-import '../constants/login_strings.dart';
+
+import 'package:go/globals/globals_barrel.dart' show GlobalAssets;
+import 'package:go/screens/login/login_barrel.dart' show LoginStrings;
 
 class LoginEmailInputField extends StatelessWidget {
   final TextEditingController textEditingController;
@@ -25,7 +26,7 @@ class LoginEmailInputField extends StatelessWidget {
         cursorColor: Colors.grey,
         validator: ((value) {
           if (value!.isEmpty) {
-            return "Email cannot be empty";
+            return LoginStrings.emailEmpty;
           } else if (!RegExp(GlobalAssets.emailPattern).hasMatch(value)) {
             return GlobalAssets.invalidEmailMessage;
           } else {

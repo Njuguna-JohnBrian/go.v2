@@ -11,11 +11,15 @@ class LoginStrings {
   static const enterPassword = "Enter password";
   static const login = "Login";
 
+  static const passwordEmpty = "Password cannot be empty";
+  static const emailEmpty = "Email cannot be empty";
+
   static const forgotPassword = "Forgot Password?";
   static const dontHaveAnAccount = "Don't have an account?";
 
   static const createAccount = "Create an account";
   static const or = "OR";
+
 
 
 

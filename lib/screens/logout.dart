@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go/state/providers/auth/auth_state_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:go/state/providers/providers_barrel.dart'
+    show authStateProvider;
 
 class LogOutScreen extends StatelessWidget {
   const LogOutScreen({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class LogOutScreen extends StatelessWidget {
               onPressed: () => ref.read(authStateProvider.notifier).logOut(
                     context: context,
                   ),
-              child: Text("Logout"),
+              child: const Text("Logout"),
             );
           },
         ),

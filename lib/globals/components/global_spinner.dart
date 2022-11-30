@@ -5,7 +5,8 @@ import 'package:go/theme/go_theme.dart';
 import 'package:go/globals/globals_barrel.dart';
 
 class GlobalSpinner extends StatelessWidget {
-  const GlobalSpinner({Key? key}) : super(key: key);
+  final BuildContext context;
+  const GlobalSpinner({Key? key, required this.context}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

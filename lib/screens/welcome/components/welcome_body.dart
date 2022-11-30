@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../welcome_barrel.dart';
+import 'package:go/screens/welcome/welcome_barrel.dart' show WelcomeBodyColumn;
 
 class WelcomeBody extends StatelessWidget {
   const WelcomeBody({Key? key}) : super(key: key);

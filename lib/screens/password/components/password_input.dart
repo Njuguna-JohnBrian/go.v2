@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../globals/global_assets.dart';
-import '../constants/password_strings.dart';
+
+import 'package:go/globals/globals_barrel.dart' show GlobalAssets;
+import 'package:go/screens/password/password_barrel.dart' show PasswordStrings;
 
 class PasswordTextInputField extends StatelessWidget {
   final TextEditingController inputController;

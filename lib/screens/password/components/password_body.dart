@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:go/screens/password/password_barrel.dart';
-import 'package:go/screens/screens_barrel.dart' show LoginScreen;
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go/theme/go_theme.dart';
 
-import '../../../state/providers/providers_barrel.dart';
-import '../../../theme/go_theme.dart';
+import 'package:go/screens/password/password_barrel.dart'
+    show
+        PasswordStrings,
+        PasswordAssets,
+        PasswordTextInputField,
+        PasswordButton;
+import 'package:go/screens/screens_barrel.dart' show LoginScreen;
+import 'package:go/state/providers/providers_barrel.dart'
+    show authStateProvider;
 
 class PasswordBody extends StatefulWidget {
   const PasswordBody({Key? key}) : super(key: key);

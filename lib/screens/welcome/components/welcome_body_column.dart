@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go/screens/welcome/welcome_barrel.dart';
-
-import 'package:go/screens/screens_barrel.dart' show SignUpScreen;
 import 'package:go/theme/go_theme.dart';
+
+import 'package:go/screens/welcome/welcome_barrel.dart'
+    show WelcomeAssets, WelcomeStrings, WelcomeButton;
+import 'package:go/screens/screens_barrel.dart' show SignUpScreen;
 
 class WelcomeBodyColumn extends StatelessWidget {
   const WelcomeBodyColumn({Key? key}) : super(key: key);
