@@ -19,5 +19,10 @@ class SignUpStrings {
   static const privacyResult = "As a result we have developed this";
   static const privacy = " Privacy Notice";
 
+  static const passwordEmpty = "Password cannot be empty";
+  static const emailEmpty = "Email cannot be empty";
+  static const nameEmpty = "Name cannot be empty";
+  static const nameShort = "Name cannot be empty";
+
   const SignUpStrings._();
 }

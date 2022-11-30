@@ -27,33 +27,34 @@ class Go extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: GoTheme.light(),
-      title: 'gO',
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: ((context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.hasData) {
-              return const HomeScreen();
-            } else if (snapshot.hasError) {
-              return Center(
-                child: showSnackBar(
-                  context,
-                  "Error",
-                  "Internal Server Error",
-                  GoTheme.mainLightError,
-                  GoTheme.mainLightError,
-                  GoTheme.mainLightError,
-                ),
+        debugShowCheckedModeBanner: false,
+        theme: GoTheme.light(),
+        title: 'gO',
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: ((context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return const HomeScreen();
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: showSnackBar(
+                    context,
+                    "Error",
+                    "Internal Server Error",
+                    GoTheme.mainLightError,
+                    GoTheme.mainLightError,
+                    GoTheme.mainLightError,
+                  ),
+                );
+              }
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return GlobalSpinner(
+                context: context,
               );
             }
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const GlobalSpinner();
-          }
-          return const WelcomeScreen();
-        }),
-      ),
-    );
+            return const WelcomeScreen();
+          }),
+        ));
   }
 }

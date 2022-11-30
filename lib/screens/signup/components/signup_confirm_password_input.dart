@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:go/globals/global_assets.dart' show GlobalAssets;
 import 'package:go/screens/signup/signup_barrel.dart' show SignUpStrings;
-import 'package:go/globals/globals_barrel.dart' show GlobalAssets;
 
-
-class SignUpEmailInputField extends StatelessWidget {
-  final TextEditingController? textEditingController;
-  const SignUpEmailInputField({
+class SignUpConfirmPasswordInputField extends StatefulWidget {
+  final TextEditingController confirmPasswordController;
+  final TextEditingController validationStringController;
+  const SignUpConfirmPasswordInputField({
     Key? key,
-    this.textEditingController,
+    required this.confirmPasswordController,
+    required this.validationStringController,
   }) : super(key: key);
+
+  @override
+  State<SignUpConfirmPasswordInputField> createState() =>
+      _LoginPasswordInputFieldState();
+}
+
+class _LoginPasswordInputFieldState
+    extends State<SignUpConfirmPasswordInputField> {
+  bool showPassword = false;
+
+  @override
+  void initState() {
+    showPassword = false;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,24 +42,36 @@ class SignUpEmailInputField extends StatelessWidget {
         right: size.width * 0.10,
       ),
       child: TextFormField(
-        controller: textEditingController,
+        obscureText: !showPassword,
+        controller: widget.confirmPasswordController,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         cursorColor: Colors.grey,
         validator: ((value) {
           if (value!.isEmpty) {
-            return SignUpStrings.emailEmpty;
-          } else if (!RegExp(GlobalAssets.emailPattern).hasMatch(value)) {
-            return GlobalAssets.invalidEmailMessage;
+            return SignUpStrings.passwordEmpty;
+          } else if (!RegExp(GlobalAssets.passwordPattern).hasMatch(value)) {
+            return GlobalAssets.invalidPasswordMessage;
+          } else if (value.toString() != widget.validationStringController.text.toString()) {
+            return GlobalAssets.passwordMismatchError;
           } else {
             return null;
           }
         }),
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.visiblePassword,
         decoration: InputDecoration(
           fillColor: Colors.grey.shade200,
           filled: true,
+          suffixIcon: IconButton(
+            onPressed: () => setState(() {
+              showPassword = !showPassword;
+            }),
+            icon: Icon(
+              showPassword ? Icons.visibility : Icons.visibility_off,
+              color: Colors.grey.shade400,
+            ),
+          ),
           prefixIcon: Icon(
-            Icons.email,
+            Icons.password,
             color: Colors.grey.shade400,
           ),
           enabledBorder: OutlineInputBorder(
@@ -65,7 +98,7 @@ class SignUpEmailInputField extends StatelessWidget {
               color: Colors.grey.shade200,
             ),
           ),
-          labelText: SignUpStrings.enterEmail,
+          labelText: SignUpStrings.confirmPassword,
           labelStyle: GoogleFonts.openSans().copyWith(
             color: Colors.grey.shade500,
           ),

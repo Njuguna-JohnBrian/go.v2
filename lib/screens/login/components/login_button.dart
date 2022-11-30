@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go/screens/login/login_barrel.dart';
 import 'package:go/theme/go_theme.dart';
+
+import 'package:go/screens/login/login_barrel.dart' show LoginStrings;
 
 class LoginButton extends StatelessWidget {
   final VoidCallback voidCallbackAction;

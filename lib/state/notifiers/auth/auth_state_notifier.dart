@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go/globals/components/global_snackbar.dart';
 import 'package:go/theme/go_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quickalert/quickalert.dart';
 
 import 'package:go/models/models_barrel.dart';
 import '../../../backend/backend_barrel.dart';
@@ -18,7 +18,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         ) {
     if (_authenticator.isAlreadyLoggedIn) {
       state = AuthState(
-        result: AuthResult.success,
+        response: AuthResult.success.toString(),
         isLoading: false,
         userId: _authenticator.userId,
       );
@@ -27,12 +27,33 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
   Future<void> logOut({required BuildContext context}) async {
     state = state.copiedWithIsLoading(true);
-    await _authenticator.logOut();
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
+    final result = await _authenticator.logOut();
+    if (!result.contains("soon")) {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: "Failed",
+        text: result,
+        barrierDismissible: false,
+        confirmBtnColor: const Color(0xFFC4144D),
+      );
+    } else {
+      QuickAlert.show(
+          context: context,
+          type: QuickAlertType.success,
+          title: "Success",
+          text: result,
+          barrierDismissible: false,
+          confirmBtnColor: GoTheme.mainSuccess,
+          onConfirmBtnTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const LoginScreen(),
+              ),
+            );
+          });
+    }
+
     state = const AuthState.unknown();
   }
 
@@ -41,19 +62,40 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     final result = await _authenticator.logInWithGoogle();
     final userId = _authenticator.userId;
 
-    if (result == AuthResult.success && userId != null) {
+    if (result.contains("successfully") ||
+        result.contains('Welcome') && userId != null) {
       await saveUserInfo(
-        userId: userId,
+        userId: userId!,
       );
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
+      state = state.copiedWithIsLoading(false);
+
+      QuickAlert.show(
+          context: context,
+          type: QuickAlertType.success,
+          title: "Welcome",
+          text: result,
+          barrierDismissible: false,
+          confirmBtnColor: GoTheme.mainSuccess,
+          onConfirmBtnTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
+            );
+          });
+    } else {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: "Failed",
+        text: result,
+        barrierDismissible: false,
+        confirmBtnColor: const Color(0xFFC4144D),
       );
     }
 
     state = AuthState(
-      result: result,
+      response: result,
       isLoading: false,
       userId: userId,
     );
@@ -64,19 +106,38 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     final result = await _authenticator.loginWithFacebook();
     final userId = _authenticator.userId;
 
-    if (result == AuthResult.success && userId != null) {
+    if (result.contains('successfully') ||
+        result.contains('Welcome') && userId != null) {
       await saveUserInfo(
-        userId: userId,
+        userId: userId!,
       );
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
+      QuickAlert.show(
+          context: context,
+          type: QuickAlertType.success,
+          title: "Welcome",
+          text: result,
+          barrierDismissible: false,
+          confirmBtnColor: GoTheme.mainSuccess,
+          onConfirmBtnTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
+            );
+          });
+    } else {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: "Failed",
+        text: result,
+        barrierDismissible: false,
+        confirmBtnColor: const Color(0xFFC4144D),
       );
     }
 
     state = AuthState(
-      result: result,
+      response: result,
       isLoading: false,
       userId: userId,
     );
@@ -94,31 +155,38 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
       password: password,
     );
     final userId = _authenticator.userId;
-    if (result == AuthResult.success && userId != null) {
+    if (result.contains("Successfully") && userId != null) {
       await saveNewUserInfo(
         userId: userId,
         displayName: displayName,
       );
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
-      );
-    }
-
-    if (result == AuthResult.failure) {
-      showSnackBar(
-        context,
-        "Wrong credentials",
-        "Please check your email and retry",
-        GoTheme.mainError,
-        GoTheme.mainLightError,
-        GoTheme.mainLightError,
+      QuickAlert.show(
+          context: context,
+          type: QuickAlertType.success,
+          title: "Welcome",
+          text: result,
+          barrierDismissible: false,
+          confirmBtnColor: GoTheme.mainSuccess,
+          onConfirmBtnTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
+            );
+          });
+    } else {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: "Failed",
+        text: result,
+        barrierDismissible: false,
+        confirmBtnColor: const Color(0xFFC4144D),
       );
     }
 
     state = AuthState(
-      result: result,
+      response: result,
       isLoading: false,
       userId: userId,
     );
@@ -136,27 +204,35 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
     final userId = _authenticator.userId;
 
-    if (result == AuthResult.success) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
-      );
+    if (result.contains('Welcome')) {
+      QuickAlert.show(
+          context: context,
+          type: QuickAlertType.success,
+          title: "Welcome",
+          text: result,
+          barrierDismissible: false,
+          confirmBtnColor: GoTheme.mainSuccess,
+          onConfirmBtnTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
+            );
+          });
     }
-
-    if (result == AuthResult.failure) {
-      showSnackBar(
-        context,
-        "Wrong credentials",
-        "Please check your details and retry",
-        GoTheme.mainError,
-        GoTheme.mainLightError,
-        GoTheme.mainLightError,
+    if (!result.contains("Welcome")) {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: "Failed",
+        text: result,
+        barrierDismissible: false,
+        confirmBtnColor: const Color(0xFFC4144D),
       );
     }
 
     state = AuthState(
-      result: result,
+      response: result,
       isLoading: false,
       userId: userId,
     );
@@ -172,30 +248,19 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
     final userId = _authenticator.userId;
 
-    if (result == AuthResult.success) {
-      showSnackBar(
-        context,
-        "Success",
-        "Reset link sent successfully",
-        GoTheme.mainSuccess,
-        GoTheme.mainLightSuccess,
-        GoTheme.mainLightSuccess,
-      );
-    }
-
-    if (result == AuthResult.failure) {
-      showSnackBar(
-        context,
-        "Failed to send",
-        "Please check your email and retry",
-        GoTheme.mainError,
-        GoTheme.mainLightError,
-        GoTheme.mainLightError,
+    if (result.contains('sent')) {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.success,
+        title: "Success",
+        text: "Reset link sent successfully",
+        barrierDismissible: false,
+        confirmBtnColor: GoTheme.mainColor,
       );
     }
 
     state = AuthState(
-      result: result,
+      response: result,
       isLoading: false,
       userId: userId,
     );

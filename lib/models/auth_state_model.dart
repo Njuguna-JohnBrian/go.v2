@@ -1,26 +1,27 @@
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:go/models/auth_result_model.dart';
+
+
 import 'package:go/typedefs/typedefs_barrel.dart';
 
 @immutable
 class AuthState {
-  final AuthResult? result;
+  final String? response;
   final bool isLoading;
   final UserId? userId;
 
   const AuthState({
-    required this.result,
+    required this.response,
     required this.isLoading,
     required this.userId,
   });
 
   const AuthState.unknown()
-      : result = null,
+      : response = null,
         isLoading = false,
         userId = null;
 
   AuthState copiedWithIsLoading(bool isLoading) => AuthState(
-        result: result,
+        response: null,
         isLoading: isLoading,
         userId: userId,
       );
@@ -28,13 +29,13 @@ class AuthState {
   @override
   bool operator ==(covariant AuthState other) =>
       identical(this, other) ||
-      (result == other.result &&
+      (response == other.response &&
           isLoading == other.isLoading &&
           userId == other.userId);
 
   @override
   int get hashCode => Object.hash(
-        result,
+        response,
         isLoading,
         userId,
       );

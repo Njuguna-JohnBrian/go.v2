@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go/theme/go_theme.dart';
-import 'package:go/screens/login/login_barrel.dart';
+
+import 'package:go/screens/login/login_barrel.dart' show LoginStrings;
 
 class LoginDivider extends StatelessWidget {
   const LoginDivider({Key? key}) : super(key: key);
@@ -13,10 +14,10 @@ class LoginDivider extends StatelessWidget {
         horizontal: size.width * 0.20,
       ),
       child: Row(
-        children:  const [
+        children: const [
           Expanded(
             child: Divider(
-              color:GoTheme.mainGreyColor,
+              color: GoTheme.mainGreyColor,
               thickness: 1,
             ),
           ),

@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     isLoading = true;
-    Timer(const Duration(seconds: 0), () {
+    Timer(const Duration(seconds: 3), () {
       setState(() {
         isLoading = false;
       });
@@ -30,7 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? const GlobalSpinner()
+        ? GlobalSpinner(
+            context: context,
+          )
         : Scaffold(
             bottomNavigationBar: BottomNavigationBar(
               onTap: (index) {

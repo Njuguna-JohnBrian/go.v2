@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:go/screens/password/password_barrel.dart';
+import 'package:go/screens/password/password_barrel.dart' show PasswordBody;
 
 class PasswordScreen extends StatelessWidget {
   const PasswordScreen({Key? key}) : super(key: key);
