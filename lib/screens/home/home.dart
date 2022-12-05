@@ -19,8 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    isLoading = true;
-    Timer(const Duration(seconds: 3), () {
+    isLoading = false;
+    Timer(const Duration(seconds: 0), () {
       setState(() {
         isLoading = false;
       });
