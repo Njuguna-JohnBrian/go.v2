@@ -10,7 +10,7 @@ class ProfileBody extends StatelessWidget {
       CustomScrollView(
       slivers: [
         ProfileSliverAppBar(),
-        // ProfileSliverBody()
+        ProfileSliverBody()
       ],
     );
   }
