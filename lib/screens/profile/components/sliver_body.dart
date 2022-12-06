@@ -28,7 +28,7 @@ class _ProfileSliverBodyState extends State<ProfileSliverBody> {
                     child: Text("Trips"),
                   ),
                   Tab(
-                    child: Text("Trips"),
+                    child: Text("Insights"),
                   )
                 ],
               )
