@@ -28,6 +28,7 @@ dependencies:
   google_sign_in: ^5.4.2
   flutter_facebook_auth: ^5.0.6
   quickalert: ^1.0.0
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

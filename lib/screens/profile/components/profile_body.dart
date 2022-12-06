@@ -6,10 +6,11 @@ class ProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  CustomScrollView(
+    return
+      CustomScrollView(
       slivers: [
         ProfileSliverAppBar(),
-        ProfileSliverBody()
+        // ProfileSliverBody()
       ],
     );
   }

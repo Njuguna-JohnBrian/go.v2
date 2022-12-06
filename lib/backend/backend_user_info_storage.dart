@@ -13,6 +13,7 @@ class UserInfoStorage {
     required UserId userId,
     required String displayName,
     required String? email,
+    required String? photoUrl,
   }) async {
     try {
       //check if user exists
@@ -32,6 +33,9 @@ class UserInfoStorage {
         await userInfo.docs.first.reference.update({
           FirebaseFieldName.displayName: displayName,
           FirebaseFieldName.email: email,
+          FirebaseFieldName.photoUrl: photoUrl,
+          FirebaseFieldName.followers:[],
+          FirebaseFieldName.following:[]
         });
         return true;
       }
@@ -40,13 +44,17 @@ class UserInfoStorage {
         userId: userId,
         displayName: displayName,
         email: email,
+        photoUrl: photoUrl,
+        followers: const [],
+        following: const [],
       );
 
       await FirebaseFirestore.instance
           .collection(
             FirebaseCollectionName.users,
           )
-          .add(
+          .doc(userId)
+          .set(
             payload,
           );
       return true;

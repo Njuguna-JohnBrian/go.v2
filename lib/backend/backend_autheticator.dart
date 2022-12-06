@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-
 import 'package:go/typedefs/typedefs_barrel.dart';
 
 import 'constants/backend_constants_barrel.dart';
@@ -16,6 +15,7 @@ class Authenticator {
   String get displayName =>
       FirebaseAuth.instance.currentUser?.displayName ?? '';
   String? get email => FirebaseAuth.instance.currentUser?.email;
+  String? get photoUrl => FirebaseAuth.instance.currentUser?.photoURL;
 
   //Logout of all auth providers
   Future<String> logOut() async {
@@ -150,7 +150,7 @@ class Authenticator {
     required String password,
   }) async {
     try {
-       await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );

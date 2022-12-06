@@ -271,6 +271,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         userId: userId,
         displayName: _authenticator.displayName,
         email: _authenticator.email,
+        photoUrl: _authenticator.photoUrl
       );
 
   Future<void> saveNewUserInfo({
@@ -281,5 +282,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         userId: userId,
         displayName: displayName,
         email: _authenticator.email,
+        photoUrl: '',
       );
 }
