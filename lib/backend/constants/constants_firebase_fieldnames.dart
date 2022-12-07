@@ -9,6 +9,9 @@ class FirebaseFieldName {
   static const date = "date";
   static const displayName = "display_name";
   static const email = "email";
+  static const  photoUrl = "photo_url";
+  static const  followers = "followers";
+  static const  following = "following";
 
   const FirebaseFieldName._();
 }
