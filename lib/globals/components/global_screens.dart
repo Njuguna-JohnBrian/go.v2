@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-
-import '../../screens/logout.dart';
 import "package:go/screens/screens_barrel.dart";
-List goPages = [
-  const ProfileScreen(),
-  const LogOutScreen(),
-  const Text("Activity"),
-  const Text("Profile")
+
+List<Widget> goPages = <Widget>[
+  ProfileScreen(),
+  Container(
+    color: Colors.yellowAccent,
+  ),
+  Container(
+    color: Colors.redAccent,
+  ),
+  Container(
+    color: Colors.greenAccent,
+  ),
 ];
