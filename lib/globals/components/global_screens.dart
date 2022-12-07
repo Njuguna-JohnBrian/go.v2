@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import "package:go/screens/screens_barrel.dart";
 
 List<Widget> goPages = <Widget>[
-  ProfileScreen(),
+  const ProfileScreen(),
   Container(
     color: Colors.yellowAccent,
   ),

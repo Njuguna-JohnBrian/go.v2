@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go/globals/components/global_spinner.dart';
+import 'package:go/screens/profile/components/profile_follow.dart';
 import 'package:go/screens/profile/profile_barrel.dart';
 import 'package:go/screens/screens_barrel.dart';
 
@@ -72,18 +73,20 @@ class _ProfileBodyState extends State<ProfileBody> {
                     icon: const Icon(
                       Icons.add,
                       color: GoTheme.mainColor,
+                      size: 35,
                     ),
                   ),
                   IconButton(
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SettingsScreen(),
+                        builder: (context) => const SettingsScreen(),
                       ),
                     ),
                     icon: const Icon(
                       Icons.settings,
                       color: GoTheme.mainColor,
+                      size: 35,
                     ),
                   ),
                 ],
@@ -143,11 +146,11 @@ class _ProfileBodyState extends State<ProfileBody> {
                                     border: Border.all(
                                       color: Colors.black.withOpacity(0.4),
                                     ),
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   alignment: Alignment.center,
-                                  width: 70,
-                                  height: 20,
+                                  width: 80,
+                                  height: 30,
                                   child: Text(
                                     "$following following",
                                     style: GoTheme.darkTextTheme.bodyText1
@@ -168,11 +171,11 @@ class _ProfileBodyState extends State<ProfileBody> {
                                     border: Border.all(
                                       color: Colors.black.withOpacity(0.4),
                                     ),
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   alignment: Alignment.center,
-                                  width: 70,
-                                  height: 20,
+                                  width: 80,
+                                  height: 30,
                                   child: Text(
                                     "$followers followers",
                                     style: GoTheme.darkTextTheme.bodyText1
@@ -186,7 +189,15 @@ class _ProfileBodyState extends State<ProfileBody> {
                                 width: 5,
                               ),
                               GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ProfileFollow(),
+                                    ),
+                                  );
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.transparent,
@@ -196,12 +207,12 @@ class _ProfileBodyState extends State<ProfileBody> {
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                   alignment: Alignment.center,
-                                  width: 20,
-                                  height: 20,
+                                  width: 30,
+                                  height: 30,
                                   child: const Icon(
                                     Icons.person_add_alt_outlined,
                                     color: Colors.white,
-                                    size: 15,
+                                    size: 20,
                                   ),
                                 ),
                               ),
@@ -213,7 +224,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                   ),
                 ),
               ),
-              ProfileSliverBody(),
+              const ProfileSliverBody(),
             ],
           );
   }

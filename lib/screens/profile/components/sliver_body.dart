@@ -17,11 +17,9 @@ class _ProfileSliverBodyState extends State<ProfileSliverBody> {
         length: 2,
         child: Container(
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            color: Colors.red
-          ),
+          decoration: const BoxDecoration(color: Colors.red),
           child: Column(
-            children: [
+            children: const [
               TabBar(
                 tabs: [
                   Tab(

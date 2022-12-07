@@ -88,7 +88,7 @@ class _ProfileSliverAppBarState extends State<ProfileSliverAppBar> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: isLoading
-                ? CircularProgressIndicator(
+                ? const CircularProgressIndicator(
                     color: Colors.transparent,
                   )
                 : Column(
@@ -97,7 +97,7 @@ class _ProfileSliverAppBarState extends State<ProfileSliverAppBar> {
                       Container(
                         height: 100,
                         width: 100,
-                        padding: EdgeInsets.all(2),
+                        padding: const EdgeInsets.all(2),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(50),
