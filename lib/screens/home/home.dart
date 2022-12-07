@@ -27,6 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _onTapped(int index) {
+    setState(() {
+      pageIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -35,11 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         : Scaffold(
             bottomNavigationBar: BottomNavigationBar(
-              onTap: (index) {
-                setState(() {
-                  pageIndex = index;
-                });
-              },
+              onTap: _onTapped,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               type: BottomNavigationBarType.shifting,
               selectedItemColor: GoTheme.mainColor,
@@ -73,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            body: Center(child: goPages[pageIndex]),
+            body: goPages[pageIndex],
           );
   }
 }
