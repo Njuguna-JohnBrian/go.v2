@@ -22,6 +22,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   bool isLoading = false;
   int followers = 0;
   int following = 0;
+  bool isFollowing = false;
 
   @override
   void initState() {
@@ -39,16 +40,15 @@ class _ProfileBodyState extends State<ProfileBody> {
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .get();
       userData = userSnap.data()!;
+      isFollowing = userSnap.data()!["followers"].contains(
+            FirebaseAuth.instance.currentUser!.uid,
+          );
       following = userData['following'].length;
       followers = userData['followers'].length;
       setState(() {
         isLoading = false;
       });
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-    }
+    } catch (e) {}
   }
 
   @override
@@ -139,7 +139,20 @@ class _ProfileBodyState extends State<ProfileBody> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          FollowingFollowersScreen(
+                                        userName: userData['display_name'],
+                                        following: following,
+                                        followers: followers,
+                                        currentIndex: 0,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.transparent,
@@ -164,7 +177,20 @@ class _ProfileBodyState extends State<ProfileBody> {
                                 width: 10,
                               ),
                               GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          FollowingFollowersScreen(
+                                        userName: userData['display_name'],
+                                        following: following,
+                                        followers: followers,
+                                        currentIndex: 1,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.transparent,
