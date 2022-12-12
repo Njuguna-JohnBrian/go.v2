@@ -34,8 +34,6 @@ class UserInfoStorage {
           FirebaseFieldName.displayName: displayName,
           FirebaseFieldName.email: email,
           FirebaseFieldName.photoUrl: photoUrl,
-          FirebaseFieldName.followers:[],
-          FirebaseFieldName.following:[]
         });
         return true;
       }
