@@ -5,3 +5,4 @@ export 'signup/signup.dart';
 export 'home/home.dart';
 export 'profile/profile.dart';
 export 'settings/settings.dart';
+export 'trips/trips.dart';

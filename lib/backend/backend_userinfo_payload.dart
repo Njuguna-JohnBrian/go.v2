@@ -17,6 +17,7 @@ class UserInfoPayload extends MapView<String, String> {
           FirebaseFieldName.userId: userId,
           FirebaseFieldName.displayName: displayName ?? '',
           FirebaseFieldName.email: email ?? '',
-          FirebaseFieldName.photoUrl: photoUrl ?? '',
+          FirebaseFieldName.photoUrl: photoUrl ??
+              'https://lh3.googleusercontent.com/pw/AL9nZEVkMJknNMYloprdMv_qc-DATCsYOzqkI4qgFbklig_W-dg7iGTBzMEjuO_kVs6rLtA2_NAsm6gu_RT3b6D4hFO1bdaQ4O61A1xFSdlZ-qjO-4osND4vkRLRNYh4odBbgLSjqCVg8Jy3TGnPPWTFc5rn=w169-h168-no',
         });
 }
