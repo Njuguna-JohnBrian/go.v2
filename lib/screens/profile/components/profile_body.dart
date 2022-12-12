@@ -68,7 +68,13 @@ class _ProfileBodyState extends State<ProfileBody> {
                 ),
                 actions: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const TripsScreen(),
+                        ),
+                      );
+                    },
                     icon: const Icon(
                       Icons.add,
                       color: GoTheme.mainColor,

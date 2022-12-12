@@ -128,6 +128,8 @@ class _ProfileFollowState extends State<ProfileFollow> {
                                 ),
                                 FollowButton(
                                   actionText: isThere ? 'Unfollow' : "Follow",
+                                  foreColor: isThere ? Colors.black : Colors.white,
+                                  backColor: isThere ? Colors.grey.shade200 : GoTheme.mainColor,
                                   function: () async {
                                     await FirestoreMethods().followUnfollowUser(
                                       FirebaseAuth.instance.currentUser!.uid,

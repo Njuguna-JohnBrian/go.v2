@@ -29,6 +29,8 @@ dependencies:
   flutter_facebook_auth: ^5.0.6
   quickalert: ^1.0.0
   cached_network_image: ^3.2.3
+  dotted_border: ^2.0.0+3
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
