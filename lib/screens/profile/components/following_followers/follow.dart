@@ -42,15 +42,16 @@ class _FollowingFollowersScreenState extends State<FollowingFollowersScreen> {
           .get();
       userData = userSnap.data()!;
       isFollowing = userSnap.data()!["followers"].contains(
-        FirebaseAuth.instance.currentUser!.uid,
-      );
-      // following = userData['following'].length;
-      // followers = userData['followers'].length;
+            FirebaseAuth.instance.currentUser!.uid,
+          );
       setState(() {
         isLoading = false;
       });
-    } catch (e) {}
+    } catch (e) {
+      return e;
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -124,7 +125,7 @@ class _FollowingFollowersScreenState extends State<FollowingFollowersScreen> {
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
-                                  child: Image(
+                                  child: const Image(
                                     image: NetworkImage(
                                         "https://tinyurl.com/kufs4ucf"),
                                     fit: BoxFit.cover,
@@ -176,7 +177,7 @@ class _FollowingFollowersScreenState extends State<FollowingFollowersScreen> {
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
-                                  child: Image(
+                                  child: const Image(
                                     image: NetworkImage(
                                         "https://tinyurl.com/kufs4ucf"),
                                     fit: BoxFit.cover,

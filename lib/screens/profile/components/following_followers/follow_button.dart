@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 class FollowButton extends StatelessWidget {
   final String actionText;
   final Function() function;
+  final bool? isFollowing;
+  final bool? isFollower;
   const FollowButton({
     Key? key,
     required this.actionText,
     required this.function,
+    this.isFollowing,
+    this.isFollower,
   }) : super(key: key);
 
   @override
@@ -23,7 +27,7 @@ class FollowButton extends StatelessWidget {
           ),
         ),
       ),
-      child:  Text(actionText),
+      child: Text(actionText),
     );
   }
 }
