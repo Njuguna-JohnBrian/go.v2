@@ -39,14 +39,14 @@ showSnackBar(
                       Text(
                         headText,
                         style: GoTheme.darkTextTheme.bodyText1?.copyWith(
-                          fontSize: 15,
+                          fontSize: 20,
                         ),
                       ),
                       const Spacer(),
                       Text(
                         infoText,
-                        style: const TextStyle(
-                          fontSize: 12,
+                        style: GoTheme.darkTextTheme.bodyText1?.copyWith(
+                          fontSize: 15,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,

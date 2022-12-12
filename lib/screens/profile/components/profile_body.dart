@@ -22,7 +22,6 @@ class _ProfileBodyState extends State<ProfileBody> {
   bool isLoading = false;
   int followers = 0;
   int following = 0;
-  bool isFollowing = false;
 
   @override
   void initState() {
@@ -40,15 +39,15 @@ class _ProfileBodyState extends State<ProfileBody> {
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .get();
       userData = userSnap.data()!;
-      isFollowing = userSnap.data()!["followers"].contains(
-            FirebaseAuth.instance.currentUser!.uid,
-          );
+
       following = userData['following'].length;
       followers = userData['followers'].length;
       setState(() {
         isLoading = false;
       });
-    } catch (e) {}
+    } catch (e) {
+      return e;
+    }
   }
 
   @override

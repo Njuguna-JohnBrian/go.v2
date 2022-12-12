@@ -14,7 +14,9 @@ class FirestoreMethods {
           .get();
 
       return userData.data()!;
-    } catch (e) {}
+    } catch (e) {
+      return e;
+    }
   }
 
   //Follow and unfollow users
@@ -31,7 +33,6 @@ class FirestoreMethods {
 
       List following =
           (documentSnapshot.data()! as Map<String, dynamic>)['following'];
-      print(followId);
 
       //Unfollow
       if (following.contains(followId)) {
@@ -86,6 +87,8 @@ class FirestoreMethods {
           )
         });
       }
-    } catch (e) {}
+    } catch (e) {
+      return;
+    }
   }
 }
