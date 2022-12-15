@@ -125,72 +125,77 @@ class _TripsImageSectionState extends State<TripsImageSection> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Row(
-      children: [
-        _coverImage != null
-            ? Container(
-                height: size.height * 0.11,
-                width: size.width * 0.25,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  image: DecorationImage(
-                    image: MemoryImage(
-                      _coverImage!,
+    return Padding(
+      padding: EdgeInsets.only(
+        top: size.height * 0.01,
+      ),
+      child: Row(
+        children: [
+          _coverImage != null
+              ? Container(
+                  height: size.height * 0.11,
+                  width: size.width * 0.25,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    image: DecorationImage(
+                      image: MemoryImage(
+                        _coverImage!,
+                      ),
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.medium,
                     ),
-                    fit: BoxFit.cover,
-                    filterQuality: FilterQuality.medium,
                   ),
-                ),
-              )
-            : DottedBorder(
-                borderType: BorderType.RRect,
-                radius: const Radius.circular(10),
-                color: Colors.grey,
-                padding: const EdgeInsets.all(20),
-                strokeWidth: 1,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.camera_alt_outlined,
-                  ),
+                )
+              : DottedBorder(
+                  borderType: BorderType.RRect,
+                  radius: const Radius.circular(10),
                   color: Colors.grey,
-                  iconSize: 25,
-                  onPressed: () async {
-                    await _selectTripImage(context);
-                  },
+                  padding: const EdgeInsets.all(20),
+                  strokeWidth: 1,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.camera_alt_outlined,
+                    ),
+                    color: Colors.grey,
+                    iconSize: 25,
+                    onPressed: () async {
+                      await _selectTripImage(context);
+                    },
+                  ),
+                ),
+          SizedBox(
+            width: size.width * 0.10,
+          ),
+          GestureDetector(
+            onTap: () async {
+              await _selectTripImage(context);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                border: Border.all(
+                  color: Colors.black.withOpacity(
+                    0.4,
+                  ),
+                ),
+                borderRadius: BorderRadius.circular(
+                  20,
                 ),
               ),
-        SizedBox(
-          width: size.width * 0.10,
-        ),
-        GestureDetector(
-          onTap: () async {
-            await _selectTripImage(context);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              border: Border.all(
-                color: Colors.black.withOpacity(
-                  0.4,
+              alignment: Alignment.center,
+              width: size.width * 0.35,
+              height: size.height * 0.04,
+              child: Text(
+                "Change cover photo",
+                style: GoTheme.darkTextTheme.bodyText1?.copyWith(
+                  fontSize: 10,
+                  color: Colors.black,
                 ),
-              ),
-              borderRadius: BorderRadius.circular(
-                20,
-              ),
-            ),
-            alignment: Alignment.center,
-            width: size.width * 0.35,
-            height: size.height * 0.04,
-            child: Text(
-              "Change cover photo",
-              style: GoTheme.darkTextTheme.bodyText1?.copyWith(
-                fontSize: 10,
-                color: Colors.black,
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
