@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go/theme/go_theme.dart';
 
-class TripsPrivacySection extends StatelessWidget {
+class TripsPrivacySection extends StatefulWidget {
   const TripsPrivacySection({Key? key}) : super(key: key);
+
+  @override
+  State<TripsPrivacySection> createState() => _TripsPrivacySectionState();
+}
+
+class _TripsPrivacySectionState extends State<TripsPrivacySection> {
+  final TextEditingController _tripPrivacyController = TextEditingController(
+    text: "Public",
+  );
+
+  @override
+  void dispose() {
+    _tripPrivacyController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,48 +35,133 @@ class TripsPrivacySection extends StatelessWidget {
         SizedBox(
           width: size.width * 0.75,
           child: TextFormField(
+            controller: _tripPrivacyController,
             onTap: () {
-              showDialog<void>(
+              showDialog<String>(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Who can see this trip?'),
-                    content: const Text(
-                        'A dialog is a type of modal window that\n'
-                            'appears in front of app content to\n'
-                            'provide critical information, or prompt\n'
-                            'for a decision to be made.'),
-                    actions: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          textStyle:
-                          Theme.of(context).textTheme.labelLarge,
+                  String privacyValue = "Public";
+                  return StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                      void handlePrivacyChange(String? value) {
+                        setState(() {
+                          privacyValue = value!;
+                          _tripPrivacyController.text = value;
+                        });
+                      }
+
+                      return SimpleDialog(
+                        title: const Text(
+                          "Select who can see your trip",
                         ),
-                        child: const Text('Disable'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          textStyle:
-                          Theme.of(context).textTheme.labelLarge,
+                        titleTextStyle: GoTheme.lightTextTheme.headline2,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              20,
+                            ),
+                          ),
                         ),
-                        child: const Text('Enable'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
+                        children: [
+                          SimpleDialogOption(
+                            padding: const EdgeInsets.all(
+                              20,
+                            ),
+                            child: ListTile(
+                              title: Text(
+                                "Private",
+                                style: GoTheme.lightTextTheme.headline2,
+                              ),
+                              leading: Transform.scale(
+                                scale: 1.5,
+                                child: Radio(
+                                  value: "Private",
+                                  groupValue: privacyValue,
+                                  onChanged: handlePrivacyChange,
+                                  activeColor: GoTheme.mainColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SimpleDialogOption(
+                            padding: const EdgeInsets.all(
+                              20,
+                            ),
+                            child: ListTile(
+                              title: Text(
+                                "Public",
+                                style: GoTheme.lightTextTheme.headline2,
+                              ),
+                              leading: Transform.scale(
+                                scale: 1.5,
+                                child: Radio(
+                                  value: "Public",
+                                  groupValue: privacyValue,
+                                  onChanged: handlePrivacyChange,
+                                  activeColor: GoTheme.mainColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SimpleDialogOption(
+                            padding: const EdgeInsets.all(
+                              20,
+                            ),
+                            child: ListTile(
+                              title: Text(
+                                "Premium",
+                                style: GoTheme.lightTextTheme.headline2,
+                              ),
+                              leading: Transform.scale(
+                                scale: 1.5,
+                                child: Radio(
+                                  value: "Premium",
+                                  groupValue: privacyValue,
+                                  onChanged: handlePrivacyChange,
+                                  activeColor: GoTheme.mainColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: SimpleDialogOption(
+                              padding: const EdgeInsets.all(
+                                20,
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: TextButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      20,
+                                    ),
+                                  ),
+                                  minimumSize: const Size(
+                                    150,
+                                    50,
+                                  ),
+                                ),
+                                child: Text(
+                                  "Cancel",
+                                  style: GoTheme.darkTextTheme.headline3,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
               );
             },
             readOnly: true,
             decoration: InputDecoration(
-              labelText: 'Who can view this trip?',
+              labelText: 'Type of trip',
               labelStyle: GoTheme.lightTextTheme.headline6,
-              hintText: "My Followers",
+              hintText: "Select to define who sees this trip",
               floatingLabelBehavior: FloatingLabelBehavior.always,
             ),
           ),
