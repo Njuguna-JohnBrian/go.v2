@@ -32,6 +32,8 @@ dependencies:
   dotted_border: ^2.0.0+3
   intl: ^0.17.0
   image_picker: ^0.8.6
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
 
 dev_dependencies:
   flutter_test:
