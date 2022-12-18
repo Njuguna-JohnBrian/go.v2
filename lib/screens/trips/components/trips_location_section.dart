@@ -5,7 +5,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
 class TripsLocationSection extends StatefulWidget {
-  const TripsLocationSection({Key? key}) : super(key: key);
+  const TripsLocationSection({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<TripsLocationSection> createState() => _TripsLocationSectionState();
@@ -129,7 +131,6 @@ class _TripsLocationSectionState extends State<TripsLocationSection> {
 
     setState(() {
       currentAddress = "${place.locality}, ${place.country}";
-
       locationController.text = currentAddress;
     });
   }

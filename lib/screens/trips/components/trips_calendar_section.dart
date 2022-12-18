@@ -3,26 +3,19 @@ import 'package:go/theme/go_theme.dart';
 import 'package:intl/intl.dart';
 
 class TripsCalendarSection extends StatefulWidget {
-  const TripsCalendarSection({Key? key}) : super(key: key);
+  final TextEditingController endDateController;
+  final TextEditingController startDateController;
+  const TripsCalendarSection({
+    Key? key,
+    required this.endDateController,
+    required this.startDateController,
+  }) : super(key: key);
 
   @override
   State<TripsCalendarSection> createState() => _TripsCalendarSectionState();
 }
 
 class _TripsCalendarSectionState extends State<TripsCalendarSection> {
-  final TextEditingController _endDateController = TextEditingController();
-  final TextEditingController _startDateController = TextEditingController(
-    text: DateFormat('MMMM dd yyyy').format(
-      DateTime.now(),
-    ),
-  );
-
-  @override
-  void dispose() {
-    _endDateController.dispose();
-    _startDateController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +35,7 @@ class _TripsCalendarSectionState extends State<TripsCalendarSection> {
             SizedBox(
               width: size.width * 0.75,
               child: TextFormField(
-                controller: _startDateController,
+                controller: widget.startDateController,
                 onTap: () async {
                   await showDatePicker(
                     context: context,
@@ -70,7 +63,7 @@ class _TripsCalendarSectionState extends State<TripsCalendarSection> {
                     },
                   ).then((value) {
                     if (value != null) {
-                      _startDateController.text = DateFormat(
+                      widget.startDateController.text = DateFormat(
                         "MMMM dd yyyy",
                       ).format(
                         value,
@@ -104,7 +97,7 @@ class _TripsCalendarSectionState extends State<TripsCalendarSection> {
             SizedBox(
               width: size.width * 0.75,
               child: TextFormField(
-                controller: _endDateController,
+                controller: widget.endDateController,
                 validator: ((value) {
                   if (value!.isEmpty) {
                     return "Please provide an end date";
@@ -140,7 +133,7 @@ class _TripsCalendarSectionState extends State<TripsCalendarSection> {
                     },
                   ).then((value) {
                     if (value != null) {
-                      _endDateController.text = DateFormat(
+                      widget.endDateController.text = DateFormat(
                         'MMMM dd yyyy',
                       ).format(
                         value,

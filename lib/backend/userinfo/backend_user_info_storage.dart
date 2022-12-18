@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
-import 'package:go/backend/backend_userinfo_payload.dart';
+import 'package:go/backend/userinfo/backend_userinfo_payload.dart';
 import 'package:go/backend/constants/backend_constants_barrel.dart';
 import 'package:go/typedefs/typedefs_barrel.dart';
 

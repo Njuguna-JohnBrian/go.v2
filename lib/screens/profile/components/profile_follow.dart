@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go/globals/globals_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 
-import '../../../backend/backend_firestore.dart';
+import '../../../backend/userinfo/backend_firestore.dart';
 import 'following_followers/follow_button.dart';
 
 class ProfileFollow extends StatefulWidget {
