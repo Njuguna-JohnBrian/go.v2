@@ -2,22 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:go/theme/go_theme.dart';
 
 class TripsPrivacySection extends StatefulWidget {
-  const TripsPrivacySection({Key? key}) : super(key: key);
+  final TextEditingController tripPrivacyController;
+  const TripsPrivacySection({
+    Key? key,
+    required this.tripPrivacyController,
+  }) : super(key: key);
 
   @override
   State<TripsPrivacySection> createState() => _TripsPrivacySectionState();
 }
 
 class _TripsPrivacySectionState extends State<TripsPrivacySection> {
-  final TextEditingController _tripPrivacyController = TextEditingController(
-    text: "Public",
-  );
-
-  @override
-  void dispose() {
-    _tripPrivacyController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +30,7 @@ class _TripsPrivacySectionState extends State<TripsPrivacySection> {
         SizedBox(
           width: size.width * 0.75,
           child: TextFormField(
-            controller: _tripPrivacyController,
+            controller: widget.tripPrivacyController,
             onTap: () {
               showDialog<String>(
                 context: context,
@@ -46,7 +41,7 @@ class _TripsPrivacySectionState extends State<TripsPrivacySection> {
                       void handlePrivacyChange(String? value) {
                         setState(() {
                           privacyValue = value!;
-                          _tripPrivacyController.text = value;
+                          widget.tripPrivacyController.text = value;
                         });
                       }
 

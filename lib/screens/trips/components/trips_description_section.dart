@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go/theme/go_theme.dart';
 
 class TripsDescriptionSection extends StatefulWidget {
-  const TripsDescriptionSection({Key? key}) : super(key: key);
+  final TextEditingController tripNameController;
+  final TextEditingController tripDescriptionController;
+  const TripsDescriptionSection({
+    Key? key,
+    required this.tripNameController,
+    required this.tripDescriptionController,
+  }) : super(key: key);
 
   @override
   State<TripsDescriptionSection> createState() =>
@@ -10,17 +16,6 @@ class TripsDescriptionSection extends StatefulWidget {
 }
 
 class _TripsDescriptionSectionState extends State<TripsDescriptionSection> {
-  final TextEditingController _tripNameController = TextEditingController();
-  final TextEditingController _tripDescriptionController =
-      TextEditingController();
-
-  @override
-  void dispose() {
-    _tripNameController.dispose();
-    _tripDescriptionController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -39,7 +34,7 @@ class _TripsDescriptionSectionState extends State<TripsDescriptionSection> {
             SizedBox(
               width: size.width * 0.75,
               child: TextFormField(
-                controller: _tripNameController,
+                controller: widget.tripNameController,
                 validator: ((value) {
                   if (value!.isEmpty) {
                     return "Please provide trip name/title";
@@ -73,7 +68,7 @@ class _TripsDescriptionSectionState extends State<TripsDescriptionSection> {
             SizedBox(
               width: size.width * 0.75,
               child: TextFormField(
-                controller: _tripDescriptionController,
+                controller: widget.tripDescriptionController,
                 validator: ((value) {
                   if (value!.isEmpty) {
                     return "Please a trip summary";

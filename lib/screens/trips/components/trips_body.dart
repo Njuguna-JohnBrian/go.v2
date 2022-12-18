@@ -1,9 +1,33 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+
 import 'package:go/screens/trips/trips_barrel.dart';
 
-class TripsBody extends StatelessWidget {
-  const TripsBody({Key? key}) : super(key: key);
+typedef CoverImageCallback = void Function(Uint8List imageDate);
 
+class TripsBody extends StatefulWidget {
+  final TextEditingController tripNameController;
+  final TextEditingController tripDescriptionController;
+  final TextEditingController endDateController;
+  final TextEditingController startDateController;
+  final TextEditingController tripPrivacyController;
+  final CoverImageCallback imageReceived;
+  const TripsBody({
+    Key? key,
+    required this.tripNameController,
+    required this.tripDescriptionController,
+    required this.endDateController,
+    required this.startDateController,
+    required this.tripPrivacyController,
+    required this.imageReceived,
+  }) : super(key: key);
+
+  @override
+  State<TripsBody> createState() => _TripsBodyState();
+}
+
+class _TripsBodyState extends State<TripsBody> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -12,15 +36,27 @@ class TripsBody extends StatelessWidget {
         children: [
           Column(
             children: [
-              const TripsImageSection(),
+              TripsImageSection(
+                onImageSelected: (image) {
+                  widget.imageReceived(image);
+                },
+              ),
               _buildPadding(context),
-              const TripsDescriptionSection(),
+              TripsDescriptionSection(
+                tripNameController: widget.tripNameController,
+                tripDescriptionController: widget.tripDescriptionController,
+              ),
               _buildPadding(context),
-              const TripsCalendarSection(),
+              TripsCalendarSection(
+                startDateController: widget.startDateController,
+                endDateController: widget.endDateController,
+              ),
               _buildPadding(context),
               const TripsLocationSection(),
               _buildPadding(context),
-              const TripsPrivacySection(),
+              TripsPrivacySection(
+                tripPrivacyController: widget.tripPrivacyController,
+              ),
             ],
           ),
         ],

@@ -4,7 +4,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 import 'package:go/typedefs/typedefs_barrel.dart';
 
-import 'constants/backend_constants_barrel.dart';
+import '../constants/backend_constants_barrel.dart';
 
 class Authenticator {
   const Authenticator();

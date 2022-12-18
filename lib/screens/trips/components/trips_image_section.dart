@@ -5,8 +5,14 @@ import 'package:go/globals/globals_barrel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:go/theme/go_theme.dart';
 
+typedef ImageCallback = void Function(Uint8List imageDate);
+
 class TripsImageSection extends StatefulWidget {
-  const TripsImageSection({Key? key}) : super(key: key);
+  final ImageCallback onImageSelected;
+  const TripsImageSection({
+    Key? key,
+    required this.onImageSelected,
+  }) : super(key: key);
 
   @override
   State<TripsImageSection> createState() => _TripsImageSectionState();
@@ -14,6 +20,10 @@ class TripsImageSection extends StatefulWidget {
 
 class _TripsImageSectionState extends State<TripsImageSection> {
   Uint8List? _coverImage;
+
+  getImage() {
+    return _coverImage;
+  }
 
   _selectTripImage(BuildContext context) async {
     return showDialog(
@@ -81,12 +91,14 @@ class _TripsImageSectionState extends State<TripsImageSection> {
               ),
               onPressed: () async {
                 Navigator.of(context).pop();
+
                 Uint8List selectedGalleryImage = await pickImage(
                   ImageSource.gallery,
                 );
                 setState(() {
                   _coverImage = selectedGalleryImage;
                 });
+                widget.onImageSelected(_coverImage!);
               },
             ),
             Center(
@@ -125,6 +137,7 @@ class _TripsImageSectionState extends State<TripsImageSection> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Padding(
       padding: EdgeInsets.only(
         top: size.height * 0.01,
@@ -174,9 +187,11 @@ class _TripsImageSectionState extends State<TripsImageSection> {
               decoration: BoxDecoration(
                 color: Colors.transparent,
                 border: Border.all(
-                  color: Colors.black.withOpacity(
-                    0.4,
-                  ),
+                  color: _coverImage != null
+                      ? Colors.black.withOpacity(
+                          0.4,
+                        )
+                      : Colors.redAccent,
                 ),
                 borderRadius: BorderRadius.circular(
                   20,
@@ -186,7 +201,9 @@ class _TripsImageSectionState extends State<TripsImageSection> {
               width: size.width * 0.35,
               height: size.height * 0.04,
               child: Text(
-                "Change cover photo",
+                _coverImage != null
+                    ? "Change cover photo"
+                    : "Upload cover photo",
                 style: GoTheme.darkTextTheme.bodyText1?.copyWith(
                   fontSize: 10,
                   color: Colors.black,
