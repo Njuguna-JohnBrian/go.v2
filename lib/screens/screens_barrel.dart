@@ -6,3 +6,4 @@ export 'home/home.dart';
 export 'profile/profile.dart';
 export 'settings/settings.dart';
 export 'trips/trips.dart';
+export 'trip_details/trip_details.dart';

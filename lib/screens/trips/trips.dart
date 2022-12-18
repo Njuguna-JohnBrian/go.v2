@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go/screens/screens_barrel.dart';
 import 'package:intl/intl.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -88,11 +89,19 @@ class _TripsScreenState extends State<TripsScreen> {
       });
       if (result == "Success") {
         QuickAlert.show(
-          context: context,
-          type: QuickAlertType.success,
-          barrierDismissible: false,
-          confirmBtnColor: GoTheme.mainSuccess,
-        );
+            context: context,
+            type: QuickAlertType.success,
+            barrierDismissible: true,
+            confirmBtnColor: GoTheme.mainSuccess,
+            onConfirmBtnTap: () {
+              Navigator.of(context).pop();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TripDetailsScreen(),
+                ),
+              );
+            });
       }
     } catch (e) {
       setState(() {
