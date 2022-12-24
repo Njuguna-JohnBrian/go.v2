@@ -48,7 +48,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
           onConfirmBtnTap: () {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const LoginScreen(),
+                builder: (context) => const ViewScreen(),
               ),
             );
           });

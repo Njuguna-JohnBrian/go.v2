@@ -53,7 +53,7 @@ class Go extends StatelessWidget {
                 context: context,
               );
             }
-            return const WelcomeScreen();
+            return const ViewScreen();
           }),
         ));
   }
