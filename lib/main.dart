@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go/firebase_options.dart';
+import 'package:go/screens/loading/loading_screen.dart';
 import 'package:go/state/providers/auth/is_logged_in_provider.dart';
+import 'package:go/state/providers/auth/isloading_provider.dart';
 
 import 'package:go/theme/go_theme.dart';
 import 'package:go/screens/screens_barrel.dart';
@@ -30,7 +32,18 @@ class Go extends StatelessWidget {
       title: 'gO',
       home: Consumer(
         builder: (context, ref, child) {
-          final isLoggedIn = ref.watch(isLoggedInProvider);
+          ref.listen<bool>(isLoadingProvider, (_, isLoading) {
+            if (isLoading) {
+              LoadingScreen.instance().show(
+                context: context,
+              );
+            } else {
+              LoadingScreen.instance().hide();
+            }
+          });
+          final isLoggedIn = ref.watch(
+            isLoggedInProvider,
+          );
 
           if (isLoggedIn) {
             return const HomeScreen();
