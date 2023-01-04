@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:go/firebase_options.dart';
 import 'package:go/globals/components/global_snackbar.dart';
 import 'package:go/globals/components/global_spinner.dart';
-import 'package:go/screens/loading/loading_screen.dart';
 
 import 'package:go/theme/go_theme.dart';
 import 'package:go/screens/screens_barrel.dart';
@@ -31,64 +30,34 @@ class Go extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: GoTheme.light(),
       title: 'gO',
-      // home: StreamBuilder(
-      //   stream: FirebaseAuth.instance.authStateChanges(),
-      //   builder: ((context, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.active) {
-      //       if (snapshot.hasData) {
-      //         return const HomeScreen();
-      //       } else if (snapshot.hasError) {
-      //         return Center(
-      //           child: showSnackBar(
-      //             context,
-      //             "Error",
-      //             "Internal Server Error",
-      //             GoTheme.mainLightError,
-      //             GoTheme.mainLightError,
-      //             GoTheme.mainLightError,
-      //           ),
-      //         );
-      //       }
-      //     } else if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return GlobalSpinner(
-      //         context: context,
-      //       );
-      //     }
-      //     return const ViewScreen();
-      //   }),
-      // ),
-
-      home: MainView()
-    );
-  }
-}
-
-class MainView extends StatelessWidget {
-  const MainView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Loading screen"),
-      ),
-      body: Center(
-        child: Consumer(
-          builder: (_, ref, child) {
-            return TextButton(
-              onPressed: () async {
-                LoadingScreen.instance().show(
-                  context: context,
-                );
-              },
-              child: const Text(
-                "Loading Screen",
-              ),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasData) {
+              return const HomeScreen();
+            } else if (snapshot.hasError) {
+              return Center(
+                child: showSnackBar(
+                  context,
+                  "Error",
+                  "Internal Server Error",
+                  GoTheme.mainLightError,
+                  GoTheme.mainLightError,
+                  GoTheme.mainLightError,
+                ),
+              );
+            }
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return GlobalSpinner(
+              context: context,
             );
-          },
-        ),
+          }
+          return const ViewScreen();
+        }),
       ),
     );
   }
 }
+
 
