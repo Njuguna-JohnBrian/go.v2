@@ -240,8 +240,9 @@ class _ViewScreenState extends ConsumerState<ViewScreen> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const LoginScreen()),
+                                                builder: (context) =>
+                                                    const LoginScreen(),
+                                              ),
                                             );
                                           }
                                         },
