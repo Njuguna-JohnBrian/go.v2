@@ -72,24 +72,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ],
                 ),
-                const SettingsSections(
+                 SettingsSections(
                   title: "Organization",
                   children: [
-                    SettingsTiles(
+                    const SettingsTiles(
                       title: "Profile",
                       icon: Icons.person_outline_rounded,
                     ),
-                    SettingsTiles(
+                    const SettingsTiles(
                       title: "Messaging",
                       icon: Icons.message_outlined,
                     ),
                     SettingsTiles(
                       title: "Followers",
                       icon: Icons.person_add_alt_1_outlined,
+                      action: (){},
                     ),
                     SettingsTiles(
                       title: "Following",
                       icon: Icons.person_add_outlined,
+                      action: (){},
                     )
                   ],
                 ),
