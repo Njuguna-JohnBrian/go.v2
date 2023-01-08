@@ -22,7 +22,6 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ;
     return Scaffold(
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
@@ -35,18 +34,17 @@ class _MapScreenState extends State<MapScreen> {
         myLocationEnabled: true,
         markers: {
           Marker(
-            markerId: const MarkerId('Go'),
-            position: LatLng(
-              widget.latitude,
-              widget.longitude,
-            ),
-            draggable: true,
-            onDragEnd: (value) {},
-            infoWindow: const InfoWindow(
-              title: "Trip Start Point",
-              snippet: "Start Point",
-            )
-          ),
+              markerId: const MarkerId('Go'),
+              position: LatLng(
+                widget.latitude,
+                widget.longitude,
+              ),
+              draggable: true,
+              onDragEnd: (value) {},
+              infoWindow: const InfoWindow(
+                title: "Trip Start Point",
+                snippet: "Start Point",
+              )),
         },
       ),
     );
