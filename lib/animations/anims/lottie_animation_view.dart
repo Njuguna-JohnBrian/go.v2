@@ -14,11 +14,13 @@ class LottieAnimationView extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Lottie.asset(
-        animation.fullPath,
-        reverse: reverse,
-        repeat: repeat,
-      );
+  Widget build(BuildContext context){
+    return Lottie.asset(
+      animation.fullPath,
+      reverse: reverse,
+      repeat: repeat,
+    );
+  }
 }
 
 extension GetFullPath on LottieAnimation {

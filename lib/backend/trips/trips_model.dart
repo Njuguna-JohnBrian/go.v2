@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:go/backend/trips/trips_key.dart';
 
@@ -9,8 +8,8 @@ class TripsModel {
   final String tripTitle;
   final String tripSummary;
   final String tripType;
-  final DateTime startDate;
-  final DateTime endDate;
+  final String startDate;
+  final String endDate;
   final String tripUrl;
   final String profilePicture;
   final double startLongitude;
@@ -23,8 +22,8 @@ class TripsModel {
         tripTitle = json[TripsKey.tripTitle],
         tripSummary = json[TripsKey.tripSummary],
         tripType = json[TripsKey.tripType],
-        startDate = (json[TripsKey.startDate] as Timestamp).toDate(),
-        endDate = (json[TripsKey.endDate] as Timestamp).toDate(),
+        startDate = json[TripsKey.startDate],
+        endDate = json[TripsKey.endDate],
         tripUrl = json[TripsKey.tripUrl],
         profilePicture = json[TripsKey.profilePicture],
         startLongitude = json[TripsKey.startLongitude],
