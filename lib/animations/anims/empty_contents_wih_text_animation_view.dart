@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go/animations/anims/empty_content_animation_view.dart';
+import 'package:go/theme/go_theme.dart';
 
 
 class EmptyContentsWithTextAnimationView extends StatelessWidget {
@@ -11,14 +12,15 @@ class EmptyContentsWithTextAnimationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.all(32.0),
             child: Text(
               text,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Colors.white54,
-                  ),
+              style: GoTheme.lightTextTheme.bodyLarge?.copyWith(
+                fontSize: 20,
+              )
             ),
           ),
           const EmptyContentAnimationView(),

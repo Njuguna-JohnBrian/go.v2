@@ -21,6 +21,7 @@ class ViewBuilder extends StatelessWidget {
         return ViewBody(
           trips: trip,
           isLoggedIn: isLoggedIn,
+          renderIndex:index,
         );
       },
     );

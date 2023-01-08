@@ -10,10 +10,12 @@ import 'package:go/theme/go_theme.dart';
 class ViewBody extends StatelessWidget {
   final TripsModel trips;
   final bool isLoggedIn;
+  final int renderIndex;
   const ViewBody({
     Key? key,
     required this.trips,
     required this.isLoggedIn,
+    required this.renderIndex,
   }) : super(key: key);
 
   @override
@@ -41,7 +43,7 @@ class ViewBody extends StatelessWidget {
         }
       },
       child: SizedBox(
-        height: size.height,
+        height: renderIndex == 0 ? size.height * 0.90 : size.height,
         width: size.width,
         child: Stack(
           children: [
