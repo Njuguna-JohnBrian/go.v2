@@ -5,7 +5,7 @@ import 'package:go/models/userdata/users_data.dart';
 import 'package:go/state/providers/auth/user_id_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final followersProvider =
+final allUsersProvider =
     StreamProvider.autoDispose<Iterable<AllUsersDataModel>>(
   (ref) {
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -23,6 +23,7 @@ final followersProvider =
           'uid',
           isNotEqualTo: userId,
         )
+        .orderBy("uid")
         .snapshots()
         .listen(
       (snapshot) {

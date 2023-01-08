@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go/globals/globals_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 
-import '../../../backend/userinfo/backend_firestore.dart';
-import 'following_followers/follow_button.dart';
+import '../../../../backend/userinfo/backend_firestore.dart';
+import '../following_followers/follow_button.dart';
 
 class ProfileFollow extends StatefulWidget {
   const ProfileFollow({Key? key}) : super(key: key);
@@ -46,9 +46,7 @@ class _ProfileFollowState extends State<ProfileFollow> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return isLoading
-        ? GlobalSpinner(context: context)
-        : Scaffold(
+    return Scaffold(
             appBar: AppBar(
               title: const Text("Discover gO users"),
               elevation: 0,

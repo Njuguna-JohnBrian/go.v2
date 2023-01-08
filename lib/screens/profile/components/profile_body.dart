@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go/models/userdata/userdata.dart';
-import 'package:go/screens/profile/components/profile_follow.dart';
 import 'package:go/screens/profile/profile_barrel.dart';
 import 'package:go/screens/screens_barrel.dart';
 
 import '../../../globals/global_assets.dart';
 import '../../../theme/go_theme.dart';
+import 'all_users/all_user_view.dart';
 
 class ProfileBody extends StatelessWidget {
   final UserDataModel userData;
@@ -186,7 +186,9 @@ class ProfileBody extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ProfileFollow(),
+                                builder: (context) => UsersViewScreen(
+                                  userData: userData,
+                                ),
                               ),
                             );
                           },
