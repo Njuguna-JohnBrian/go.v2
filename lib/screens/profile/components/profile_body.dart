@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go/models/userdata/userdata.dart';
@@ -8,27 +9,12 @@ import 'package:go/screens/screens_barrel.dart';
 import '../../../globals/global_assets.dart';
 import '../../../theme/go_theme.dart';
 
-class ProfileBody extends StatefulWidget {
+class ProfileBody extends StatelessWidget {
   final UserDataModel userData;
   const ProfileBody({
     Key? key,
     required this.userData,
   }) : super(key: key);
-
-  @override
-  State<ProfileBody> createState() => _ProfileBodyState();
-}
-
-class _ProfileBodyState extends State<ProfileBody> {
-  bool isLoading = false;
-  int followers = 0;
-  int following = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -98,14 +84,16 @@ class _ProfileBodyState extends State<ProfileBody> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: Image(
-                          image: NetworkImage(widget.userData.profilePhoto),
+                          image: CachedNetworkImageProvider(
+                            userData.profilePhoto,
+                          ),
                           fit: BoxFit.cover,
                           filterQuality: FilterQuality.medium,
                         ),
                       ),
                     ),
                     Text(
-                      widget.userData.displayName,
+                      userData.displayName,
                       style: GoTheme.darkTextTheme.bodyText1,
                     ),
                     Text(
@@ -127,9 +115,9 @@ class _ProfileBodyState extends State<ProfileBody> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => FollowingFollowersScreen(
-                                  userName: widget.userData.displayName,
-                                  following: following,
-                                  followers: followers,
+                                  userName: userData.displayName,
+                                  following: userData.following.length,
+                                  followers: userData.followers.length,
                                   currentIndex: 0,
                                 ),
                               ),
@@ -147,7 +135,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                             width: 80,
                             height: 30,
                             child: Text(
-                              "${widget.userData.following.length} following",
+                              "${userData.following.length} following",
                               style: GoTheme.darkTextTheme.bodyText1?.copyWith(
                                 fontSize: 10,
                               ),
@@ -163,9 +151,9 @@ class _ProfileBodyState extends State<ProfileBody> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => FollowingFollowersScreen(
-                                  userName: widget.userData.displayName,
-                                  following: following,
-                                  followers: followers,
+                                  userName: userData.displayName,
+                                  following: userData.following.length,
+                                  followers: userData.followers.length,
                                   currentIndex: 1,
                                 ),
                               ),
@@ -183,7 +171,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                             width: 80,
                             height: 30,
                             child: Text(
-                              "${widget.userData.followers.length} followers",
+                              "${userData.followers.length} followers",
                               style: GoTheme.darkTextTheme.bodyText1?.copyWith(
                                 fontSize: 10,
                               ),
@@ -231,6 +219,5 @@ class _ProfileBodyState extends State<ProfileBody> {
         const ProfileSliverBody(),
       ],
     );
-
   }
 }
