@@ -2,10 +2,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go/firebase_options.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:go/theme/go_theme.dart';
 
-import 'package:go/state/state_barrel.dart';
-import 'package:go/screens/screens_barrel.dart';
+import 'package:go/theme/go_theme.dart' show GoTheme;
+
+import 'package:go/state/state_barrel.dart'
+    show
+        NetworkStatus,
+        isLoadingProvider,
+        isLoggedInProvider,
+        networkAwareProvider;
+
+import 'package:go/screens/screens_barrel.dart'
+    show LoadingScreen, ConnectionScreen, HomeScreen, LoginScreen;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
