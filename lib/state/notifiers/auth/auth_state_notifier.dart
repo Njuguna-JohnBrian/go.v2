@@ -45,13 +45,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
           text: result,
           barrierDismissible: false,
           confirmBtnColor: GoTheme.mainSuccess,
-          onConfirmBtnTap: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const ViewScreen(),
-              ),
-            );
-          });
+          onConfirmBtnTap: () {});
     }
 
     state = const AuthState.unknown();
@@ -268,11 +262,10 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
   Future<void> saveUserInfo({required UserId userId}) =>
       _userInfoStorage.saveUserInfo(
-        userId: userId,
-        displayName: _authenticator.displayName,
-        email: _authenticator.email,
-        photoUrl: _authenticator.photoUrl
-      );
+          userId: userId,
+          displayName: _authenticator.displayName,
+          email: _authenticator.email,
+          photoUrl: _authenticator.photoUrl);
 
   Future<void> saveNewUserInfo({
     required UserId userId,
