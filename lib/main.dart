@@ -48,7 +48,7 @@ class Go extends StatelessWidget {
           if (isLoggedIn) {
             return const HomeScreen();
           } else {
-            return const ViewScreen();
+            return const LoginScreen();
           }
         },
       ),
