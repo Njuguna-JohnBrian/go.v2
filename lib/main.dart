@@ -1,13 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go/firebase_options.dart';
-import 'package:go/screens/loading/loading_screen.dart';
-import 'package:go/state/providers/auth/is_logged_in_provider.dart';
-import 'package:go/state/providers/auth/isloading_provider.dart';
-
-import 'package:go/theme/go_theme.dart';
-import 'package:go/screens/screens_barrel.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go/theme/go_theme.dart';
+
+import 'package:go/state/state_barrel.dart';
+import 'package:go/screens/screens_barrel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,8 +43,14 @@ class Go extends StatelessWidget {
             isLoggedInProvider,
           );
 
+          final network = ref.watch(networkAwareProvider);
+
           if (isLoggedIn) {
-            return const ConnectionScreen();
+            if (network == NetworkStatus.off) {
+              return const ConnectionScreen();
+            } else {
+              return const HomeScreen();
+            }
           } else {
             return const LoginScreen();
           }
