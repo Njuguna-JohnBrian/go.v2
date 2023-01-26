@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1051828684170-anegho7ajf6bj73657phqut856hda3ti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hero.go",
+            "certificate_hash": "6ef79a81b556d92201de63a810311cf9d1b34b69"
+          }
+        },
+        {
           "client_id": "1051828684170-mf8qajep1kq1lbqbaiju7bj23mrp0gs1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
