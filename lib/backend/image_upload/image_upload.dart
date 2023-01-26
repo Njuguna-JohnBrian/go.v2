@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid.dart' show Uuid;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
