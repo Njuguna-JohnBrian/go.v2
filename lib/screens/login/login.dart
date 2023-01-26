@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-import 'package:go/screens/login/login_barrel.dart';
+import 'package:go/screens/login/login_barrel.dart' show LoginBody;
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go/theme/go_theme.dart';
 
-import 'package:go/animations/anims/connection.dart';
+import 'package:go/animations/anims/connection.dart' show NoConnectionView;
 import 'connection_strings.dart';
 
 class ConnectionScreen extends StatelessWidget {
@@ -21,9 +21,8 @@ class ConnectionScreen extends StatelessWidget {
             ),
             Text(
               ConnectionStrings.noInternet,
-              style: GoTheme.lightTextTheme.bodyText1?.copyWith(
-                fontStyle: FontStyle.italic
-              ),
+              style: GoTheme.lightTextTheme.bodyText1
+                  ?.copyWith(fontStyle: FontStyle.italic),
             ),
           ],
         ),

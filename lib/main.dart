@@ -38,6 +38,14 @@ class Go extends StatelessWidget {
       title: 'gO',
       home: Consumer(
         builder: (context, ref, child) {
+          final isLoggedIn = ref.watch(
+            isLoggedInProvider,
+          );
+
+          final network = ref.watch(
+            networkAwareProvider,
+          );
+
           ref.listen<bool>(isLoadingProvider, (_, isLoading) {
             if (isLoading) {
               LoadingScreen.instance().show(
@@ -47,9 +55,11 @@ class Go extends StatelessWidget {
               LoadingScreen.instance().hide();
             }
           });
-          final isLoggedIn = ref.watch(
-            isLoggedInProvider,
-          );
+
+          if (isLoggedIn && network == NetworkStatus.off ||
+              isLoggedIn && network == NetworkStatus.notDetermined) {
+            return const ConnectionScreen();
+          }
 
           final network = ref.watch(networkAwareProvider);
 
