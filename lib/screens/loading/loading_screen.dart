@@ -1,13 +1,14 @@
 import 'dart:async' show StreamController;
 
 import 'package:flutter/material.dart';
-import 'package:go/screens/loading/loading_screen_controller.dart';
-import 'package:go/screens/loading/loading_strings.dart';
-
-import '../../globals/global_assets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go/theme/go_theme.dart';
 
-import '../../theme/go_theme.dart';
+
+import 'package:go/globals/global_assets.dart' show GlobalAssets;
+import 'package:go/screens/loading/loading_screen_controller.dart'
+    show LoadingScreenController;
+import 'package:go/screens/loading/loading_strings.dart';
 
 class LoadingScreen {
   LoadingScreen._sharedInstance();
