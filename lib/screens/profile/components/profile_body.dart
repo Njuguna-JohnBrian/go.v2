@@ -185,8 +185,49 @@ class ProfileBody extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
+        UserActivity()
       ],
+    );
+  }
+}
+
+class UserActivity extends StatefulWidget {
+  const UserActivity({Key? key}) : super(key: key);
+
+  @override
+  State<UserActivity> createState() => _UserActivityState();
+}
+
+class _UserActivityState extends State<UserActivity> {
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: DefaultTabController(
+        length: 2,
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.8,
+          decoration: const BoxDecoration(color: Colors.red),
+          child: Column(
+            children: const [
+              TabBar(
+                tabs: [
+                  Tab(
+                    child: Text(
+                      "Trips",
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "Insights",
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
