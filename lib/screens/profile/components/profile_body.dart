@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go/animations/animations_barrel.dart';
 import 'package:go/globals/globals_barrel.dart';
+import 'package:go/globals/string_extension.dart';
 import 'package:go/models/models_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -251,16 +252,42 @@ class _UserActivityState extends State<UserActivity> {
               children: [
                 Container(
                   height: size.height * 0.25,
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                        "https://tinyurl.com/2s3mv3mv",
-                      ),
-                      fit: BoxFit.cover,
-                    ),
+                    color: Colors.grey,
+                    image: DecorationImage(
+                        image: const NetworkImage(
+                          "https://tinyurl.com/2s3mv3mv",
+                        ),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                          Colors.white.withOpacity(0.6),
+                          BlendMode.modulate,
+                        )),
                     borderRadius: BorderRadius.circular(
                       20,
                     ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.circle,
+                            color: Colors.red,
+                            size: 17,
+                          ),
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          Text(
+                            "Now Travelling".toCapitalized(),
+                            style: GoTheme.darkTextTheme.bodyText1,
+                          )
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
