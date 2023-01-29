@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go/animations/animations_barrel.dart';
 import 'package:go/globals/globals_barrel.dart';
 import 'package:go/models/models_barrel.dart';
 import 'package:go/theme/go_theme.dart';
@@ -177,7 +178,7 @@ class ProfileBody extends StatelessWidget {
                               size: 20,
                             ),
                           ),
-                        )
+                        ),
                       ],
                     )
                   ],
@@ -186,7 +187,7 @@ class ProfileBody extends StatelessWidget {
             ),
           ),
         ),
-        UserActivity()
+        const UserActivity()
       ],
     );
   }
@@ -207,26 +208,69 @@ class _UserActivityState extends State<UserActivity> {
         length: 2,
         child: Container(
           height: MediaQuery.of(context).size.height * 0.8,
-          decoration: const BoxDecoration(color: Colors.red),
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+          ),
           child: Column(
-            children: const [
-              TabBar(
+            children: [
+              const TabBar(
                 tabs: [
                   Tab(
                     child: Text(
                       "Trips",
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
                   Tab(
                     child: Text(
                       "Insights",
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
                 ],
-              )
+              ),
+              buildTabView(context)
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildTabView(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return Expanded(
+      child: TabBarView(
+        children: [
+          Scaffold(
+            body: ListView(
+              padding: const EdgeInsets.all(
+                10,
+              ),
+              children: [
+                Container(
+                  height: size.height * 0.25,
+                  decoration: BoxDecoration(
+                    image: const DecorationImage(
+                      image: NetworkImage(
+                        "https://tinyurl.com/2s3mv3mv",
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.yellow,
+            child: ActiveView(),
+          )
+        ],
       ),
     );
   }
