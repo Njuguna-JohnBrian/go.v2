@@ -61,7 +61,6 @@ class Go extends StatelessWidget {
             return const ConnectionScreen();
           }
 
-
           if (isLoggedIn) {
             if (network == NetworkStatus.off) {
               return const ConnectionScreen();
