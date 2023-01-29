@@ -6,3 +6,4 @@ export 'anims/error_animation_view.dart';
 export 'anims/loading_animation_view.dart';
 export 'anims/lottie_animation_view.dart';
 export 'anims/small_error_animation_view.dart';
+export 'anims/active_animation.dart';
