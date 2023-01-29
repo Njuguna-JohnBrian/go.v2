@@ -7,6 +7,8 @@ import 'package:go/animations/animations_barrel.dart'
 
 import 'package:go/state/state_barrel.dart' show userDataProvider;
 
+import 'components/profile_builder.dart';
+
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({
     Key? key,
@@ -30,8 +32,8 @@ class ProfileScreen extends ConsumerWidget {
           if (userData.isEmpty) {
             return const EmptyContentAnimationView();
           } else {
-            return const Center(
-              child: LoadingAnimationView(),
+            return ProfileBuilder(
+              userData: userData,
             );
           }
         },
