@@ -256,27 +256,27 @@ class _UserActivityState extends State<UserActivity> {
                   decoration: BoxDecoration(
                     color: Colors.grey,
                     image: DecorationImage(
-                        image: const NetworkImage(
-                          "https://tinyurl.com/2s3mv3mv",
-                        ),
-                        fit: BoxFit.cover,
-                        colorFilter: ColorFilter.mode(
-                          Colors.white.withOpacity(0.6),
-                          BlendMode.modulate,
-                        )),
+                      image: const NetworkImage(
+                        "https://tinyurl.com/2s3mv3mv",
+                      ),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                        Colors.white.withOpacity(0.4),
+                        BlendMode.modulate,
+                      ),
+                    ),
                     borderRadius: BorderRadius.circular(
                       20,
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Stack(
                     children: [
                       Row(
                         children: [
                           const Icon(
                             Icons.circle,
                             color: Colors.red,
-                            size: 17,
+                            size: 10,
                           ),
                           const SizedBox(
                             width: 3,
@@ -287,6 +287,81 @@ class _UserActivityState extends State<UserActivity> {
                           )
                         ],
                       ),
+                      Positioned(
+                        bottom: 70,
+                        child: Text(
+                          "John",
+                          style: GoTheme.darkTextTheme.bodyText1,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Header",
+                              style: GoTheme.darkTextTheme.bodyText1,
+                            ),
+                            Text(
+                              "Title",
+                              style: GoTheme.darkTextTheme.bodyText1,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 100,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Header",
+                              style: GoTheme.darkTextTheme.bodyText1,
+                            ),
+                            Text(
+                              "Title",
+                              style: GoTheme.darkTextTheme.bodyText1,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 200,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Header",
+                              style: GoTheme.darkTextTheme.bodyText1,
+                            ),
+                            Text(
+                              "Title",
+                              style: GoTheme.darkTextTheme.bodyText1,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Header",
+                              style: GoTheme.darkTextTheme.bodyText1,
+                            ),
+                            Text(
+                              "Title",
+                              style: GoTheme.darkTextTheme.bodyText1,
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -295,7 +370,7 @@ class _UserActivityState extends State<UserActivity> {
           ),
           Container(
             color: Colors.yellow,
-            child: ActiveView(),
+            child: const ActiveView(),
           )
         ],
       ),
