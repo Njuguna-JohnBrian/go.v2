@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go/animations/anims/empty_content_animation_view.dart';
-import 'package:go/animations/anims/error_animation_view.dart';
-import 'package:go/animations/anims/loading_animation_view.dart';
-import 'package:go/state/state_barrel.dart' show userDataProvider;
 import 'package:go/theme/go_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:go/animations/animations_barrel.dart'
+    show EmptyContentAnimationView, LoadingAnimationView, ErrorAnimationView;
+
+import 'package:go/state/state_barrel.dart' show userDataProvider;
+
+import 'components/profile_builder.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({
@@ -29,8 +32,8 @@ class ProfileScreen extends ConsumerWidget {
           if (userData.isEmpty) {
             return const EmptyContentAnimationView();
           } else {
-            return const Center(
-              child: LoadingAnimationView(),
+            return ProfileBuilder(
+              userData: userData,
             );
           }
         },

@@ -73,6 +73,7 @@ class GoTheme {
   static ThemeData light() {
     return ThemeData(
       brightness: Brightness.light,
+      scaffoldBackgroundColor: Colors.white,
       fontFamily: "OpenSans",
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith(
@@ -106,6 +107,7 @@ class GoTheme {
   static ThemeData dark() {
     return ThemeData(
       brightness: Brightness.dark,
+      scaffoldBackgroundColor: Colors.white,
       fontFamily: "OpenSans",
       appBarTheme: AppBarTheme(
         foregroundColor: Colors.white,
