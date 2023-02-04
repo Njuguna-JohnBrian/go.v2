@@ -6,3 +6,4 @@ export 'home/home.dart';
 export 'connection/connection_screen.dart';
 export 'loading/loading_screen.dart';
 export 'profile/profile_screen.dart';
+export 'follow/follow.dart';
