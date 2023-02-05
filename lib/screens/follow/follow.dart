@@ -11,6 +11,14 @@ class FollowScreen extends StatefulWidget {
 class _FollowScreenState extends State<FollowScreen> {
   @override
   Widget build(BuildContext context) {
+    final List<Tab> profileTabs = <Tab>[
+      const Tab(
+        child: Text("0 following"),
+      ),
+      const Tab(
+        child: Text("0 followers"),
+      )
+    ];
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -32,6 +40,25 @@ class _FollowScreenState extends State<FollowScreen> {
           style: GoTheme.lightTextTheme.headline6?.copyWith(
             color: GoTheme.mainColor,
           ),
+        ),
+      ),
+      body: DefaultTabController(
+        length: 2,
+        initialIndex: 0,
+        animationDuration: const Duration(
+          microseconds: 500,
+        ),
+        child: Column(
+          children: [
+            TabBar(
+              unselectedLabelColor: GoTheme.mainLigtColor,
+              labelColor: GoTheme.mainColor,
+              labelStyle: GoTheme.lightTextTheme.headline6,
+              indicatorColor: GoTheme.mainLigtColor,
+              tabs: profileTabs,
+            ),
+
+          ],
         ),
       ),
     );
