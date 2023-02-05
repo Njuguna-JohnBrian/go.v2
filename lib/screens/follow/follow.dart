@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:go/globals/globals_barrel.dart' show GlobalSpinner;
 import 'package:go/theme/go_theme.dart';
 
 class FollowScreen extends StatefulWidget {
-  final List<dynamic> following;
-  final List<dynamic> followers;
+  final List following;
+  final List followers;
   final int currentIndex;
   const FollowScreen({
     Key? key,
@@ -19,38 +19,32 @@ class FollowScreen extends StatefulWidget {
 }
 
 class _FollowScreenState extends State<FollowScreen> {
+  var userData = [];
+  late Future getFollowers;
+
   @override
   void initState() {
-    // widget.following.map((e) => print(e)).toList();
+    getFollowers = getData();
     super.initState();
   }
 
-  Future getData({required List<dynamic> data}) async {
+  Future getData() async {
+    final data = [
+      "839SMKPfBuhqZuDDaJI4ZTt7Vij1",
+      "er24ji8rbSeyn6H9swKVE4Er4Qt1",
+      "w8yDHnBH4LTZjVjvNQeHsCHPZPT2"
+    ];
     for (var id in data) {
-      var userSnap = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(id)
-          .get();
+      var userSnap =
+          await FirebaseFirestore.instance.collection("users").doc(id).get();
 
-      return userSnap.data();
+      userData.add(userSnap.data());
     }
-
-    // data.map(
-    //   (id) async =>
-    //       await FirebaseFirestore.instance.collection("users").doc(id).get(),
-    // );
-
-    // var userSnap = await FirebaseFirestore.instance
-    //     .collection("users")
-    //     .doc("839SMKPfBuhqZuDDaJI4ZTt7Vij1")
-    //     .get();
-    //
-    // print(userSnap.data()!);
+    return userData;
   }
 
   @override
   Widget build(BuildContext context) {
-    // print(widget.following);
     final List<Tab> profileTabs = <Tab>[
       const Tab(
         child: Text("0 following"),
@@ -102,23 +96,68 @@ class _FollowScreenState extends State<FollowScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(15),
-                    child: ListView.builder(
-                      itemCount: widget.following.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 10.0,
-                          ),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: widget.following.map((e) {
-                                return Container(
-                                  color: Colors.red,
-                                  height: 10,
-                                  width: 10,
-                                );
-                              }).toList()),
-                        );
+                    child: FutureBuilder(
+                      future: getFollowers,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: userData.length,
+                            itemExtent: 80,
+                            itemBuilder: (context, index) {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    width: 50,
+                                    padding: const EdgeInsets.all(1.5),
+                                    decoration: BoxDecoration(
+                                      color: GoTheme.mainColor,
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image(
+                                        image: NetworkImage(
+                                          "${snapshot.data[index]["photo_url"]}",
+                                        ),
+                                        filterQuality: FilterQuality.medium,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                      "${snapshot.data[index]["display_name"]}",
+                                      style: GoTheme.lightTextTheme.headline3
+                                          ?.copyWith(
+                                              overflow: TextOverflow.fade)),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.grey.shade200,
+                                      foregroundColor: Colors.black,
+                                      minimumSize: const Size(
+                                        100,
+                                        35,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          5,
+                                        ),
+                                      ),
+                                    ),
+                                    onPressed: () {},
+                                    child: const Text(
+                                      "Following",
+                                    ),
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        } else {
+                          return GlobalSpinner(context: context);
+                        }
                       },
                     ),
                   ),
@@ -134,84 +173,3 @@ class _FollowScreenState extends State<FollowScreen> {
     );
   }
 }
-// Row(
-//                               children: [
-//                                 Container(
-//                                   height: size.height * 0.090,
-//                                   width: size.width * 0.18,
-//                                   padding: const EdgeInsets.all(1.5),
-//                                   decoration: BoxDecoration(
-//                                     color: GoTheme.mainColor,
-//                                     borderRadius: BorderRadius.circular(50),
-//                                   ),
-//                                   child: ClipRRect(
-//                                     borderRadius: BorderRadius.circular(50),
-//                                     child: const Image(
-//                                       image: NetworkImage(
-//                                         "https://tinyurl.com/kufs4ucf",
-//                                       ),
-//                                       filterQuality: FilterQuality.medium,
-//                                       fit: BoxFit.cover,
-//                                     ),
-//                                   ),
-//                                 ),
-//                                 SizedBox(width: size.width * 0.04,),
-//                                 Text(
-//                                   "John Brian Ngugi",
-//                                   style: GoTheme.lightTextTheme.headline3,
-//                                 ),
-//                                 SizedBox(width: size.width * 0.04,),
-//                                 ElevatedButton(
-//                                   style: ElevatedButton.styleFrom(
-//                                     backgroundColor: Colors.grey.shade200,
-//                                     foregroundColor: Colors.black,
-//                                     minimumSize: const Size(
-//                                       100,
-//                                       35,
-//                                     ),
-//                                     shape: RoundedRectangleBorder(
-//                                       borderRadius: BorderRadius.circular(
-//                                         5,
-//                                       ),
-//                                     ),
-//                                   ),
-//                                   onPressed: () {},
-//                                   child: const Text(
-//                                     "Following",
-//                                   ),
-//                                 ),
-//                               ],
-//                              )
-
-
-// Expanded(
-//               child: TabBarView(
-//                 children: [
-//                   Container(
-//                     padding: const EdgeInsets.all(15),
-//                     child: ListView.builder(
-//                       itemCount: widget.following.length,
-//                       itemBuilder: (context, index) {
-//                         return Padding(
-//                           padding: const EdgeInsets.only(
-//                             bottom: 10.0,
-//                           ),
-//                           child: Column(
-//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                               children: widget.following.map((e) {
-//                                 return Container(
-//                                   color: Colors.red,
-//                                   height: 10,
-//                                   width: 10,
-//                                 );
-//                               }).toList()),
-//                         );
-//                       },
-//                     ),
-//                   ),
-//                   Container(
-//                     color: Colors.grey,
-//                   ),
-//                 ],
-//               ),
-//             ),
