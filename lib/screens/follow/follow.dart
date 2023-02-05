@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go/theme/go_theme.dart';
 
 class FollowScreen extends StatefulWidget {
-  const FollowScreen({Key? key}) : super(key: key);
+  final List<dynamic> following;
+  final List<dynamic> followers;
+  final int currentIndex;
+  const FollowScreen({
+    Key? key,
+    required this.following,
+    required this.followers, required this.currentIndex,
+  }) : super(key: key);
 
   @override
   State<FollowScreen> createState() => _FollowScreenState();
@@ -44,7 +51,7 @@ class _FollowScreenState extends State<FollowScreen> {
       ),
       body: DefaultTabController(
         length: 2,
-        initialIndex: 0,
+        initialIndex: widget.currentIndex,
         animationDuration: const Duration(
           microseconds: 500,
         ),
