@@ -4,6 +4,7 @@ import 'package:go/animations/animations_barrel.dart';
 import 'package:go/globals/globals_barrel.dart';
 import 'package:go/globals/string_extension.dart';
 import 'package:go/models/models_barrel.dart';
+import 'package:go/screens/screens_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -101,7 +102,17 @@ class ProfileBody extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => FollowScreen(
+                                  following: userData.following,
+                                  followers: userData.followers,
+                                  currentIndex: 0,
+                                ),
+                              ),
+                            );
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
@@ -129,7 +140,17 @@ class ProfileBody extends StatelessWidget {
                           width: 10,
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => FollowScreen(
+                                  following: userData.following,
+                                  followers: userData.followers,
+                                  currentIndex: 1,
+                                ),
+                              ),
+                            );
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
