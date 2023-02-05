@@ -73,9 +73,9 @@ class _FollowScreenState extends State<FollowScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                height: 70,
-                                width: 70,
-                                padding: EdgeInsets.all(1.5),
+                                height: size.height * 0.090,
+                                width: size.width * 0.18,
+                                padding: const EdgeInsets.all(1.5),
                                 decoration: BoxDecoration(
                                   color: GoTheme.mainColor,
                                   borderRadius: BorderRadius.circular(50),
