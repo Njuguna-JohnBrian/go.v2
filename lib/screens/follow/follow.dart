@@ -91,6 +91,29 @@ class _FollowScreenState extends State<FollowScreen> {
                                   ),
                                 ),
                               ),
+                              Text(
+                                "John Brian Ngugi",
+                                style: GoTheme.lightTextTheme.headline3,
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.grey.shade200,
+                                  foregroundColor: Colors.black,
+                                  minimumSize: const Size(
+                                    100,
+                                    35,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      5,
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () {},
+                                child: const Text(
+                                  "Following",
+                                ),
+                              ),
                             ],
                           ),
                         );
