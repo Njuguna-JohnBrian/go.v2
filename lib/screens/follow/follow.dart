@@ -57,7 +57,52 @@ class _FollowScreenState extends State<FollowScreen> {
               indicatorColor: GoTheme.mainLigtColor,
               tabs: profileTabs,
             ),
-
+            Expanded(
+              child: TabBarView(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    child: ListView.builder(
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 10.0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 70,
+                                width: 70,
+                                padding: EdgeInsets.all(1.5),
+                                decoration: BoxDecoration(
+                                  color: GoTheme.mainColor,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: const Image(
+                                    image: NetworkImage(
+                                      "https://tinyurl.com/kufs4ucf",
+                                    ),
+                                    filterQuality: FilterQuality.medium,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
