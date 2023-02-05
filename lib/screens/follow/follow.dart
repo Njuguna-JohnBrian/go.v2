@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go/backend/userinfo/backend_firestore.dart';
 import 'package:go/globals/globals_barrel.dart' show GlobalSpinner;
 import 'package:go/theme/go_theme.dart';
 
@@ -19,38 +21,57 @@ class FollowScreen extends StatefulWidget {
 }
 
 class _FollowScreenState extends State<FollowScreen> {
-  var userData = [];
+  var userFollowingData = [];
+  var userFollowersData = [];
+  late Future getFollowing;
   late Future getFollowers;
 
   @override
   void initState() {
-    getFollowers = getData();
+    getFollowing = getFollowingData();
+    getFollowers = getFollowersData();
     super.initState();
   }
 
-  Future getData() async {
+  Future getFollowingData() async {
     final data = [
       "839SMKPfBuhqZuDDaJI4ZTt7Vij1",
       "er24ji8rbSeyn6H9swKVE4Er4Qt1",
       "w8yDHnBH4LTZjVjvNQeHsCHPZPT2"
     ];
+
     for (var id in data) {
       var userSnap =
           await FirebaseFirestore.instance.collection("users").doc(id).get();
 
-      userData.add(userSnap.data());
+      userFollowingData.add(userSnap.data());
     }
-    return userData;
+    return userFollowingData;
+  }
+
+  Future getFollowersData() async {
+    final data = ["839SMKPfBuhqZuDDaJI4ZTt7Vij1"];
+    for (var id in data) {
+      var userSnap =
+          await FirebaseFirestore.instance.collection("users").doc(id).get();
+
+      userFollowersData.add(userSnap.data());
+    }
+    return userFollowersData;
   }
 
   @override
   Widget build(BuildContext context) {
     final List<Tab> profileTabs = <Tab>[
-      const Tab(
-        child: Text("0 following"),
+      Tab(
+        child: Text(
+          "${widget.following.length} following",
+        ),
       ),
-      const Tab(
-        child: Text("0 followers"),
+      Tab(
+        child: Text(
+          "${widget.followers.length} ${widget.followers.length > 1 ? 'followers' : 'follower'}",
+        ),
       )
     ];
     Size size = MediaQuery.of(context).size;
@@ -97,63 +118,14 @@ class _FollowScreenState extends State<FollowScreen> {
                   Container(
                     padding: const EdgeInsets.all(15),
                     child: FutureBuilder(
-                      future: getFollowers,
+                      future: getFollowing,
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.hasData) {
-                          return ListView.builder(
-                            itemCount: userData.length,
-                            itemExtent: 80,
-                            itemBuilder: (context, index) {
-                              return Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    width: 50,
-                                    padding: const EdgeInsets.all(1.5),
-                                    decoration: BoxDecoration(
-                                      color: GoTheme.mainColor,
-                                      borderRadius: BorderRadius.circular(50),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: Image(
-                                        image: NetworkImage(
-                                          "${snapshot.data[index]["photo_url"]}",
-                                        ),
-                                        filterQuality: FilterQuality.medium,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                      "${snapshot.data[index]["display_name"]}",
-                                      style: GoTheme.lightTextTheme.headline3
-                                          ?.copyWith(
-                                              overflow: TextOverflow.fade)),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.grey.shade200,
-                                      foregroundColor: Colors.black,
-                                      minimumSize: const Size(
-                                        100,
-                                        35,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          5,
-                                        ),
-                                      ),
-                                    ),
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "Following",
-                                    ),
-                                  )
-                                ],
-                              );
-                            },
+                          return buildFollowView(
+                            context,
+                            snapshot,
+                            userFollowingData,
+                            "Unfollow",
                           );
                         } else {
                           return GlobalSpinner(context: context);
@@ -162,7 +134,22 @@ class _FollowScreenState extends State<FollowScreen> {
                     ),
                   ),
                   Container(
-                    color: Colors.grey,
+                    padding: const EdgeInsets.all(15),
+                    child: FutureBuilder(
+                      future: getFollowers,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return buildFollowView(
+                            context,
+                            snapshot,
+                            userFollowersData,
+                            "Remove",
+                          );
+                        } else {
+                          return GlobalSpinner(context: context);
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -170,6 +157,69 @@ class _FollowScreenState extends State<FollowScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildFollowView(BuildContext context, AsyncSnapshot<dynamic> snapshot,
+      List<dynamic> data, String action) {
+    return ListView.builder(
+      itemCount: data.length,
+      itemExtent: 80,
+      itemBuilder: (context, index) {
+        String photoUrl = snapshot.data[index]["photo_url"];
+        String displayName = snapshot.data[index]["display_name"];
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 50,
+              width: 50,
+              padding: const EdgeInsets.all(1.5),
+              decoration: BoxDecoration(
+                color: GoTheme.mainColor,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: Image(
+                  image: NetworkImage(
+                    photoUrl,
+                  ),
+                  filterQuality: FilterQuality.medium,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            Text(displayName,
+                style: GoTheme.lightTextTheme.headline3
+                    ?.copyWith(overflow: TextOverflow.fade)),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.grey.shade200,
+                foregroundColor: Colors.black,
+                minimumSize: const Size(
+                  100,
+                  35,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    5,
+                  ),
+                ),
+              ),
+              onPressed: () async {
+                await FirestoreMethods().followUnfollowUser(
+                  FirebaseAuth.instance.currentUser!.uid,
+                  snapshot.data[index]["uid"],
+                );
+              },
+              child: Text(
+                action,
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }
