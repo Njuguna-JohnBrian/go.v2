@@ -27,6 +27,12 @@ class _FollowScreenState extends State<FollowScreen> {
             Navigator.of(context).pop();
           },
         ),
+        title: Text(
+          "John Brian",
+          style: GoTheme.lightTextTheme.headline6?.copyWith(
+            color: GoTheme.mainColor,
+          ),
+        ),
       ),
     );
   }
