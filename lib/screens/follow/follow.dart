@@ -36,32 +36,37 @@ class _FollowScreenState extends State<FollowScreen> {
   Future getFollowingData() async {
     final data = widget.following;
 
-    var users = await Future.wait(data.map((id) {
-      return FirebaseFirestore.instance.collection("users").doc(id).get();
-    }));
+    var users = await Future.wait(
+      data.map(
+        (id) {
+          return FirebaseFirestore.instance.collection("users").doc(id).get();
+        },
+      ),
+    );
 
     userFollowingData = [
       ...userFollowingData,
       ...users,
     ].toList();
 
-    // for (var id in data) {
-    //   var userSnap =
-    //       await FirebaseFirestore.instance.collection("users").doc(id).get();
-    //
-    //   userFollowingData.add(userSnap.data());
-    // }
     return userFollowingData;
   }
 
   Future getFollowersData() async {
     final data = widget.followers;
-    for (var id in data) {
-      var userSnap =
-          await FirebaseFirestore.instance.collection("users").doc(id).get();
 
-      userFollowersData.add(userSnap.data());
-    }
+    var users = await Future.wait(
+      data.map(
+        (id) {
+          return FirebaseFirestore.instance.collection("users").doc(id).get();
+        },
+      ),
+    );
+
+    userFollowersData = [
+      ...userFollowersData,
+      ...users,
+    ].toList();
     return userFollowersData;
   }
 
@@ -75,7 +80,9 @@ class _FollowScreenState extends State<FollowScreen> {
       ),
       Tab(
         child: Text(
-          "${widget.followers.length} ${widget.followers.length > 1 ? 'followers' : 'follower'}",
+          "${widget.followers.length} "
+          "${widget.followers.length == 1 ? ''
+              'follower' : 'followers'}",
         ),
       )
     ];
