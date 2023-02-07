@@ -34,23 +34,28 @@ class _FollowScreenState extends State<FollowScreen> {
   }
 
   Future getFollowingData() async {
-    final data = [
-      "839SMKPfBuhqZuDDaJI4ZTt7Vij1",
-      "er24ji8rbSeyn6H9swKVE4Er4Qt1",
-      "w8yDHnBH4LTZjVjvNQeHsCHPZPT2"
-    ];
+    final data = widget.following;
 
-    for (var id in data) {
-      var userSnap =
-          await FirebaseFirestore.instance.collection("users").doc(id).get();
+    var users = await Future.wait(data.map((id) {
+      return FirebaseFirestore.instance.collection("users").doc(id).get();
+    }));
 
-      userFollowingData.add(userSnap.data());
-    }
+    userFollowingData = [
+      ...userFollowingData,
+      ...users,
+    ].toList();
+
+    // for (var id in data) {
+    //   var userSnap =
+    //       await FirebaseFirestore.instance.collection("users").doc(id).get();
+    //
+    //   userFollowingData.add(userSnap.data());
+    // }
     return userFollowingData;
   }
 
   Future getFollowersData() async {
-    final data = ["839SMKPfBuhqZuDDaJI4ZTt7Vij1"];
+    final data = widget.followers;
     for (var id in data) {
       var userSnap =
           await FirebaseFirestore.instance.collection("users").doc(id).get();
