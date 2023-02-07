@@ -15,7 +15,7 @@ class UserDataModel {
     required Map<String, dynamic> json,
   })  : displayName = json[UserDataKeys.displayName],
         email = json[UserDataKeys.email],
-        followers = json[UserDataKeys.followers],
-        following = json[UserDataKeys.following],
+        followers = json[UserDataKeys.followers] ?? [],
+        following = json[UserDataKeys.following] ?? [],
         profilePhoto = json[UserDataKeys.profilePhoto];
 }
