@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go/animations/animations_barrel.dart';
-import 'package:go/globals/globals_barrel.dart';
-import 'package:go/globals/string_extension.dart';
-import 'package:go/models/models_barrel.dart';
-import 'package:go/screens/screens_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go/globals/string_extension.dart';
 
+import 'package:go/globals/globals_barrel.dart' show GlobalAssets;
+
+import 'package:go/models/models_barrel.dart' show UserDataModel;
+import 'package:go/screens/follow/utils/strings.dart';
+import 'package:go/screens/screens_barrel.dart' show FollowScreen;
 import '../utils/strings.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -129,7 +131,7 @@ class ProfileBody extends StatelessWidget {
                             width: 80,
                             height: 30,
                             child: Text(
-                              "${userData.following.length} following",
+                              "${userData.following.length} ${FollowStrings.following}",
                               style: GoTheme.darkTextTheme.bodyText1?.copyWith(
                                 fontSize: 10,
                               ),
@@ -167,7 +169,7 @@ class ProfileBody extends StatelessWidget {
                             width: 80,
                             height: 30,
                             child: Text(
-                              "${userData.followers.length} followers",
+                              "${userData.followers.length} ${FollowStrings.followers}",
                               style: GoTheme.darkTextTheme.bodyText1?.copyWith(
                                 fontSize: 10,
                               ),
@@ -239,13 +241,13 @@ class _UserActivityState extends State<UserActivity> {
                 tabs: [
                   Tab(
                     child: Text(
-                      "Trips",
+                      ProfileStrings.trips,
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
                   Tab(
                     child: Text(
-                      "Insights",
+                      ProfileStrings.insights,
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
