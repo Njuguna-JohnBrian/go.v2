@@ -1,9 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:go/backend/userinfo/backend_firestore.dart';
+
+import 'package:go/backend/backend_barrel.dart'
+    show FirebaseCollectionName, FirebaseFieldName;
 import 'package:go/globals/globals_barrel.dart' show GlobalSpinner;
 import 'package:go/theme/go_theme.dart';
+
+import 'utils/strings.dart';
 
 class FollowScreen extends StatefulWidget {
   final List following;
@@ -39,7 +44,12 @@ class _FollowScreenState extends State<FollowScreen> {
     var users = await Future.wait(
       data.map(
         (id) {
-          return FirebaseFirestore.instance.collection("users").doc(id).get();
+          return FirebaseFirestore.instance
+              .collection(
+                FirebaseCollectionName.users,
+              )
+              .doc(id)
+              .get();
         },
       ),
     );
@@ -58,7 +68,12 @@ class _FollowScreenState extends State<FollowScreen> {
     var users = await Future.wait(
       data.map(
         (id) {
-          return FirebaseFirestore.instance.collection("users").doc(id).get();
+          return FirebaseFirestore.instance
+              .collection(
+                FirebaseCollectionName.users,
+              )
+              .doc(id)
+              .get();
         },
       ),
     );
@@ -75,14 +90,14 @@ class _FollowScreenState extends State<FollowScreen> {
     final List<Tab> profileTabs = <Tab>[
       Tab(
         child: Text(
-          "${widget.following.length} following",
+          "${widget.following.length} ${FollowStrings.following}",
         ),
       ),
       Tab(
         child: Text(
           "${widget.followers.length} "
           "${widget.followers.length == 1 ? ''
-              'follower' : 'followers'}",
+              '${FollowStrings.follower}' : FollowStrings.followers}",
         ),
       )
     ];
@@ -103,7 +118,7 @@ class _FollowScreenState extends State<FollowScreen> {
           },
         ),
         title: Text(
-          "John Brian",
+          "${FirebaseAuth.instance.currentUser?.displayName}",
           style: GoTheme.lightTextTheme.headline6?.copyWith(
             color: GoTheme.mainColor,
           ),
@@ -137,7 +152,7 @@ class _FollowScreenState extends State<FollowScreen> {
                             context,
                             snapshot,
                             userFollowingData,
-                            "Unfollow",
+                            FollowStrings.unfollow,
                           );
                         } else {
                           return GlobalSpinner(context: context);
@@ -155,7 +170,7 @@ class _FollowScreenState extends State<FollowScreen> {
                             context,
                             snapshot,
                             userFollowersData,
-                            "Remove",
+                            FollowStrings.remove,
                           );
                         } else {
                           return GlobalSpinner(context: context);
@@ -178,8 +193,9 @@ class _FollowScreenState extends State<FollowScreen> {
       itemCount: data.length,
       itemExtent: 80,
       itemBuilder: (context, index) {
-        String photoUrl = snapshot.data[index]["photo_url"];
-        String displayName = snapshot.data[index]["display_name"];
+        String photoUrl = snapshot.data[index][FirebaseFieldName.photoUrl];
+        String displayName =
+            snapshot.data[index][FirebaseFieldName.displayName];
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -202,9 +218,12 @@ class _FollowScreenState extends State<FollowScreen> {
                 ),
               ),
             ),
-            Text(displayName,
-                style: GoTheme.lightTextTheme.headline3
-                    ?.copyWith(overflow: TextOverflow.fade)),
+            Text(
+              displayName,
+              style: GoTheme.lightTextTheme.headline3?.copyWith(
+                overflow: TextOverflow.fade,
+              ),
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.grey.shade200,
@@ -222,7 +241,7 @@ class _FollowScreenState extends State<FollowScreen> {
               onPressed: () async {
                 await FirestoreMethods().followUnfollowUser(
                   FirebaseAuth.instance.currentUser!.uid,
-                  snapshot.data[index]["uid"],
+                  snapshot.data[index][FirebaseFieldName.userId],
                 );
               },
               child: Text(
