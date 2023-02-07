@@ -183,7 +183,10 @@ class ProfileBody extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const UsersScreen(),
+                                builder: (context) => UsersScreen(
+                                  followers: userData.followers,
+                                  following: userData.following,
+                                ),
                               ),
                             );
                           },
