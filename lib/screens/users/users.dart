@@ -1,15 +1,25 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go/state/providers/users/users_provider.dart';
 import 'package:go/theme/go_theme.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'utils/strings.dart';
 
-class UsersScreen extends StatelessWidget {
-  const UsersScreen({Key? key}) : super(key: key);
+class UsersScreen extends ConsumerWidget {
+  final List<dynamic> followers;
+  final List<dynamic> following;
+  const UsersScreen({
+    Key? key,
+    required this.followers,
+    required this.following,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
+    // final users = ref.watch(allUsersProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
