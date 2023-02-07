@@ -9,7 +9,7 @@ import 'package:go/globals/globals_barrel.dart' show GlobalAssets;
 
 import 'package:go/models/models_barrel.dart' show UserDataModel;
 import 'package:go/screens/follow/utils/strings.dart';
-import 'package:go/screens/screens_barrel.dart' show FollowScreen;
+import 'package:go/screens/screens_barrel.dart' show FollowScreen, UsersScreen;
 import '../utils/strings.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -180,7 +180,13 @@ class ProfileBody extends StatelessWidget {
                           width: 5,
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const UsersScreen(),
+                              ),
+                            );
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
