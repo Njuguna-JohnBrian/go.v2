@@ -137,6 +137,44 @@ class _TripsScreenState extends State<TripsScreen> {
                     ),
                   ),
                 ),
+          SizedBox(
+            width: size.width * 0.10,
+          ),
+          GestureDetector(
+            onTap: () async {
+              await buildImageDialog(
+                context: context,
+                size: size,
+              );
+            },
+            child: Container(
+              height: size.height * 0.04,
+              width: size.width * 0.4,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                border: Border.all(
+                  color: coverImage != null
+                      ? Colors.black.withOpacity(
+                          0.4,
+                        )
+                      : Colors.redAccent,
+                ),
+                borderRadius: BorderRadius.circular(
+                  20,
+                ),
+              ),
+              child: Text(
+                coverImage != null
+                    ? "Change cover photo"
+                    : "Upload cover photo",
+                style: GoTheme.darkTextTheme.bodyText1?.copyWith(
+                  fontSize: 12,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -161,7 +199,9 @@ class _TripsScreenState extends State<TripsScreen> {
           ),
           children: [
             SimpleDialogOption(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(
+                20,
+              ),
               child: Row(
                 children: [
                   const Icon(
@@ -188,7 +228,9 @@ class _TripsScreenState extends State<TripsScreen> {
               },
             ),
             SimpleDialogOption(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(
+                20,
+              ),
               child: Row(
                 children: [
                   const Icon(
