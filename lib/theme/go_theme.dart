@@ -72,6 +72,7 @@ class GoTheme {
 
   static ThemeData light() {
     return ThemeData(
+      useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: Colors.white,
       fontFamily: "OpenSans",
@@ -106,6 +107,7 @@ class GoTheme {
 
   static ThemeData dark() {
     return ThemeData(
+      useMaterial3: true,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: Colors.white,
       fontFamily: "OpenSans",
