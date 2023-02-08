@@ -9,7 +9,8 @@ import 'package:go/globals/globals_barrel.dart' show GlobalAssets;
 
 import 'package:go/models/models_barrel.dart' show UserDataModel;
 import 'package:go/screens/follow/utils/strings.dart';
-import 'package:go/screens/screens_barrel.dart' show FollowScreen, UsersScreen;
+import 'package:go/screens/screens_barrel.dart'
+    show FollowScreen, TripsScreen, UsersScreen;
 import '../utils/strings.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -36,7 +37,13 @@ class ProfileBody extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const TripsScreen(),
+                  ),
+                );
+              },
               icon: const Icon(
                 Icons.add,
                 color: GoTheme.mainColor,
