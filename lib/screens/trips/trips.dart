@@ -214,6 +214,31 @@ class _TripsScreenState extends State<TripsScreen> {
                 });
               },
             ),
+            Center(
+              child: SimpleDialogOption(
+                padding: const EdgeInsets.all(
+                  20,
+                ),
+                child: TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                    ),
+                    minimumSize: const Size(
+                      100,
+                      35,
+                    ),
+                  ),
+                  child: Text(
+                    "Cancel",
+                    style: GoTheme.darkTextTheme.headline3,
+                  ),
+                ),
+              ),
+            ),
           ],
         );
       },
