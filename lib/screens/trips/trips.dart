@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go/globals/globals_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class TripsScreen extends StatefulWidget {
   const TripsScreen({Key? key}) : super(key: key);
@@ -18,13 +19,14 @@ class _TripsScreenState extends State<TripsScreen> {
   final TextEditingController _tripNameController = TextEditingController();
   final TextEditingController _tripDescriptionController =
       TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
+  final TextEditingController _startDateController = TextEditingController();
   Uint8List? coverImage;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -89,6 +91,13 @@ class _TripsScreenState extends State<TripsScreen> {
                       context: context,
                     ),
                     buildDescription(
+                      context: context,
+                      size: size,
+                    ),
+                    buildPadding(
+                      context: context,
+                    ),
+                    buildCalendarSection(
                       context: context,
                       size: size,
                     ),
@@ -366,12 +375,12 @@ class _TripsScreenState extends State<TripsScreen> {
               width: size.width * 0.70,
               child: TextFormField(
                 controller: _tripDescriptionController,
-                validator: ((value){
+                validator: ((value) {
                   if (value!.isEmpty) {
                     return "Please provide a trip summary";
                   } else if (value.length < 3) {
                     return "Please provide a longer trip summary";
-                  }else {
+                  } else {
                     return null;
                   }
                 }),
@@ -379,13 +388,83 @@ class _TripsScreenState extends State<TripsScreen> {
                 decoration: InputDecoration(
                   labelText: 'Trip Summary',
                   labelStyle: GoTheme.lightTextTheme.headline6,
-                  hintText: 'e.g An awesome road trip through the desserts on Africa with my family',
+                  hintText:
+                      'e.g An awesome road trip through the desserts on Africa with my family',
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
               ),
             )
           ],
         )
+      ],
+    );
+  }
+
+  Widget buildCalendarSection(
+      {required BuildContext context, required Size size}) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            const Icon(
+              Icons.calendar_today_outlined,
+              color: Colors.grey,
+              size: 30,
+            ),
+            SizedBox(
+              width: size.width * 0.12,
+            ),
+            SizedBox(
+              width: size.width * 0.70,
+              child: TextFormField(
+                controller: _startDateController,
+                readOnly: true,
+                decoration: InputDecoration(
+                  labelText: "Start Date",
+                  labelStyle: GoTheme.lightTextTheme.headline6,
+                  hintText: DateFormat("MMMM dd yyyy").format(
+                    DateTime.now(),
+                  ),
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                ),
+                onTap: () async {
+                  await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(
+                      DateTime.now().year + 5,
+                    ),
+                    helpText: "Select start date",
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: const ColorScheme.light(
+                            primary: GoTheme.mainColor,
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.blueAccent,
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  ).then((value) {
+                    if (value != null) {
+                      _startDateController.text =
+                          DateFormat("MMMM dd yyyy").format(
+                        value,
+                      );
+                    }
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
