@@ -15,12 +15,16 @@ class TripsScreen extends StatefulWidget {
 
 class _TripsScreenState extends State<TripsScreen> {
   final GlobalKey<FormState> _tripsFormKey = GlobalKey<FormState>();
+  final TextEditingController _tripNameController = TextEditingController();
+  final TextEditingController _tripDescriptionController =
+      TextEditingController();
   Uint8List? coverImage;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -48,7 +52,12 @@ class _TripsScreenState extends State<TripsScreen> {
             ),
             child: Center(
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  if (_tripsFormKey.currentState!.validate()) {
+                    print(coverImage?.isEmpty);
+                    print(coverImage);
+                  }
+                },
                 child: Text(
                   "Save",
                   style: GoTheme.lightTextTheme.headline6
@@ -73,6 +82,13 @@ class _TripsScreenState extends State<TripsScreen> {
                 Column(
                   children: [
                     buildImageSelector(
+                      context: context,
+                      size: size,
+                    ),
+                    buildPadding(
+                      context: context,
+                    ),
+                    buildDescription(
                       context: context,
                       size: size,
                     ),
@@ -284,6 +300,93 @@ class _TripsScreenState extends State<TripsScreen> {
           ],
         );
       },
+    );
+  }
+
+  Widget buildPadding({required BuildContext context}) {
+    return const Padding(
+      padding: EdgeInsets.only(
+        top: 30.0,
+        bottom: 30.0,
+      ),
+      child: Divider(
+        thickness: 2,
+      ),
+    );
+  }
+
+  Widget buildDescription({required BuildContext context, required Size size}) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            const Icon(
+              Icons.title,
+              color: Colors.grey,
+              size: 30,
+            ),
+            SizedBox(
+              width: size.width * 0.12,
+            ),
+            SizedBox(
+              width: size.width * 0.70,
+              child: TextFormField(
+                controller: _tripNameController,
+                validator: ((value) {
+                  if (value!.isEmpty) {
+                    return "Please provide trip name/title";
+                  } else if (value.length < 3) {
+                    return "Please provide a longer trip name";
+                  } else {
+                    return null;
+                  }
+                }),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  labelText: "Trip Name/Title",
+                  labelStyle: GoTheme.lightTextTheme.headline6,
+                  hintText: 'e.g African Road Trip',
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Icon(
+              Icons.summarize_outlined,
+              color: Colors.grey,
+              size: 30,
+            ),
+            SizedBox(
+              width: size.width * 0.12,
+            ),
+            SizedBox(
+              width: size.width * 0.70,
+              child: TextFormField(
+                controller: _tripDescriptionController,
+                validator: ((value){
+                  if (value!.isEmpty) {
+                    return "Please provide a trip summary";
+                  } else if (value.length < 3) {
+                    return "Please provide a longer trip summary";
+                  }else {
+                    return null;
+                  }
+                }),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  labelText: 'Trip Summary',
+                  labelStyle: GoTheme.lightTextTheme.headline6,
+                  hintText: 'e.g An awesome road trip through the desserts on Africa with my family',
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                ),
+              ),
+            )
+          ],
+        )
+      ],
     );
   }
 }
