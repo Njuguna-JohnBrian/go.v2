@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go/backend/userinfo/backend_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:go/animations/animations_barrel.dart'
@@ -25,25 +27,33 @@ class UsersScreen extends ConsumerWidget {
     final users = ref.watch(allUsersProvider);
 
     return RefreshIndicator(
+      backgroundColor: GoTheme.mainColor,
+      color: Colors.white,
       child: users.when(
         data: (users) {
           if (users.isEmpty) {
-            return const Scaffold(
-              body: EmptyContentAnimationView(),
+            return const Center(
+              child: EmptyContentAnimationView(),
             );
           } else {
             return buildScaffold(
               context,
               size,
               users,
+              following,
+              followers,
             );
           }
         },
         error: (error, stackTrace) {
-          return const ErrorAnimationView();
+          return const Center(
+            child: ErrorAnimationView(),
+          );
         },
         loading: () {
-          return const LoadingAnimationView();
+          return const Center(
+            child: LoadingAnimationView(),
+          );
         },
       ),
       onRefresh: () {
@@ -55,16 +65,14 @@ class UsersScreen extends ConsumerWidget {
         );
       },
     );
-    //   buildScaffold(
-    //   context,
-    //   size,
-    // );
   }
 
   Widget buildScaffold(
     BuildContext context,
     Size size,
     Iterable<AllUsersDataModel> usersData,
+    List<dynamic> following,
+    List<dynamic> followers,
   ) {
     return Scaffold(
       appBar: AppBar(
@@ -93,6 +101,8 @@ class UsersScreen extends ConsumerWidget {
             context,
             size,
             usersData.elementAt(index),
+            following,
+            followers,
           );
         },
       ),
@@ -103,7 +113,12 @@ class UsersScreen extends ConsumerWidget {
     BuildContext context,
     Size size,
     AllUsersDataModel user,
+    List<dynamic> following,
+    List<dynamic> followers,
   ) {
+    bool isFollowing = following.contains(
+      user.userId,
+    );
     return Padding(
       padding: const EdgeInsets.all(
         8,
@@ -146,8 +161,16 @@ class UsersScreen extends ConsumerWidget {
               ),
               buildFollowButton(
                 context: context,
-                actionText: "Follow",
-                function: () {},
+                actionText: isFollowing ? "Unfollow" : "Follow",
+                function: () async {
+                  await FirestoreMethods().followUnfollowUser(
+                    FirebaseAuth.instance.currentUser!.uid,
+                    user.userId,
+                  );
+                },
+                foreColor: isFollowing ? Colors.black : Colors.white,
+                backColor:
+                    isFollowing ? Colors.grey.shade200 : GoTheme.mainColor,
               ),
             ],
           )
@@ -160,8 +183,8 @@ class UsersScreen extends ConsumerWidget {
     required BuildContext context,
     required String actionText,
     required Function() function,
-    bool? isFollowers,
     bool? isFollowing,
+    bool? isFollowers,
     Color? backColor,
     Color? foreColor,
   }) {
