@@ -465,6 +465,75 @@ class _TripsScreenState extends State<TripsScreen> {
             ),
           ],
         ),
+        Row(
+          children: [
+            const Icon(
+              Icons.today_sharp,
+              color: Colors.grey,
+              size: 30,
+            ),
+            SizedBox(
+              width: size.width * 0.12,
+            ),
+            SizedBox(
+              width: size.width * 0.70,
+              child: TextFormField(
+                controller: _endDateController,
+                readOnly: true,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: ((value) {
+                  if (value!.isEmpty) {
+                    return "Please provide an end date";
+                  } else {
+                    return null;
+                  }
+                }),
+                decoration: InputDecoration(
+                  labelText: "End Date",
+                  labelStyle: GoTheme.lightTextTheme.headline6,
+                  hintText: "End Date",
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                ),
+                onTap: () async {
+                  await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(
+                      DateTime.now().year + 5,
+                    ),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: const ColorScheme.light(
+                            primary: GoTheme.mainColor,
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.blueAccent,
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  ).then(
+                    (value) {
+                      if (value != null) {
+                        _endDateController.text = DateFormat(
+                          "MMMM dd yyyy",
+                        ).format(
+                          value,
+                        );
+                      }
+                    },
+                  );
+                },
+              ),
+            )
+          ],
+        )
       ],
     );
   }
