@@ -32,8 +32,10 @@ class UsersScreen extends ConsumerWidget {
       child: users.when(
         data: (users) {
           if (users.isEmpty) {
-            return const Center(
-              child: EmptyContentAnimationView(),
+            return const Scaffold(
+              body: const Center(
+                child: EmptyContentAnimationView(),
+              ),
             );
           } else {
             return buildScaffold(
@@ -46,13 +48,17 @@ class UsersScreen extends ConsumerWidget {
           }
         },
         error: (error, stackTrace) {
-          return const Center(
-            child: ErrorAnimationView(),
+          return const Scaffold(
+            body: Center(
+              child: ErrorAnimationView(),
+            ),
           );
         },
         loading: () {
-          return const Center(
-            child: LoadingAnimationView(),
+          return const Scaffold(
+            body: Center(
+              child: LoadingAnimationView(),
+            ),
           );
         },
       ),
