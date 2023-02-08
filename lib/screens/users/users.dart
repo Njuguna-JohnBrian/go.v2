@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:go/state/providers/users/users_provider.dart';
-import 'package:go/theme/go_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:go/animations/animations_barrel.dart'
+    show EmptyContentAnimationView, ErrorAnimationView, LoadingAnimationView;
+
+import 'package:go/models/userdata/users_data.dart' show AllUsersDataModel;
+import 'package:go/state/providers/users/users_provider.dart';
+import 'package:go/theme/go_theme.dart';
 import 'utils/strings.dart';
 
 class UsersScreen extends ConsumerWidget {
@@ -18,8 +22,50 @@ class UsersScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
-    // final users = ref.watch(allUsersProvider);
+    final users = ref.watch(allUsersProvider);
 
+    return RefreshIndicator(
+      child: users.when(
+        data: (users) {
+          if (users.isEmpty) {
+            return const Scaffold(
+              body: EmptyContentAnimationView(),
+            );
+          } else {
+            return buildScaffold(
+              context,
+              size,
+              users,
+            );
+          }
+        },
+        error: (error, stackTrace) {
+          return const ErrorAnimationView();
+        },
+        loading: () {
+          return const LoadingAnimationView();
+        },
+      ),
+      onRefresh: () {
+        ref.refresh(allUsersProvider);
+        return Future.delayed(
+          const Duration(
+            seconds: 3,
+          ),
+        );
+      },
+    );
+    //   buildScaffold(
+    //   context,
+    //   size,
+    // );
+  }
+
+  Widget buildScaffold(
+    BuildContext context,
+    Size size,
+    Iterable<AllUsersDataModel> usersData,
+  ) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -41,15 +87,23 @@ class UsersScreen extends ConsumerWidget {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
         ),
-        itemCount: 10,
+        itemCount: usersData.length,
         itemBuilder: (context, index) {
-          return buildUsersBody(context, size);
+          return buildUsersBody(
+            context,
+            size,
+            usersData.elementAt(index),
+          );
         },
       ),
     );
   }
 
-  Widget buildUsersBody(BuildContext context, Size size) {
+  Widget buildUsersBody(
+    BuildContext context,
+    Size size,
+    AllUsersDataModel user,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(
         8,
@@ -70,9 +124,9 @@ class UsersScreen extends ConsumerWidget {
               borderRadius: BorderRadius.circular(
                 50,
               ),
-              child: const Image(
+              child: Image(
                 image: CachedNetworkImageProvider(
-                  "https://tinyurl.com/kufs4ucf",
+                  user.profilePhoto,
                 ),
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.medium,
@@ -86,7 +140,7 @@ class UsersScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                "John Brian",
+                user.displayName,
                 style: GoTheme.lightTextTheme.headline3,
                 textAlign: TextAlign.center,
               ),

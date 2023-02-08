@@ -21,7 +21,7 @@ final allUsersProvider =
         .collection("users")
         .where(
           'uid',
-          isNotEqualTo: userId,
+          // isNotEqualTo: userId,
         )
         .orderBy("uid")
         .snapshots()
