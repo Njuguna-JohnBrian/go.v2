@@ -1,11 +1,12 @@
 import 'dart:typed_data';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:go/globals/globals_barrel.dart';
-import 'package:go/theme/go_theme.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:go/globals/globals_barrel.dart';
+import 'package:go/theme/go_theme.dart';
+
 
 class TripsScreen extends StatefulWidget {
   const TripsScreen({Key? key}) : super(key: key);
@@ -16,12 +17,21 @@ class TripsScreen extends StatefulWidget {
 
 class _TripsScreenState extends State<TripsScreen> {
   final GlobalKey<FormState> _tripsFormKey = GlobalKey<FormState>();
+  final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   final TextEditingController _tripNameController = TextEditingController();
   final TextEditingController _tripDescriptionController =
       TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
   final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
   Uint8List? coverImage;
+  bool isGlobalLocationEnabled = false;
+
+  @override
+  void initState() {
+    _checkLocationOnInit();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +65,7 @@ class _TripsScreenState extends State<TripsScreen> {
             child: Center(
               child: GestureDetector(
                 onTap: () {
-                  if (_tripsFormKey.currentState!.validate()) {
-                    print(coverImage?.isEmpty);
-                    print(coverImage);
-                  }
+                  if (_tripsFormKey.currentState!.validate()) {}
                 },
                 child: Text(
                   "Save",
@@ -98,6 +105,13 @@ class _TripsScreenState extends State<TripsScreen> {
                       context: context,
                     ),
                     buildCalendarSection(
+                      context: context,
+                      size: size,
+                    ),
+                    buildPadding(
+                      context: context,
+                    ),
+                    buildLocationSection(
                       context: context,
                       size: size,
                     ),
@@ -536,5 +550,112 @@ class _TripsScreenState extends State<TripsScreen> {
         )
       ],
     );
+  }
+
+  Widget buildLocationSection(
+      {required BuildContext context, required Size size}) {
+    return Row(
+      children: [
+        const Icon(
+          Icons.location_on_outlined,
+          color: Colors.grey,
+          size: 30,
+        ),
+        SizedBox(
+          width: size.width * 0.12,
+        ),
+        SizedBox(
+          width: size.width * 0.55,
+          child: TextFormField(
+            controller: _locationController,
+            autovalidateMode: AutovalidateMode.always,
+            validator: ((value) {
+              if (value!.isEmpty) {
+                return "Please click to enable location";
+              } else {
+                return null;
+              }
+            }),
+            readOnly: true,
+            decoration: InputDecoration(
+              labelText: "Travel Tracker",
+              labelStyle: GoTheme.lightTextTheme.headline6,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: size.width * 0.009,
+        ),
+        Switch(
+          value: isGlobalLocationEnabled,
+          onChanged: (value) {
+
+            _handlePermission();
+          },
+        ),
+        const Spacer(),
+      ],
+    );
+  }
+
+  _checkLocationOnInit() async {
+    bool globalLocationServiceEnabled =
+        await _geolocatorPlatform.isLocationServiceEnabled();
+
+    setState(() {
+      isGlobalLocationEnabled = globalLocationServiceEnabled;
+    });
+    if (globalLocationServiceEnabled == true) {
+      await _getCurrentLocation();
+    }
+  }
+
+  _handlePermission() async {
+    bool globalLocationServiceEnabled =
+        await _geolocatorPlatform.isLocationServiceEnabled();
+
+    LocationPermission applocationServiceEnabled =
+        await _geolocatorPlatform.checkPermission();
+
+    if (globalLocationServiceEnabled == false) {
+      final settingsResult = await openAppLocationSettings();
+      await _getCurrentLocation();
+
+      setState(() {
+        isGlobalLocationEnabled = settingsResult;
+      });
+    }
+
+    if (applocationServiceEnabled == LocationPermission.denied ||
+        applocationServiceEnabled == LocationPermission.deniedForever) {
+      await _enableAppLocationAccess();
+    }
+  }
+
+  Future<bool> openAppLocationSettings() async {
+    bool isEnabled = await _geolocatorPlatform.openLocationSettings();
+    return isEnabled;
+  }
+
+  Future<LocationPermission> _enableAppLocationAccess() async {
+    final appAccessEnabled = await _geolocatorPlatform.requestPermission();
+    return appAccessEnabled;
+  }
+
+  _getCurrentLocation() async {
+    await _handlePermission();
+    // final position = await _geolocatorPlatform.getCurrentPosition();
+    //
+    // List<Placemark> placemarks = await placemarkFromCoordinates(
+    //   position.latitude,
+    //   position.longitude,
+    // );
+    // Placemark place = placemarks[0];
+
+    setState(() {
+      // _locationController.text = "${place.locality}, ${place.country}";
+      _locationController.text = "Nyeri, Kenya";
+    });
   }
 }
