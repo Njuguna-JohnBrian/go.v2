@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:go/globals/globals_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 
+import 'utils/strings.dart';
 
 class TripsScreen extends StatefulWidget {
   const TripsScreen({Key? key}) : super(key: key);
@@ -42,7 +43,7 @@ class _TripsScreenState extends State<TripsScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Text(
-          "New trip",
+          TripStrings.appTitle,
           style: GoTheme.lightTextTheme.headline6?.copyWith(
             color: GoTheme.mainColor,
           ),
@@ -68,7 +69,7 @@ class _TripsScreenState extends State<TripsScreen> {
                   if (_tripsFormKey.currentState!.validate()) {}
                 },
                 child: Text(
-                  "Save",
+                  TripStrings.saveAction,
                   style: GoTheme.lightTextTheme.headline6
                       ?.copyWith(color: GoTheme.mainColor),
                 ),
@@ -205,8 +206,8 @@ class _TripsScreenState extends State<TripsScreen> {
               ),
               child: Text(
                 coverImage != null
-                    ? "Change cover photo"
-                    : "Upload cover photo",
+                    ? TripStrings.changeCover
+                    : TripStrings.uploadCover,
                 style: GoTheme.darkTextTheme.bodyText1?.copyWith(
                   fontSize: 12,
                   color: Colors.black,
@@ -227,7 +228,9 @@ class _TripsScreenState extends State<TripsScreen> {
       context: context,
       builder: (context) {
         return SimpleDialog(
-          title: const Text("Select Trip Cover Photo"),
+          title: const Text(
+            TripStrings.selectTripCover,
+          ),
           titleTextStyle: GoTheme.lightTextTheme.headline6,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
@@ -250,7 +253,7 @@ class _TripsScreenState extends State<TripsScreen> {
                     width: 5,
                   ),
                   Text(
-                    "Take a picture",
+                    TripStrings.takePicture,
                     style: GoTheme.lightTextTheme.headline6,
                   ),
                 ],
@@ -279,7 +282,7 @@ class _TripsScreenState extends State<TripsScreen> {
                     width: 5,
                   ),
                   Text(
-                    "Select from gallery",
+                    TripStrings.selectFromGallery,
                     style: GoTheme.lightTextTheme.headline6,
                   ),
                 ],
@@ -314,7 +317,7 @@ class _TripsScreenState extends State<TripsScreen> {
                     ),
                   ),
                   child: Text(
-                    "Cancel",
+                    TripStrings.cancel,
                     style: GoTheme.darkTextTheme.headline3,
                   ),
                 ),
@@ -338,7 +341,10 @@ class _TripsScreenState extends State<TripsScreen> {
     );
   }
 
-  Widget buildDescription({required BuildContext context, required Size size}) {
+  Widget buildDescription({
+    required BuildContext context,
+    required Size size,
+  }) {
     return Column(
       children: [
         Row(
@@ -357,18 +363,18 @@ class _TripsScreenState extends State<TripsScreen> {
                 controller: _tripNameController,
                 validator: ((value) {
                   if (value!.isEmpty) {
-                    return "Please provide trip name/title";
+                    return TripStrings.provideTitle;
                   } else if (value.length < 3) {
-                    return "Please provide a longer trip name";
+                    return TripStrings.provideLongerTitle;
                   } else {
                     return null;
                   }
                 }),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
-                  labelText: "Trip Name/Title",
+                  labelText: TripStrings.tripLabel,
                   labelStyle: GoTheme.lightTextTheme.headline6,
-                  hintText: 'e.g African Road Trip',
+                  hintText: TripStrings.tripHint,
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
               ),
@@ -391,19 +397,18 @@ class _TripsScreenState extends State<TripsScreen> {
                 controller: _tripDescriptionController,
                 validator: ((value) {
                   if (value!.isEmpty) {
-                    return "Please provide a trip summary";
+                    return TripStrings.provideSummary;
                   } else if (value.length < 3) {
-                    return "Please provide a longer trip summary";
+                    return TripStrings.provideLongerSummary;
                   } else {
                     return null;
                   }
                 }),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
-                  labelText: 'Trip Summary',
+                  labelText: TripStrings.tripSummaryLabel,
                   labelStyle: GoTheme.lightTextTheme.headline6,
-                  hintText:
-                      'e.g An awesome road trip through the desserts on Africa with my family',
+                  hintText: TripStrings.tripSummaryHint,
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
               ),
@@ -414,8 +419,10 @@ class _TripsScreenState extends State<TripsScreen> {
     );
   }
 
-  Widget buildCalendarSection(
-      {required BuildContext context, required Size size}) {
+  Widget buildCalendarSection({
+    required BuildContext context,
+    required Size size,
+  }) {
     return Column(
       children: [
         Row(
@@ -434,7 +441,7 @@ class _TripsScreenState extends State<TripsScreen> {
                 controller: _startDateController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: "Start Date",
+                  labelText: TripStrings.tripStartLabel,
                   labelStyle: GoTheme.lightTextTheme.headline6,
                   hintText: DateFormat("MMMM dd yyyy").format(
                     DateTime.now(),
@@ -449,7 +456,7 @@ class _TripsScreenState extends State<TripsScreen> {
                     lastDate: DateTime(
                       DateTime.now().year + 5,
                     ),
-                    helpText: "Select start date",
+                    helpText: TripStrings.tripStartHint,
                     builder: (context, child) {
                       return Theme(
                         data: Theme.of(context).copyWith(
@@ -497,15 +504,15 @@ class _TripsScreenState extends State<TripsScreen> {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: ((value) {
                   if (value!.isEmpty) {
-                    return "Please provide an end date";
+                    return TripStrings.provideEndDate;
                   } else {
                     return null;
                   }
                 }),
                 decoration: InputDecoration(
-                  labelText: "End Date",
+                  labelText: TripStrings.tripEndLabel,
                   labelStyle: GoTheme.lightTextTheme.headline6,
-                  hintText: "End Date",
+                  hintText: TripStrings.tripEndHint,
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
                 onTap: () async {
@@ -571,14 +578,14 @@ class _TripsScreenState extends State<TripsScreen> {
             autovalidateMode: AutovalidateMode.always,
             validator: ((value) {
               if (value!.isEmpty) {
-                return "Please click to enable location";
+                return TripStrings.enableLocation;
               } else {
                 return null;
               }
             }),
             readOnly: true,
             decoration: InputDecoration(
-              labelText: "Travel Tracker",
+              labelText: TripStrings.tripLocationLabel,
               labelStyle: GoTheme.lightTextTheme.headline6,
               floatingLabelBehavior: FloatingLabelBehavior.always,
             ),
@@ -590,7 +597,6 @@ class _TripsScreenState extends State<TripsScreen> {
         Switch(
           value: isGlobalLocationEnabled,
           onChanged: (value) {
-
             _handlePermission();
           },
         ),
@@ -655,7 +661,7 @@ class _TripsScreenState extends State<TripsScreen> {
 
     setState(() {
       // _locationController.text = "${place.locality}, ${place.country}";
-      _locationController.text = "Nyeri, Kenya";
+      _locationController.text = TripStrings.defaultLocation;
     });
   }
 }
