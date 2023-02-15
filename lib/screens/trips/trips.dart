@@ -559,8 +559,10 @@ class _TripsScreenState extends State<TripsScreen> {
     );
   }
 
-  Widget buildLocationSection(
-      {required BuildContext context, required Size size}) {
+  Widget buildLocationSection({
+    required BuildContext context,
+    required Size size,
+  }) {
     return Row(
       children: [
         const Icon(
