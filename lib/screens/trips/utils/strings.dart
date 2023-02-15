@@ -5,6 +5,10 @@ class TripStrings {
   static const appTitle = "New trip";
   static const saveAction = "Save";
 
+  static const success = "Success";
+  static const failed = "Failed";
+  static const retry = "Please retry";
+
   static const changeCover = "Change cover photo";
   static const uploadCover = "Upload cover photo";
 
@@ -27,8 +31,16 @@ class TripStrings {
   static const tripEndHint = "End Date";
 
   static const tripLocationLabel = "Travel Tracker";
-
   static const defaultLocation = "Nyeri, Kenya";
+
+  static const selectPrivacyTitle = "Select who can see your trip";
+  static const privateListTitle = "Private";
+  static const publicListTitle = "Public";
+  static const premiumListTitle = "Premium";
+  static const privacyLabel = "Type of trip";
+  static const privacyHint = "Select to define who sees this trip";
+
+
 
   //Errors
   static const provideTitle = "Please provide trip name/title";
