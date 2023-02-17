@@ -9,3 +9,4 @@ export 'profile/profile_screen.dart';
 export 'follow/follow.dart';
 export 'users/users.dart';
 export 'trips/trips.dart';
+export 'tripDetails/tripDetails.dart';
