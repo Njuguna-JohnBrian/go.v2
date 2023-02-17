@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go/theme/go_theme.dart';
 
+import 'utils/strings.dart';
+
 class CommentsScreen extends StatelessWidget {
   final Size size;
   const CommentsScreen({Key? key, required this.size}) : super(key: key);
@@ -18,7 +20,7 @@ class CommentsScreen extends StatelessWidget {
           extendBody: true,
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            toolbarHeight:size.height * 0.15,
+            toolbarHeight: size.height * 0.15,
             elevation: 0,
             centerTitle: true,
             leading: IconButton(
@@ -32,7 +34,7 @@ class CommentsScreen extends StatelessWidget {
               },
             ),
             title: Text(
-              "Comments",
+              CommentsStrings.screenTitle,
               style: GoTheme.lightTextTheme.headline6?.copyWith(
                 color: GoTheme.mainColor,
               ),
@@ -66,7 +68,7 @@ class CommentsScreen extends StatelessWidget {
                       child: TextField(
                         decoration: InputDecoration(
                           hintText:
-                              "Comment as ${FirebaseAuth.instance.currentUser?.displayName}",
+                              "${CommentsStrings.commentAs} ${FirebaseAuth.instance.currentUser?.displayName}",
                           border: InputBorder.none,
                         ),
                       ),
