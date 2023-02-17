@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go/screens/screens_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 
+import 'utils/strings.dart';
+
 class TripDetailsScreen extends StatelessWidget {
   const TripDetailsScreen({Key? key}) : super(key: key);
 
@@ -18,7 +20,7 @@ class TripDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         title: Center(
           child: SvgPicture.asset(
-            'assets/svgs/logo.svg',
+            TripDetailsStrings.svgLogo,
             height: 50,
           ),
         ),
@@ -83,18 +85,18 @@ class TripDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "John Brian",
+                  TripDetailsStrings.userName,
                   style: GoTheme.darkTextTheme.headline1,
                 ),
                 Text(
-                  "Nyeri Kenya",
+                  TripDetailsStrings.decodedLocation,
                   style: GoTheme.darkTextTheme.bodyText1,
                 ),
                 SizedBox(
                   height: size.height * 0.025,
                 ),
                 Text(
-                  "A trip along the Himalaya mountains across the Indies",
+                  TripDetailsStrings.tripDescription,
                   style: GoTheme.darkTextTheme.bodyText2?.copyWith(
                     fontSize: 15,
                     fontWeight: FontWeight.w100,
@@ -114,13 +116,13 @@ class TripDetailsScreen extends StatelessWidget {
                       color: Colors.black.withOpacity(
                         0.8,
                       ),
-                      actionText: "View Comments",
+                      actionText: TripDetailsStrings.viewComments,
                     ),
                     buildButton(
                       context: context,
                       size: size,
                       color: GoTheme.mainColor,
-                      actionText: "Track Trip",
+                      actionText: TripDetailsStrings.trackTrip,
                     ),
                   ],
                 )
