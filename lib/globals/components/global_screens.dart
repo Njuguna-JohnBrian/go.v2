@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import "package:go/screens/screens_barrel.dart"
-    show ProfileScreen, TripDetailsScreen;
+    show ProfileScreen;
 
 List<Widget> goPages = <Widget>[
-  TripDetailsScreen(),
   const ProfileScreen(),
-
+   Container(color: Colors.lightBlueAccent,),
   Container(
     color: Colors.greenAccent,
   ),
