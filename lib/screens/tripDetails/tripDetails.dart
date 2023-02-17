@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go/screens/screens_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 
 class TripDetailsScreen extends StatelessWidget {
@@ -22,7 +23,9 @@ class TripDetailsScreen extends StatelessWidget {
           ),
         ),
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
           icon: const Icon(
             Icons.chevron_left,
             size: 35,
@@ -142,7 +145,27 @@ class TripDetailsScreen extends StatelessWidget {
       child: Material(
         color: color,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(
+                    30,
+                  ),
+                  topRight: Radius.circular(
+                    30,
+                  ),
+                ),
+              ),
+              context: context,
+              builder: (BuildContext context) {
+                return CommentsScreen(
+                  size: size,
+                );
+              },
+            );
+          },
           splashColor: Colors.black.withOpacity(
             0.1,
           ),
