@@ -10,7 +10,7 @@ import 'package:go/globals/globals_barrel.dart' show GlobalAssets;
 import 'package:go/models/models_barrel.dart' show UserDataModel;
 import 'package:go/screens/follow/utils/strings.dart';
 import 'package:go/screens/screens_barrel.dart'
-    show FollowScreen, TripsScreen, UsersScreen;
+    show FollowScreen, TripDetailsScreen, TripsScreen, UsersScreen;
 import '../utils/strings.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -289,119 +289,128 @@ class _UserActivityState extends State<UserActivity> {
                 10,
               ),
               children: [
-                Container(
-                  height: size.height * 0.25,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    image: DecorationImage(
-                      image: const NetworkImage(
-                        "https://tinyurl.com/2s3mv3mv",
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const TripDetailsScreen(),
                       ),
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                        Colors.white.withOpacity(0.4),
-                        BlendMode.modulate,
+                    );
+                  },
+                  child: Container(
+                    height: size.height * 0.25,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      image: DecorationImage(
+                        image: const NetworkImage(
+                          "https://tinyurl.com/2s3mv3mv",
+                        ),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                          Colors.white.withOpacity(0.4),
+                          BlendMode.modulate,
+                        ),
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        20,
                       ),
                     ),
-                    borderRadius: BorderRadius.circular(
-                      20,
-                    ),
-                  ),
-                  child: Stack(
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.circle,
-                            color: Colors.red,
-                            size: 10,
-                          ),
-                          const SizedBox(
-                            width: 3,
-                          ),
-                          Text(
-                            "Now Travelling".toCapitalized(),
+                    child: Stack(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.circle,
+                              color: Colors.red,
+                              size: 10,
+                            ),
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            Text(
+                              "Now Travelling".toCapitalized(),
+                              style: GoTheme.darkTextTheme.bodyText1,
+                            )
+                          ],
+                        ),
+                        Positioned(
+                          bottom: 70,
+                          child: Text(
+                            "John",
                             style: GoTheme.darkTextTheme.bodyText1,
-                          )
-                        ],
-                      ),
-                      Positioned(
-                        bottom: 70,
-                        child: Text(
-                          "John",
-                          style: GoTheme.darkTextTheme.bodyText1,
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Header",
-                              style: GoTheme.darkTextTheme.bodyText1,
-                            ),
-                            Text(
-                              "Title",
-                              style: GoTheme.darkTextTheme.bodyText1,
-                            ),
-                          ],
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Header",
+                                style: GoTheme.darkTextTheme.bodyText1,
+                              ),
+                              Text(
+                                "Title",
+                                style: GoTheme.darkTextTheme.bodyText1,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        left: 100,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Header",
-                              style: GoTheme.darkTextTheme.bodyText1,
-                            ),
-                            Text(
-                              "Title",
-                              style: GoTheme.darkTextTheme.bodyText1,
-                            ),
-                          ],
+                        Positioned(
+                          bottom: 0,
+                          left: 100,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Header",
+                                style: GoTheme.darkTextTheme.bodyText1,
+                              ),
+                              Text(
+                                "Title",
+                                style: GoTheme.darkTextTheme.bodyText1,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        left: 200,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Header",
-                              style: GoTheme.darkTextTheme.bodyText1,
-                            ),
-                            Text(
-                              "Title",
-                              style: GoTheme.darkTextTheme.bodyText1,
-                            ),
-                          ],
+                        Positioned(
+                          bottom: 0,
+                          left: 200,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Header",
+                                style: GoTheme.darkTextTheme.bodyText1,
+                              ),
+                              Text(
+                                "Title",
+                                style: GoTheme.darkTextTheme.bodyText1,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Header",
-                              style: GoTheme.darkTextTheme.bodyText1,
-                            ),
-                            Text(
-                              "Title",
-                              style: GoTheme.darkTextTheme.bodyText1,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Header",
+                                style: GoTheme.darkTextTheme.bodyText1,
+                              ),
+                              Text(
+                                "Title",
+                                style: GoTheme.darkTextTheme.bodyText1,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
