@@ -48,6 +48,10 @@ class GoTheme {
       fontWeight: FontWeight.w700,
       color: Colors.white,
     ),
+    bodyText2: GoogleFonts.openSans(
+      fontSize: 14.0,
+      color: Colors.white,
+    ),
     headline1: GoogleFonts.openSans(
       fontSize: 32.0,
       fontWeight: FontWeight.bold,
