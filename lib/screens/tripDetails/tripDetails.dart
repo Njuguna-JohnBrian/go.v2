@@ -146,7 +146,9 @@ class TripDetailsScreen extends StatelessWidget {
           splashColor: Colors.black.withOpacity(
             0.1,
           ),
-          highlightColor: Colors.black.withOpacity(0.2),
+          highlightColor: Colors.black.withOpacity(
+            0.2,
+          ),
           child: Container(
             padding: const EdgeInsets.only(
               top: 10,
@@ -158,7 +160,7 @@ class TripDetailsScreen extends StatelessWidget {
               actionText,
               style: const TextStyle(
                 color: Colors.white,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ),
