@@ -13,6 +13,7 @@ class Trips {
   final String profilePicture;
   final double startLongitude;
   final double startLatitude;
+  final List likes;
 
   const Trips({
     required this.uid,
@@ -27,25 +28,26 @@ class Trips {
     required this.profilePicture,
     required this.startLongitude,
     required this.startLatitude,
+    required this.likes,
   });
 
   static Trips fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return Trips(
-      uid: snapshot["uid"],
-      tripTitle: snapshot["tripTitle"],
-      tripSummary: snapshot["tripSummary"],
-      tripType: snapshot["tripType"],
-      startLocation: snapshot["startLocation"],
-      tripId: snapshot["tripId"],
-      startDate: snapshot["startDate"],
-      endDate: snapshot['endDate'],
-      tripUrl: snapshot["tripUrl"],
-      profilePicture: snapshot["profilePicture"],
-      startLongitude: snapshot["startLongitude"],
-      startLatitude: snapshot["startLatitude"],
-    );
+        uid: snapshot["uid"],
+        tripTitle: snapshot["tripTitle"],
+        tripSummary: snapshot["tripSummary"],
+        tripType: snapshot["tripType"],
+        startLocation: snapshot["startLocation"],
+        tripId: snapshot["tripId"],
+        startDate: snapshot["startDate"],
+        endDate: snapshot['endDate'],
+        tripUrl: snapshot["tripUrl"],
+        profilePicture: snapshot["profilePicture"],
+        startLongitude: snapshot["startLongitude"],
+        startLatitude: snapshot["startLatitude"],
+        likes: snapshot["likes"]);
   }
 
   Map<String, dynamic> toJson() => {
@@ -61,5 +63,6 @@ class Trips {
         "profilePicture": profilePicture,
         "startLongitude": startLongitude,
         "startLatitude": startLatitude,
+        "likes": likes
       };
 }
