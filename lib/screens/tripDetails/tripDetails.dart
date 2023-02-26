@@ -7,7 +7,17 @@ import 'package:go/theme/go_theme.dart';
 import 'utils/strings.dart';
 
 class TripDetailsScreen extends StatelessWidget {
-  const TripDetailsScreen({Key? key}) : super(key: key);
+  final String tripTitle;
+  final String tripSummary;
+  final String startLocation;
+  final String tripCover;
+  const TripDetailsScreen({
+    Key? key,
+    required this.tripTitle,
+    required this.tripSummary,
+    required this.startLocation,
+    required this.tripCover,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +59,10 @@ class TripDetailsScreen extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: CachedNetworkImageProvider(
-                  "https://images.pexels.com/photos/5241381/pexels-photo-5241381.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                  tripCover,
                 ),
                 fit: BoxFit.cover,
               ),
@@ -85,18 +95,18 @@ class TripDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  TripDetailsStrings.userName,
+                  tripTitle,
                   style: GoTheme.darkTextTheme.headline1,
                 ),
                 Text(
-                  TripDetailsStrings.decodedLocation,
+                  startLocation,
                   style: GoTheme.darkTextTheme.bodyText1,
                 ),
                 SizedBox(
                   height: size.height * 0.025,
                 ),
                 Text(
-                  TripDetailsStrings.tripDescription,
+                  tripSummary,
                   style: GoTheme.darkTextTheme.bodyText2?.copyWith(
                     fontSize: 15,
                     fontWeight: FontWeight.w100,
