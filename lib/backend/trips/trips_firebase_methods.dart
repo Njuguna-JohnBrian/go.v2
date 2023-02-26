@@ -58,7 +58,11 @@ class TripFirebaseMethods {
   }
 
   //like trip
-  Future<void> likeTrip(String tripId, String uid, List likes) async {
+  Future<void> likeTrip(
+    String tripId,
+    String uid,
+    List likes,
+  ) async {
     try {
       if (likes.contains(uid)) {
         await _firestore.collection("trips").doc(tripId).update({
@@ -76,5 +80,39 @@ class TripFirebaseMethods {
     } catch (e) {
       return;
     }
+  }
+
+  //post comment
+  Future<String> addComment(
+    String tripId,
+    String comment,
+    String uid,
+    String userName,
+    String userAvatar,
+  ) async {
+    String res = "Some error occurred";
+    try {
+      String commentId = const Uuid().v1();
+      await _firestore
+          .collection("trips")
+          .doc(tripId)
+          .collection("comments")
+          .doc(commentId)
+          .set(
+        {
+          "userAvatar": userAvatar,
+          "userName": userName,
+          "uid": uid,
+          "comment": comment,
+          "commentId": commentId,
+          "datePublished": DateTime.now(),
+        },
+      );
+      res = "Success";
+    } catch (e) {
+      res = "Error";
+      return res;
+    }
+    return res;
   }
 }
