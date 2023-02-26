@@ -323,7 +323,6 @@ class _UserActivityState extends State<UserActivity> {
 
   Widget buildList(
       {required BuildContext context, required Size size, required snap}) {
-    print(snap);
     return ListView.separated(
       padding: const EdgeInsets.all(
         10,
@@ -331,12 +330,17 @@ class _UserActivityState extends State<UserActivity> {
       itemCount: snap.data.docs.length,
       itemBuilder: (context, index) {
         final data = snap.data.docs[index].data();
-        print("Data $data");
+
         return GestureDetector(
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const TripDetailsScreen(),
+                builder: (context) => TripDetailsScreen(
+                  tripTitle: data['tripTitle'],
+                  tripSummary: data['tripSummary'],
+                  startLocation: data["startLocation"],
+                  tripCover: data['tripUrl'],
+                ),
               ),
             );
           },
@@ -417,7 +421,7 @@ class _UserActivityState extends State<UserActivity> {
                         style: GoTheme.darkTextTheme.bodyText1,
                       ),
                       Text(
-                        "Nyeri Kenya",
+                        data["startLocation"],
                         style: GoTheme.darkTextTheme.bodyText1,
                       ),
                     ],
