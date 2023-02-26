@@ -340,6 +340,9 @@ class _UserActivityState extends State<UserActivity> {
                   tripSummary: data['tripSummary'],
                   startLocation: data["startLocation"],
                   tripCover: data['tripUrl'],
+                  likes: data['likes'],
+                  userId: data["uid"],
+                  tripId: data['tripId'],
                 ),
               ),
             );
