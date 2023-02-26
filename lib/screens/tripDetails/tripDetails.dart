@@ -194,12 +194,14 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                           0.8,
                         ),
                         actionText: TripDetailsStrings.viewComments,
+                        tripId: widget.tripId,
                       ),
                       buildButton(
                         context: context,
                         size: size,
                         color: GoTheme.mainColor,
                         actionText: TripDetailsStrings.trackTrip,
+                        tripId: widget.tripId,
                       ),
                     ],
                   )
@@ -217,6 +219,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
     required Size size,
     required Color color,
     required String actionText,
+    required String tripId,
   }) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(
@@ -242,6 +245,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
               builder: (BuildContext context) {
                 return CommentsScreen(
                   size: size,
+                  tripId: tripId,
                 );
               },
             );
