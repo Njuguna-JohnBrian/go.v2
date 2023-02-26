@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go/theme/go_theme.dart';
@@ -7,7 +8,12 @@ import 'utils/strings.dart';
 
 class CommentsScreen extends StatelessWidget {
   final Size size;
-  const CommentsScreen({Key? key, required this.size}) : super(key: key);
+  final String tripId;
+  const CommentsScreen({
+    Key? key,
+    required this.size,
+    required this.tripId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,35 @@ class CommentsScreen extends StatelessWidget {
               ),
             ),
           ),
-          body: Container(),
+          body: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("trips")
+                .doc(tripId)
+                .collection("comments")
+                .orderBy(
+                  "datePublished",
+                  descending: true,
+                )
+                .snapshots(),
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const LinearProgressIndicator();
+              }
+
+              return ListView.separated(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) => Text(""),
+                separatorBuilder: (
+                  BuildContext context,
+                  int index,
+                ) =>
+                    SizedBox(
+                  height: size.height * 0.015,
+                ),
+              );
+            },
+          ),
           bottomNavigationBar: SafeArea(
             child: Container(
               height: kToolbarHeight,
@@ -53,9 +87,9 @@ class CommentsScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     backgroundImage: CachedNetworkImageProvider(
-                      "https://tinyurl.com/2p99uwwf",
+                      "${FirebaseAuth.instance.currentUser!.photoURL}",
                     ),
                     radius: 20,
                   ),
@@ -94,6 +128,21 @@ class CommentsScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildComment({
+    required BuildContext context,
+    required Size size,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 18,
+        horizontal: 16,
+      ),
+      child: Row(
+        children: [],
       ),
     );
   }
