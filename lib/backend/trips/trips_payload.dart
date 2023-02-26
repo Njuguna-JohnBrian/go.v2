@@ -5,6 +5,7 @@ class Trips {
   final String tripTitle;
   final String tripSummary;
   final String tripType;
+  final String startLocation;
   final String tripId;
   final String startDate;
   final String endDate;
@@ -18,6 +19,7 @@ class Trips {
     required this.tripTitle,
     required this.tripSummary,
     required this.tripType,
+    required this.startLocation,
     required this.tripId,
     required this.startDate,
     required this.endDate,
@@ -35,6 +37,7 @@ class Trips {
       tripTitle: snapshot["tripTitle"],
       tripSummary: snapshot["tripSummary"],
       tripType: snapshot["tripType"],
+      startLocation: snapshot["startLocation"],
       tripId: snapshot["tripId"],
       startDate: snapshot["startDate"],
       endDate: snapshot['endDate'],
@@ -50,6 +53,7 @@ class Trips {
         "tripTitle": tripTitle,
         "tripSummary": tripSummary,
         "tripType": tripType,
+        "startLocation": startLocation,
         "tripId": tripId,
         "startDate": startDate,
         "endDate": endDate,
