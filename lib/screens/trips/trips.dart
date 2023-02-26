@@ -60,6 +60,7 @@ class _TripsScreenState extends State<TripsScreen> {
         _tripNameController.text,
         _tripDescriptionController.text,
         _privacyController.text,
+        _locationController.text,
         _startDateController.text,
         _endDateController.text,
         _startLongitude!,
