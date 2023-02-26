@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go/animations/animations_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:go/globals/string_extension.dart';
 
 import 'package:go/globals/globals_barrel.dart' show GlobalAssets;
 
@@ -284,136 +285,31 @@ class _UserActivityState extends State<UserActivity> {
       child: TabBarView(
         children: [
           Scaffold(
-            body: ListView(
-              padding: const EdgeInsets.all(
-                10,
-              ),
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const TripDetailsScreen(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: size.height * 0.25,
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      image: DecorationImage(
-                        image: const NetworkImage(
-                          "https://tinyurl.com/2s3mv3mv",
-                        ),
-                        fit: BoxFit.cover,
-                        colorFilter: ColorFilter.mode(
-                          Colors.white.withOpacity(0.4),
-                          BlendMode.modulate,
-                        ),
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        20,
-                      ),
-                    ),
-                    child: Stack(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.circle,
-                              color: Colors.red,
-                              size: 10,
-                            ),
-                            const SizedBox(
-                              width: 3,
-                            ),
-                            Text(
-                              "Now Travelling".toCapitalized(),
-                              style: GoTheme.darkTextTheme.bodyText1,
-                            )
-                          ],
-                        ),
-                        Positioned(
-                          bottom: 70,
-                          child: Text(
-                            "John",
-                            style: GoTheme.darkTextTheme.bodyText1,
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Header",
-                                style: GoTheme.darkTextTheme.bodyText1,
-                              ),
-                              Text(
-                                "Title",
-                                style: GoTheme.darkTextTheme.bodyText1,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Header",
-                                style: GoTheme.darkTextTheme.bodyText1,
-                              ),
-                              Text(
-                                "Title",
-                                style: GoTheme.darkTextTheme.bodyText1,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 200,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Header",
-                                style: GoTheme.darkTextTheme.bodyText1,
-                              ),
-                              Text(
-                                "Title",
-                                style: GoTheme.darkTextTheme.bodyText1,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Header",
-                                style: GoTheme.darkTextTheme.bodyText1,
-                              ),
-                              Text(
-                                "Title",
-                                style: GoTheme.darkTextTheme.bodyText1,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+            body: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection("trips")
+                  .where(
+                    "uid",
+                    isEqualTo: FirebaseAuth.instance.currentUser?.uid,
+                  )
+                  .snapshots(),
+              builder: (
+                context,
+                AsyncSnapshot snapshot,
+              ) {
+                return snapshot.data == null ||
+                        snapshot.connectionState == ConnectionState.waiting
+                    ? LinearProgressIndicator(
+                        color: GoTheme.mainColor,
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                      )
+                    : buildList(
+                        context: context,
+                        size: size,
+                        snap: snapshot,
+                      );
+              },
             ),
           ),
           Container(
@@ -421,6 +317,136 @@ class _UserActivityState extends State<UserActivity> {
             child: const ActiveView(),
           )
         ],
+      ),
+    );
+  }
+
+  Widget buildList(
+      {required BuildContext context, required Size size, required snap}) {
+    print(snap);
+    return ListView.separated(
+      padding: const EdgeInsets.all(
+        10,
+      ),
+      itemCount: snap.data.docs.length,
+      itemBuilder: (context, index) {
+        final data = snap.data.docs[index].data();
+        print("Data $data");
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const TripDetailsScreen(),
+              ),
+            );
+          },
+          child: Container(
+            height: size.height * 0.25,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              image: DecorationImage(
+                image: NetworkImage(
+                  data['tripUrl'],
+                ),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.white.withOpacity(0.4),
+                  BlendMode.modulate,
+                ),
+              ),
+              borderRadius: BorderRadius.circular(
+                20,
+              ),
+            ),
+            child: Stack(
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.circle,
+                      color: Colors.red,
+                      size: 10,
+                    ),
+                    const SizedBox(
+                      width: 3,
+                    ),
+                    Text(
+                      data["tripTitle"],
+                      style: GoTheme.darkTextTheme.bodyText1,
+                    )
+                  ],
+                ),
+                Positioned(
+                  bottom: 70,
+                  child: SizedBox(
+                    width: size.width,
+                    child: Text(
+                      data["tripSummary"],
+                      overflow: TextOverflow.visible,
+                      maxLines: 2,
+                      style: GoTheme.darkTextTheme.bodyText1,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Start Date",
+                        style: GoTheme.darkTextTheme.bodyText1,
+                      ),
+                      Text(
+                        data["startDate"],
+                        style: GoTheme.darkTextTheme.bodyText1,
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 120,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Start Location",
+                        style: GoTheme.darkTextTheme.bodyText1,
+                      ),
+                      Text(
+                        "Nyeri Kenya",
+                        style: GoTheme.darkTextTheme.bodyText1,
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "End Date",
+                        style: GoTheme.darkTextTheme.bodyText1,
+                      ),
+                      Text(
+                        data["endDate"],
+                        style: GoTheme.darkTextTheme.bodyText1,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) => SizedBox(
+        height: size.height * 0.015,
       ),
     );
   }
