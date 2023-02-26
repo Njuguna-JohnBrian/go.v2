@@ -36,7 +36,7 @@ class TripFirebaseMethods {
         tripTitle: tripTitle,
         tripSummary: tripSummary,
         tripType: tripType,
-        startLocation:startLocation,
+        startLocation: startLocation,
         tripId: tripId,
         startDate: startDate,
         endDate: endDate,
@@ -44,6 +44,7 @@ class TripFirebaseMethods {
         profilePicture: profilePicture!,
         startLongitude: startLongitude,
         startLatitude: startLatitude,
+        likes: [],
       );
 
       _firestore.collection("trips").doc(tripId).set(
@@ -54,5 +55,26 @@ class TripFirebaseMethods {
       res = e.toString();
     }
     return res;
+  }
+
+  //like trip
+  Future<void> likeTrip(String tripId, String uid, List likes) async {
+    try {
+      if (likes.contains(uid)) {
+        await _firestore.collection("trips").doc(tripId).update({
+          "likes": FieldValue.arrayRemove(
+            [uid],
+          )
+        });
+      } else {
+        await _firestore.collection("trips").doc(tripId).update({
+          'likes': FieldValue.arrayUnion(
+            [uid],
+          )
+        });
+      }
+    } catch (e) {
+      return;
+    }
   }
 }
