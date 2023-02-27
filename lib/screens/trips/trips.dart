@@ -416,7 +416,9 @@ class _TripsScreenState extends State<TripsScreen> {
     );
   }
 
-  Widget buildPadding({required BuildContext context}) {
+  Widget buildPadding({
+    required BuildContext context,
+  }) {
     return const Padding(
       padding: EdgeInsets.only(
         top: 30.0,
