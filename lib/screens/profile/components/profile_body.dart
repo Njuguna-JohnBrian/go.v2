@@ -292,23 +292,48 @@ class _UserActivityState extends State<UserActivity> {
                     "uid",
                     isEqualTo: FirebaseAuth.instance.currentUser?.uid,
                   )
+                  .orderBy("createdAt", descending: true)
                   .snapshots(),
               builder: (
                 context,
                 AsyncSnapshot snapshot,
               ) {
-                return snapshot.data == null ||
-                        snapshot.connectionState == ConnectionState.waiting
-                    ? LinearProgressIndicator(
-                        color: GoTheme.mainColor,
-                        backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
+                return (snapshot.data == null)
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  10,
+                                ),
+                              ),
+                              minimumSize: const Size(
+                                100,
+                                35,
+                              ),
+                            ),
+                            child: Text(
+                              "Add Trip",
+                              style: GoTheme.darkTextTheme.headline3,
+                            ),
+                          ),
+                          const EmptyContentAnimationView(),
+                        ],
                       )
-                    : buildList(
-                        context: context,
-                        size: size,
-                        snap: snapshot,
-                      );
+                    : (snapshot.connectionState == ConnectionState.waiting)
+                        ? LinearProgressIndicator(
+                            color: GoTheme.mainColor,
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                          )
+                        : buildList(
+                            context: context,
+                            size: size,
+                            snap: snapshot,
+                          );
               },
             ),
           ),
@@ -408,23 +433,6 @@ class _UserActivityState extends State<UserActivity> {
                       ),
                       Text(
                         data["startDate"],
-                        style: GoTheme.darkTextTheme.bodyText1,
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 120,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Start Location",
-                        style: GoTheme.darkTextTheme.bodyText1,
-                      ),
-                      Text(
-                        data["startLocation"],
                         style: GoTheme.darkTextTheme.bodyText1,
                       ),
                     ],
