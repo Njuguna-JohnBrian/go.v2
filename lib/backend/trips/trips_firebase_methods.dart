@@ -45,12 +45,13 @@ class TripFirebaseMethods {
         startLongitude: startLongitude,
         startLatitude: startLatitude,
         likes: [],
+        createdAt: Timestamp.now(),
       );
 
       _firestore.collection("trips").doc(tripId).set(
             trips.toJson(),
           );
-      res = "Success";
+      res = "Success,$photoUrl";
     } catch (e) {
       res = e.toString();
     }
