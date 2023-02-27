@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go/backend/backend_barrel.dart';
+import 'package:go/screens/screens_barrel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:go/globals/globals_barrel.dart';
 import 'package:go/theme/go_theme.dart';
 import 'package:quickalert/quickalert.dart';
-
 import 'utils/strings.dart';
 
 class TripsScreen extends StatefulWidget {
@@ -73,7 +73,7 @@ class _TripsScreenState extends State<TripsScreen> {
         isLoading = false;
       });
 
-      if (result == TripStrings.success) {
+      if (result.contains(TripStrings.success)) {
         QuickAlert.show(
           context: context,
           type: QuickAlertType.success,
@@ -81,6 +81,13 @@ class _TripsScreenState extends State<TripsScreen> {
           confirmBtnColor: GoTheme.mainSuccess,
           onConfirmBtnTap: () {
             Navigator.of(context).pop();
+            _tripsFormKey.currentState?.reset();
+            if (!mounted) {}
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const ProfileScreen(),
+              ),
+            );
           },
         );
       }
