@@ -292,7 +292,10 @@ class _UserActivityState extends State<UserActivity> {
                     "uid",
                     isEqualTo: FirebaseAuth.instance.currentUser?.uid,
                   )
-                  .orderBy("createdAt", descending: true)
+                  .orderBy(
+                    "createdAt",
+                    descending: true,
+                  )
                   .snapshots(),
               builder: (
                 context,
