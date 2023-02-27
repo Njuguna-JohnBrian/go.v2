@@ -298,12 +298,16 @@ class _UserActivityState extends State<UserActivity> {
                 context,
                 AsyncSnapshot snapshot,
               ) {
-                return (snapshot.data == null)
+                return (snapshot.data == null || snapshot.data.docs.length == 0)
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextButton(
-                            onPressed: () => Navigator.of(context).pop(),
+                            onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const TripsScreen(),
+                              ),
+                            ),
                             style: TextButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
