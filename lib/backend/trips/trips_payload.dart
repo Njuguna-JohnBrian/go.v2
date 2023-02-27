@@ -14,6 +14,7 @@ class Trips {
   final double startLongitude;
   final double startLatitude;
   final List likes;
+  final Timestamp createdAt;
 
   const Trips({
     required this.uid,
@@ -29,6 +30,7 @@ class Trips {
     required this.startLongitude,
     required this.startLatitude,
     required this.likes,
+    required this.createdAt,
   });
 
   static Trips fromSnap(DocumentSnapshot snap) {
@@ -47,7 +49,8 @@ class Trips {
         profilePicture: snapshot["profilePicture"],
         startLongitude: snapshot["startLongitude"],
         startLatitude: snapshot["startLatitude"],
-        likes: snapshot["likes"]);
+        likes: snapshot["likes"],
+        createdAt: snapshot["createdAt"]);
   }
 
   Map<String, dynamic> toJson() => {
@@ -63,6 +66,7 @@ class Trips {
         "profilePicture": profilePicture,
         "startLongitude": startLongitude,
         "startLatitude": startLatitude,
-        "likes": likes
+        "likes": likes,
+        "createdAt": createdAt
       };
 }
