@@ -113,7 +113,7 @@ class GoTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: Colors.black,
       fontFamily: "OpenSans",
       appBarTheme: AppBarTheme(
         foregroundColor: Colors.white,

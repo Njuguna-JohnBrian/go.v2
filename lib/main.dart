@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go/firebase_options.dart';
+import 'package:go/state/providers/theme/theme.provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:go/theme/go_theme.dart' show GoTheme;
@@ -27,14 +28,17 @@ void main() async {
   );
 }
 
-class Go extends StatelessWidget {
+class Go extends ConsumerWidget {
   const Go({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeStateProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: GoTheme.light(),
+      darkTheme: GoTheme.dark(),
+      themeMode: theme,
       title: 'gO',
       home: Consumer(
         builder: (context, ref, child) {

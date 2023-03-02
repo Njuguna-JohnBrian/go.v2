@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go/state/providers/theme/theme.provider.dart';
 import 'package:go/theme/go_theme.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
+    final theme = ref.watch(themeStateProvider);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -40,11 +43,12 @@ class SettingsScreen extends StatelessWidget {
                 title: "General",
                 children: [
                   buildSettingsTile(
-                    title: 'Dark Mode',
+                    title: theme == ThemeMode.dark ? 'Dark Mode' : "Light Mode",
                     iconData: Icons.dark_mode_outlined,
                     trailing: Switch(
-                      value: false,
-                      onChanged: (value) {},
+                      value: theme == ThemeMode.dark ? false :true,
+                      onChanged: (value) =>
+                          ref.read(themeStateProvider.notifier).toggleTheme(),
                     ),
                   ),
                 ],
