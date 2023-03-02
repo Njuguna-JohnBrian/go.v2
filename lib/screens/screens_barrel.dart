@@ -11,3 +11,4 @@ export 'users/users.dart';
 export 'trips/trips.dart';
 export 'tripDetails/tripDetails.dart';
 export 'comments/comments.dart';
+export 'settings/settings.dart';
