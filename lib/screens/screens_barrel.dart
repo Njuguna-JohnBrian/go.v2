@@ -12,3 +12,5 @@ export 'trips/trips.dart';
 export 'tripDetails/tripDetails.dart';
 export 'comments/comments.dart';
 export 'settings/settings.dart';
+export 'maps/maps.dart';
+export 'tripslist/tripslist.dart';
