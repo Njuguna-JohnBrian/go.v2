@@ -18,6 +18,7 @@ import 'package:go/screens/screens_barrel.dart'
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -29,10 +30,13 @@ void main() async {
 }
 
 class Go extends ConsumerWidget {
-  const Go({super.key});
+  const Go({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(themeStateProvider.notifier).loadThemeFromPreference();
     final theme = ref.watch(themeStateProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,

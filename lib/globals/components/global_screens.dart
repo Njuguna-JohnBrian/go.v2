@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import "package:go/screens/screens_barrel.dart"
-    show ProfileScreen, SettingsScreen;
+import "package:go/screens/screens_barrel.dart" show ProfileScreen;
 
 List<Widget> goPages = <Widget>[
-  const SettingsScreen(),
   const ProfileScreen(),
+  Container(
+    color: Colors.lightBlueAccent,
+  ),
   Container(
     color: Colors.greenAccent,
   ),
