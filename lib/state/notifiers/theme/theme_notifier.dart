@@ -3,9 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ThemeStateNotifier extends StateNotifier<ThemeMode> {
-  ThemeStateNotifier() : super(ThemeMode.system);
+  ThemeStateNotifier() : super(ThemeMode.light);
 
-  Future<void> loadThemeFromPreference() async {
+  void loadThemeFromPreference() async {
     final prefs = await SharedPreferences.getInstance();
 
     final isDarkMode = prefs.getBool('isDarkMode') ?? false;

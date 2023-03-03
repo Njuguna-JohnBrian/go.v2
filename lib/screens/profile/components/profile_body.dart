@@ -11,7 +11,12 @@ import 'package:go/globals/globals_barrel.dart' show GlobalAssets;
 import 'package:go/models/models_barrel.dart' show UserDataModel;
 import 'package:go/screens/follow/utils/strings.dart';
 import 'package:go/screens/screens_barrel.dart'
-    show FollowScreen, TripDetailsScreen, TripsScreen, UsersScreen;
+    show
+        FollowScreen,
+        SettingsScreen,
+        TripDetailsScreen,
+        TripsScreen,
+        UsersScreen;
 import '../utils/strings.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -52,7 +57,16 @@ class ProfileBody extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(
+                      following: userData.following,
+                      followers: userData.followers,
+                    ),
+                  ),
+                );
+              },
               icon: const Icon(
                 Icons.settings,
                 color: GoTheme.mainColor,
@@ -247,31 +261,33 @@ class _UserActivityState extends State<UserActivity> {
     return SliverToBoxAdapter(
       child: DefaultTabController(
         length: 2,
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.8,
-          decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
-          ),
-          child: Column(
-            children: [
-              const TabBar(
-                tabs: [
-                  Tab(
-                    child: Text(
-                      ProfileStrings.trips,
-                      style: TextStyle(color: Colors.black),
+        child: Card(
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.8,
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+            ),
+            child: Column(
+              children: [
+                TabBar(
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        ProfileStrings.trips,
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
                     ),
-                  ),
-                  Tab(
-                    child: Text(
-                      ProfileStrings.insights,
-                      style: TextStyle(color: Colors.black),
+                    Tab(
+                      child: Text(
+                        ProfileStrings.insights,
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              buildTabView(context)
-            ],
+                  ],
+                ),
+                buildTabView(context)
+              ],
+            ),
           ),
         ),
       ),
