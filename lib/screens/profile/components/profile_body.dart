@@ -391,6 +391,7 @@ class _UserActivityState extends State<UserActivity> {
                   likes: data['likes'],
                   userId: data["uid"],
                   tripId: data['tripId'],
+                  showAppBar:true,
                 ),
               ),
             );
