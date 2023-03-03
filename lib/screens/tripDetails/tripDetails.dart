@@ -16,6 +16,7 @@ class TripDetailsScreen extends StatefulWidget {
   final List likes;
   final String userId;
   final String tripId;
+  final bool showAppBar;
   const TripDetailsScreen({
     Key? key,
     required this.tripTitle,
@@ -25,6 +26,7 @@ class TripDetailsScreen extends StatefulWidget {
     required this.likes,
     required this.userId,
     required this.tripId,
+    required this.showAppBar,
   }) : super(key: key);
 
   @override
@@ -49,57 +51,59 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
       },
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          title: Center(
-            child: SvgPicture.asset(
-              TripDetailsStrings.svgLogo,
-              height: 50,
-            ),
-          ),
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.chevron_left,
-              size: 35,
-              color: GoTheme.mainColor,
-            ),
-          ),
-          actions: [
-            LikeAnimation(
-              isAnimating: widget.likes.contains(widget.userId),
-              smallLike: true,
-              child: IconButton(
-                onPressed: () async {
-                  await TripFirebaseMethods().likeTrip(
-                    widget.tripId,
-                    widget.userId,
-                    widget.likes,
-                  );
-                  setState(() {
-                    isLikeAnimating = true;
-                  });
-                },
-                icon: widget.likes.contains(
-                  widget.userId,
-                )
-                    ? const Icon(
-                        Icons.favorite,
-                        size: 35,
-                        color: Colors.red,
+        appBar: widget.showAppBar
+            ? AppBar(
+                automaticallyImplyLeading: false,
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                title: Center(
+                  child: SvgPicture.asset(
+                    TripDetailsStrings.svgLogo,
+                    height: 50,
+                  ),
+                ),
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(
+                    Icons.chevron_left,
+                    size: 35,
+                    color: GoTheme.mainColor,
+                  ),
+                ),
+                actions: [
+                  LikeAnimation(
+                    isAnimating: widget.likes.contains(widget.userId),
+                    smallLike: true,
+                    child: IconButton(
+                      onPressed: () async {
+                        await TripFirebaseMethods().likeTrip(
+                          widget.tripId,
+                          widget.userId,
+                          widget.likes,
+                        );
+                        setState(() {
+                          isLikeAnimating = true;
+                        });
+                      },
+                      icon: widget.likes.contains(
+                        widget.userId,
                       )
-                    : const Icon(
-                        Icons.favorite_border,
-                        size: 35,
-                      ),
-              ),
-            ),
-          ],
-        ),
+                          ? const Icon(
+                              Icons.favorite,
+                              size: 35,
+                              color: Colors.red,
+                            )
+                          : const Icon(
+                              Icons.favorite_border,
+                              size: 35,
+                            ),
+                    ),
+                  ),
+                ],
+              )
+            : null,
         body: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -195,6 +199,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                         ),
                         actionText: TripDetailsStrings.viewComments,
                         tripId: widget.tripId,
+                        isComment: true,
                       ),
                       buildButton(
                         context: context,
@@ -202,6 +207,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                         color: GoTheme.mainColor,
                         actionText: TripDetailsStrings.trackTrip,
                         tripId: widget.tripId,
+                        isComment: false,
                       ),
                     ],
                   )
@@ -220,6 +226,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
     required Color color,
     required String actionText,
     required String tripId,
+    required bool isComment,
   }) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(
@@ -243,10 +250,14 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
               ),
               context: context,
               builder: (BuildContext context) {
-                return CommentsScreen(
-                  size: size,
-                  tripId: tripId,
-                );
+                return isComment
+                    ? CommentsScreen(
+                        size: size,
+                        tripId: tripId,
+                      )
+                    : MapScreen(
+                        size: size,
+                      );
               },
             );
           },
